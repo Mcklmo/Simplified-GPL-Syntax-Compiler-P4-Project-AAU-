@@ -7,9 +7,9 @@ import postfix.analysis.*;
 @SuppressWarnings("nls")
 public final class APlusExpr extends PExpr
 {
-    private PExpr _expr_;
+    private PExpr1 _expr1_;
     private TPlus _plus_;
-    private PFactor _factor_;
+    private PExpr _expr_;
 
     public APlusExpr()
     {
@@ -17,16 +17,16 @@ public final class APlusExpr extends PExpr
     }
 
     public APlusExpr(
-        @SuppressWarnings("hiding") PExpr _expr_,
+        @SuppressWarnings("hiding") PExpr1 _expr1_,
         @SuppressWarnings("hiding") TPlus _plus_,
-        @SuppressWarnings("hiding") PFactor _factor_)
+        @SuppressWarnings("hiding") PExpr _expr_)
     {
         // Constructor
-        setExpr(_expr_);
+        setExpr1(_expr1_);
 
         setPlus(_plus_);
 
-        setFactor(_factor_);
+        setExpr(_expr_);
 
     }
 
@@ -34,9 +34,9 @@ public final class APlusExpr extends PExpr
     public Object clone()
     {
         return new APlusExpr(
-            cloneNode(this._expr_),
+            cloneNode(this._expr1_),
             cloneNode(this._plus_),
-            cloneNode(this._factor_));
+            cloneNode(this._expr_));
     }
 
     @Override
@@ -45,16 +45,16 @@ public final class APlusExpr extends PExpr
         ((Analysis) sw).caseAPlusExpr(this);
     }
 
-    public PExpr getExpr()
+    public PExpr1 getExpr1()
     {
-        return this._expr_;
+        return this._expr1_;
     }
 
-    public void setExpr(PExpr node)
+    public void setExpr1(PExpr1 node)
     {
-        if(this._expr_ != null)
+        if(this._expr1_ != null)
         {
-            this._expr_.parent(null);
+            this._expr1_.parent(null);
         }
 
         if(node != null)
@@ -67,7 +67,7 @@ public final class APlusExpr extends PExpr
             node.parent(this);
         }
 
-        this._expr_ = node;
+        this._expr1_ = node;
     }
 
     public TPlus getPlus()
@@ -95,16 +95,16 @@ public final class APlusExpr extends PExpr
         this._plus_ = node;
     }
 
-    public PFactor getFactor()
+    public PExpr getExpr()
     {
-        return this._factor_;
+        return this._expr_;
     }
 
-    public void setFactor(PFactor node)
+    public void setExpr(PExpr node)
     {
-        if(this._factor_ != null)
+        if(this._expr_ != null)
         {
-            this._factor_.parent(null);
+            this._expr_.parent(null);
         }
 
         if(node != null)
@@ -117,25 +117,25 @@ public final class APlusExpr extends PExpr
             node.parent(this);
         }
 
-        this._factor_ = node;
+        this._expr_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expr_)
+            + toString(this._expr1_)
             + toString(this._plus_)
-            + toString(this._factor_);
+            + toString(this._expr_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expr_ == child)
+        if(this._expr1_ == child)
         {
-            this._expr_ = null;
+            this._expr1_ = null;
             return;
         }
 
@@ -145,9 +145,9 @@ public final class APlusExpr extends PExpr
             return;
         }
 
-        if(this._factor_ == child)
+        if(this._expr_ == child)
         {
-            this._factor_ = null;
+            this._expr_ = null;
             return;
         }
 
@@ -158,9 +158,9 @@ public final class APlusExpr extends PExpr
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expr_ == oldChild)
+        if(this._expr1_ == oldChild)
         {
-            setExpr((PExpr) newChild);
+            setExpr1((PExpr1) newChild);
             return;
         }
 
@@ -170,9 +170,9 @@ public final class APlusExpr extends PExpr
             return;
         }
 
-        if(this._factor_ == oldChild)
+        if(this._expr_ == oldChild)
         {
-            setFactor((PFactor) newChild);
+            setExpr((PExpr) newChild);
             return;
         }
 

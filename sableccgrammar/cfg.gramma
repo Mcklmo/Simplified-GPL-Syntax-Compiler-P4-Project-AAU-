@@ -72,8 +72,11 @@ Productions
   {last} type id;
 
  block =
-  {retur} l_curly newline stmts return val r_curly newline |
-  {void} l_curly newline stmts r_curly newline;
+  {begin} l_curly newline stmts endblock;
+
+ endblock =
+  {retur} return val r_curly newline |
+  {void} r_curly newline;
 
  stmts = 
   {dcl_rec} dcl newline stmts |
@@ -97,12 +100,19 @@ Productions
   {equal} assign expr;
 
  expr =
+  {plus} expr1 plus expr |
+  {sub} expr1 minus expr |
+  {expr1} expr1;
+
+ expr1 =
+  {mult} expr2 mult expr1 |
+  {div} expr2 div expr1 |
+  {mod} expr2 mod expr1 |
+  {val} expr2;
+
+ expr2 =
   {val} val |
-  {mult} expr mult expr |
-  {plus} expr plus expr |
-  {sub} expr minus expr |
-  {div} expr div expr |
-  {mod} expr mod expr;
+  {paran} l_par expr r_par;
 
  val =
   {id} id |
@@ -129,17 +139,32 @@ Productions
   {while} while cond block;
 
  cond =
-  {true} true |
-  {false} false |
-  {and} cond and cond |
-  {or} cond or cond |
-  {not} neg cond |
-  {lte} expr lte expr |
-  {gte} expr gte expr |
-  {gt} expr gt expr |
-  {lt} expr lt expr |
-  {equal} expr equal expr |
-  {ne} expr ne expr;
+  {or} cond1 or cond |
+  {and} cond1;
+
+ cond1 =
+  {and} cond2 and cond1 |
+  {equal} cond2;
+
+ cond2 =
+  {equal} cond3 equal cond2 |
+  {ne} cond3 ne cond2 |
+  {rel} cond3;
+
+ cond3 =
+  {lte} cond4 lte cond3 |
+  {gte} cond4 gte cond3 |
+  {gt} cond4 gt cond3 |
+  {lt} cond4 lt cond3 |
+  {unary} cond4;
+
+ cond4 =
+  {not} neg cond4 |
+  {cond5} cond5;
+
+ cond5 =
+  {paran} l_par cond r_par |
+  {expr} expr;
 
  func_call =
   {func_call} id l_par list r_par;
