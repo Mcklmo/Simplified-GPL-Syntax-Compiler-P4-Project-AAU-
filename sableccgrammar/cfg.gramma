@@ -97,7 +97,35 @@ Productions
   {assign} id equal_stmt;
 
  equal_stmt =
-  {equal} assign expr;
+  {equal} assign cond;
+
+ cond =
+  {or} cond1 or cond |
+  {and} cond1;
+
+ cond1 =
+  {and} cond2 and cond1 |
+  {equal} cond2;
+
+ cond2 =
+  {equal} cond3 equal cond2 |
+  {ne} cond3 ne cond2 |
+  {rel} cond3;
+
+ cond3 =
+  {lte} cond4 lte cond3 |
+  {gte} cond4 gte cond3 |
+  {gt} cond4 gt cond3 |
+  {lt} cond4 lt cond3 |
+  {unary} cond4;
+
+ cond4 =
+  {not} neg cond4 |
+  {cond5} cond5;
+
+ cond5 =
+  {paran} l_par cond r_par |
+  {expr} expr;
 
  expr =
   {plus} expr1 plus expr |
@@ -137,34 +165,6 @@ Productions
 
  while_stmt =
   {while} while cond block;
-
- cond =
-  {or} cond1 or cond |
-  {and} cond1;
-
- cond1 =
-  {and} cond2 and cond1 |
-  {equal} cond2;
-
- cond2 =
-  {equal} cond3 equal cond2 |
-  {ne} cond3 ne cond2 |
-  {rel} cond3;
-
- cond3 =
-  {lte} cond4 lte cond3 |
-  {gte} cond4 gte cond3 |
-  {gt} cond4 gt cond3 |
-  {lt} cond4 lt cond3 |
-  {unary} cond4;
-
- cond4 =
-  {not} neg cond4 |
-  {cond5} cond5;
-
- cond5 =
-  {paran} l_par cond r_par |
-  {expr} expr;
 
  func_call =
   {func_call} id l_par list r_par;
