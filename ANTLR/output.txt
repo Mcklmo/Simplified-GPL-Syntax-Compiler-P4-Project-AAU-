@@ -1,1 +1,1 @@
-(start (stmts (stmt (assign_stmt i := (cond (orCond (andCond (cond2 (cond3 (cond4 (atom (expr (expr1 (expr2 (val 1)))))))))))))) <EOF>)
+(start (stmts (stmt (assign_stmt i := (cond (expr (val 1)))))) <EOF>)

@@ -116,84 +116,12 @@ class AlgoPractiseListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by AlgoPractiseParser#orCond.
-    def enterOrCond(self, ctx:AlgoPractiseParser.OrCondContext):
-        pass
-
-    # Exit a parse tree produced by AlgoPractiseParser#orCond.
-    def exitOrCond(self, ctx:AlgoPractiseParser.OrCondContext):
-        pass
-
-
-    # Enter a parse tree produced by AlgoPractiseParser#andCond.
-    def enterAndCond(self, ctx:AlgoPractiseParser.AndCondContext):
-        pass
-
-    # Exit a parse tree produced by AlgoPractiseParser#andCond.
-    def exitAndCond(self, ctx:AlgoPractiseParser.AndCondContext):
-        pass
-
-
-    # Enter a parse tree produced by AlgoPractiseParser#cond2.
-    def enterCond2(self, ctx:AlgoPractiseParser.Cond2Context):
-        pass
-
-    # Exit a parse tree produced by AlgoPractiseParser#cond2.
-    def exitCond2(self, ctx:AlgoPractiseParser.Cond2Context):
-        pass
-
-
-    # Enter a parse tree produced by AlgoPractiseParser#cond3.
-    def enterCond3(self, ctx:AlgoPractiseParser.Cond3Context):
-        pass
-
-    # Exit a parse tree produced by AlgoPractiseParser#cond3.
-    def exitCond3(self, ctx:AlgoPractiseParser.Cond3Context):
-        pass
-
-
-    # Enter a parse tree produced by AlgoPractiseParser#cond4.
-    def enterCond4(self, ctx:AlgoPractiseParser.Cond4Context):
-        pass
-
-    # Exit a parse tree produced by AlgoPractiseParser#cond4.
-    def exitCond4(self, ctx:AlgoPractiseParser.Cond4Context):
-        pass
-
-
-    # Enter a parse tree produced by AlgoPractiseParser#atom.
-    def enterAtom(self, ctx:AlgoPractiseParser.AtomContext):
-        pass
-
-    # Exit a parse tree produced by AlgoPractiseParser#atom.
-    def exitAtom(self, ctx:AlgoPractiseParser.AtomContext):
-        pass
-
-
     # Enter a parse tree produced by AlgoPractiseParser#expr.
     def enterExpr(self, ctx:AlgoPractiseParser.ExprContext):
         pass
 
     # Exit a parse tree produced by AlgoPractiseParser#expr.
     def exitExpr(self, ctx:AlgoPractiseParser.ExprContext):
-        pass
-
-
-    # Enter a parse tree produced by AlgoPractiseParser#expr1.
-    def enterExpr1(self, ctx:AlgoPractiseParser.Expr1Context):
-        pass
-
-    # Exit a parse tree produced by AlgoPractiseParser#expr1.
-    def exitExpr1(self, ctx:AlgoPractiseParser.Expr1Context):
-        pass
-
-
-    # Enter a parse tree produced by AlgoPractiseParser#expr2.
-    def enterExpr2(self, ctx:AlgoPractiseParser.Expr2Context):
-        pass
-
-    # Exit a parse tree produced by AlgoPractiseParser#expr2.
-    def exitExpr2(self, ctx:AlgoPractiseParser.Expr2Context):
         pass
 
 

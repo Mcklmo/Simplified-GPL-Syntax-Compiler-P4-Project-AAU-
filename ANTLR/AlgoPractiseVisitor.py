@@ -69,36 +69,6 @@ class AlgoPractiseVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by AlgoPractiseParser#orCond.
-    def visitOrCond(self, ctx:AlgoPractiseParser.OrCondContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by AlgoPractiseParser#andCond.
-    def visitAndCond(self, ctx:AlgoPractiseParser.AndCondContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by AlgoPractiseParser#cond2.
-    def visitCond2(self, ctx:AlgoPractiseParser.Cond2Context):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by AlgoPractiseParser#cond3.
-    def visitCond3(self, ctx:AlgoPractiseParser.Cond3Context):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by AlgoPractiseParser#cond4.
-    def visitCond4(self, ctx:AlgoPractiseParser.Cond4Context):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by AlgoPractiseParser#atom.
-    def visitAtom(self, ctx:AlgoPractiseParser.AtomContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by AlgoPractiseParser#expr.
     def visitExpr(self, ctx:AlgoPractiseParser.ExprContext):
         return self.visitChildren(ctx)
