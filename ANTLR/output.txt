@@ -1,1 +1,1 @@
-(start (stmts (stmt (assign_stmt i := (cond (expr (val 1)))))) <EOF>)
+(start (stmts (stmt (cntrol (while_stmt while (cond (cond (expr (val a))) > (cond (expr (val b)))) (block { (stmts (stmt (dcl num (assign_stmt c := (cond (expr (val 17))))))) (endblock })))))) <EOF>)

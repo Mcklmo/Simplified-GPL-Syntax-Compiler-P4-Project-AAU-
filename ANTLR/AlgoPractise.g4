@@ -1,9 +1,16 @@
 grammar AlgoPractise;
 // Lexer
-ID: LETTER (LETTER | DIGIT | '_')*;
 BOOL_TYPE: 'bool';
 STR_TYPE: 'string';
 NUM_TYPE: 'num';
+TRUE: 'true';
+FALSE: 'false';
+IF: 'if';
+ELSE: 'else';
+WHILE: 'while';
+AND: 'and';
+OR: 'or';
+ID: LETTER (LETTER | DIGIT | '_')*;
 LIST_DCL: '[]';
 L_PAR: '(';
 R_PAR: ')';
@@ -13,13 +20,6 @@ RETURN: 'return';
 ASSIGN: ':=';
 NUMVAL: ('-' DIGIT+ | DIGIT+);
 STRINGVAL: '"' (LETTER | DIGIT | '\\"')* '"';
-TRUE: 'true';
-FALSE: 'false';
-IF: 'if';
-ELSE: 'else';
-WHILE: 'while';
-AND: 'and';
-OR: 'or';
 NEG: '!';
 EQUAL: '==';
 LTE: '<=';
@@ -32,11 +32,10 @@ MINUS: '-';
 MULT: '*';
 DIV: '/';
 MOD: '%';
-BLANK: (' ')+ -> skip;
 COMMA: ',';
-NEWLINE: '\n';
-fragment DIGIT: '0' ..'9';
-fragment LETTER: 'a' ..'z' | 'A' ..'Z';
+WS: [ \t\r\n]+ -> skip; // tells lexer to ignore these characters. Otherwise they will not be allowed in the input
+fragment DIGIT: [0-9];
+fragment LETTER:[a-zA-Z];
 // Parser
 start: (func | stmts | stmt)* EOF;
 func: (type ID args block | ID args block);
@@ -49,11 +48,11 @@ type:
 	| NUM_TYPE;
 args: (L_PAR R_PAR | L_PAR arg_list R_PAR);
 arg_list: (type ID (COMMA arg_list)* | type ID);
-block: L_CURLY NEWLINE stmts endblock;
-endblock: (RETURN val R_CURLY NEWLINE | R_CURLY NEWLINE);
+block: L_CURLY stmts endblock;
+endblock: (RETURN val R_CURLY | R_CURLY);
 stmts: (
-		dcl NEWLINE stmts
-		| assign_stmt NEWLINE stmts
+		dcl stmts
+		| assign_stmt stmts
 		| cntrol stmts
 		| func_call stmts
 		| stmt
