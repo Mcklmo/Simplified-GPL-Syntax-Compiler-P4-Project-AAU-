@@ -134,15 +134,6 @@ class AlgoPractiseListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by AlgoPractiseParser#cond.
-    def enterCond(self, ctx:AlgoPractiseParser.CondContext):
-        pass
-
-    # Exit a parse tree produced by AlgoPractiseParser#cond.
-    def exitCond(self, ctx:AlgoPractiseParser.CondContext):
-        pass
-
-
     # Enter a parse tree produced by AlgoPractiseParser#expr.
     def enterExpr(self, ctx:AlgoPractiseParser.ExprContext):
         pass

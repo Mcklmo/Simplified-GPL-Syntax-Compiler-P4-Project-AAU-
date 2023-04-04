@@ -5,7 +5,7 @@ Before any other steps, make sure you have a recent python version and all requi
 
 Usually, this already exists. Use the command if you made changes to the grammar.
 
-Command: `antlr4 -Dlanguage=Python3 <grammar_file>.g4`
+Command: `antlr4 -Dlanguage=Python3 AlgoPractise.g4 -visitor`
 
 
 ## Parse source code using generated parser

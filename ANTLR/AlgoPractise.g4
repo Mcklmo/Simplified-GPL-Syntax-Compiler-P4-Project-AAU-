@@ -51,25 +51,22 @@ endblock: (RETURN val R_CURLY | R_CURLY);
 stmts: ( stmt stmts | stmt);
 stmt: dcl | assign_stmt | cntrol | func_call;
 dcl: type assign_stmt;
-assign_stmt: ID ASSIGN cond;
-cond: // antlr4 gives highest precedence to the first alternative
-	cond OR cond
-	| cond AND cond
-	| cond EQUAL cond
-	| cond NE cond
-	| cond LTE cond
-	| cond GTE cond
-	| cond GT cond
-	| cond LT cond
-	| <assoc = right>NEG cond
-	| L_PAR cond R_PAR
-	| expr;
-expr:
-	expr PLUS expr
+assign_stmt: ID ASSIGN expr;
+expr: // antlr4 gives highest precedence to the first alternative
+	expr OR expr
+	| expr AND expr
+	| expr EQUAL expr
+	| expr NE expr
+	| expr LTE expr
+	| expr GTE expr
+	| expr GT expr
+	| expr LT expr
+	| expr PLUS expr
 	| expr MINUS expr
 	| expr MULT expr
 	| expr DIV expr
 	| expr MOD expr
+	| <assoc = right>NEG expr
 	| val
 	| L_PAR expr R_PAR;
 val: (
@@ -82,8 +79,8 @@ val: (
 		| func_call
 	);
 cntrol: if_stmt | while_stmt;
-if_stmt: IF cond block | IF cond block else_stmt;
+if_stmt: IF expr block | IF expr block else_stmt;
 else_stmt: ELSE if_stmt | ELSE block;
-while_stmt: WHILE cond block;
+while_stmt: WHILE expr block;
 func_call: ID L_PAR list R_PAR;
 list: val (COMMA val)*;

@@ -19,18 +19,33 @@ class AlgoPractiseVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by AlgoPractiseParser#func_decl.
+    def visitFunc_decl(self, ctx:AlgoPractiseParser.Func_declContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by AlgoPractiseParser#type.
     def visitType(self, ctx:AlgoPractiseParser.TypeContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by AlgoPractiseParser#args.
-    def visitArgs(self, ctx:AlgoPractiseParser.ArgsContext):
+    # Visit a parse tree produced by AlgoPractiseParser#type_decl.
+    def visitType_decl(self, ctx:AlgoPractiseParser.Type_declContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by AlgoPractiseParser#arg_list.
-    def visitArg_list(self, ctx:AlgoPractiseParser.Arg_listContext):
+    # Visit a parse tree produced by AlgoPractiseParser#params.
+    def visitParams(self, ctx:AlgoPractiseParser.ParamsContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by AlgoPractiseParser#param_lst.
+    def visitParam_lst(self, ctx:AlgoPractiseParser.Param_lstContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by AlgoPractiseParser#param.
+    def visitParam(self, ctx:AlgoPractiseParser.ParamContext):
         return self.visitChildren(ctx)
 
 
@@ -64,23 +79,8 @@ class AlgoPractiseVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by AlgoPractiseParser#cond.
-    def visitCond(self, ctx:AlgoPractiseParser.CondContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by AlgoPractiseParser#expr.
     def visitExpr(self, ctx:AlgoPractiseParser.ExprContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by AlgoPractiseParser#expr1.
-    def visitExpr1(self, ctx:AlgoPractiseParser.Expr1Context):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by AlgoPractiseParser#expr2.
-    def visitExpr2(self, ctx:AlgoPractiseParser.Expr2Context):
         return self.visitChildren(ctx)
 
 
