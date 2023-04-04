@@ -33,35 +33,24 @@ MULT: '*';
 DIV: '/';
 MOD: '%';
 COMMA: ',';
-WS: [ \t\r\n]+ -> skip; // tells lexer to ignore these characters. Otherwise they will not be allowed in the input
+WS: [ \t\r\n]+ -> skip;
+// tells lexer to ignore these characters. Otherwise they will not be allowed in the input
 fragment DIGIT: [0-9];
-fragment LETTER:[a-zA-Z];
+fragment LETTER: [a-zA-Z];
 // Parser
 start: (func | stmts | stmt)* EOF;
-func: (type ID args block | ID args block);
-type:
-	BOOL_TYPE LIST_DCL
-	| STR_TYPE LIST_DCL
-	| NUM_TYPE LIST_DCL
-	| BOOL_TYPE
-	| STR_TYPE
-	| NUM_TYPE;
-args: (L_PAR R_PAR | L_PAR arg_list R_PAR);
-arg_list: (type ID (COMMA arg_list)* | type ID);
+func: type func_decl | func_decl;
+func_decl: ID params block;
+type: BOOL_TYPE | STR_TYPE | NUM_TYPE;
+type_decl: type | type LIST_DCL;
+params: (L_PAR R_PAR | L_PAR param_lst R_PAR);
+param_lst: param (COMMA param)*;
+param: type ID;
 block: L_CURLY stmts endblock;
 endblock: (RETURN val R_CURLY | R_CURLY);
-stmts: (
-		dcl stmts
-		| assign_stmt stmts
-		| cntrol stmts
-		| func_call stmts
-		| stmt
-	);
+stmts: ( stmt stmts | stmt);
 stmt: dcl | assign_stmt | cntrol | func_call;
-dcl:
-	BOOL_TYPE assign_stmt
-	| STR_TYPE assign_stmt
-	| NUM_TYPE assign_stmt;
+dcl: type assign_stmt;
 assign_stmt: ID ASSIGN cond;
 cond: // antlr4 gives highest precedence to the first alternative
 	cond OR cond

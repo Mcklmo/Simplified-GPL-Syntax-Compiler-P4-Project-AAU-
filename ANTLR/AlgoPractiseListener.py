@@ -26,6 +26,15 @@ class AlgoPractiseListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by AlgoPractiseParser#func_decl.
+    def enterFunc_decl(self, ctx:AlgoPractiseParser.Func_declContext):
+        pass
+
+    # Exit a parse tree produced by AlgoPractiseParser#func_decl.
+    def exitFunc_decl(self, ctx:AlgoPractiseParser.Func_declContext):
+        pass
+
+
     # Enter a parse tree produced by AlgoPractiseParser#type.
     def enterType(self, ctx:AlgoPractiseParser.TypeContext):
         pass
@@ -35,21 +44,39 @@ class AlgoPractiseListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by AlgoPractiseParser#args.
-    def enterArgs(self, ctx:AlgoPractiseParser.ArgsContext):
+    # Enter a parse tree produced by AlgoPractiseParser#type_decl.
+    def enterType_decl(self, ctx:AlgoPractiseParser.Type_declContext):
         pass
 
-    # Exit a parse tree produced by AlgoPractiseParser#args.
-    def exitArgs(self, ctx:AlgoPractiseParser.ArgsContext):
+    # Exit a parse tree produced by AlgoPractiseParser#type_decl.
+    def exitType_decl(self, ctx:AlgoPractiseParser.Type_declContext):
         pass
 
 
-    # Enter a parse tree produced by AlgoPractiseParser#arg_list.
-    def enterArg_list(self, ctx:AlgoPractiseParser.Arg_listContext):
+    # Enter a parse tree produced by AlgoPractiseParser#params.
+    def enterParams(self, ctx:AlgoPractiseParser.ParamsContext):
         pass
 
-    # Exit a parse tree produced by AlgoPractiseParser#arg_list.
-    def exitArg_list(self, ctx:AlgoPractiseParser.Arg_listContext):
+    # Exit a parse tree produced by AlgoPractiseParser#params.
+    def exitParams(self, ctx:AlgoPractiseParser.ParamsContext):
+        pass
+
+
+    # Enter a parse tree produced by AlgoPractiseParser#param_lst.
+    def enterParam_lst(self, ctx:AlgoPractiseParser.Param_lstContext):
+        pass
+
+    # Exit a parse tree produced by AlgoPractiseParser#param_lst.
+    def exitParam_lst(self, ctx:AlgoPractiseParser.Param_lstContext):
+        pass
+
+
+    # Enter a parse tree produced by AlgoPractiseParser#param.
+    def enterParam(self, ctx:AlgoPractiseParser.ParamContext):
+        pass
+
+    # Exit a parse tree produced by AlgoPractiseParser#param.
+    def exitParam(self, ctx:AlgoPractiseParser.ParamContext):
         pass
 
 
