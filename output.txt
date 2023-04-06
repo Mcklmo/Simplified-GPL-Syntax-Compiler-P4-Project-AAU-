@@ -1,1 +1,1 @@
-(start _ ! := 0 1 a := 0)
+(start (stmts (stmt (assign_stmt a := (expr (val a))))) := <EOF>)
