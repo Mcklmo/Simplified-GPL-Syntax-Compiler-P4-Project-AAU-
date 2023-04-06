@@ -34,6 +34,7 @@ DIV: '/';
 MOD: '%';
 COMMA: ',';
 WS: [ \t\r\n]+ -> skip;
+COMMENT: '/*' .*? '*/' -> skip; // multi-line comment
 // tells lexer to ignore these characters. Otherwise they will not be allowed in the input
 fragment DIGIT: [0-9];
 fragment LETTER: [a-zA-Z];

@@ -32,6 +32,7 @@ DIV=31
 MOD=32
 COMMA=33
 WS=34
+COMMENT=35
 'bool'=1
 'string'=2
 'num'=3
