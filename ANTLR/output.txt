@@ -1,1 +1,0 @@
-(start (stmts (stmt (dcl (type num) (assign_stmt c := (expr (expr (val 1)) + (expr ( (expr (expr (val 3)) > (expr (val 5))) ))))))) <EOF>)

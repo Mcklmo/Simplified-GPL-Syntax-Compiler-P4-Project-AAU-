@@ -1,6 +1,9 @@
 while a > b {
-    num c := 17
-    if 100 == "jiug" {
-        print(z)
-    }
+                                
+                                
+                                
+                                
+                                
+                                
+                                num c := 17
 }
