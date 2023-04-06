@@ -78,6 +78,7 @@ val: (
         | TRUE
         | FALSE
         | L_CURLY list R_CURLY
+        | ID ('[' val ']')+ // list subscript
         | func_call
     );
 cntrol: if_stmt | while_stmt;

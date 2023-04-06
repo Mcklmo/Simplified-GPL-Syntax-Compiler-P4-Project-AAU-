@@ -1,23 +1,15 @@
 digraph G {
-n0 [label="a:=a:=<EOF>"];
-n1 [label="a:=a"];
+n0 [label="a:=a["];
+n1 [label=""];
 n0 -> n1;
-n2 [label="a:=a"];
-n1 -> n2;
-n3 [label="a:=a"];
+n2 [label="a:="];
+n0 -> n2;
+n3 [label="a"];
 n2 -> n3;
-n4 [label="a"];
-n3 -> n4;
-n5 [label=":="];
-n3 -> n5;
-n6 [label="a"];
-n3 -> n6;
-n7 [label="a"];
-n6 -> n7;
-n8 [label="a"];
-n7 -> n8;
-n9 [label=":="];
-n0 -> n9;
-n10 [label="<EOF>"];
-n0 -> n10;
+n4 [label=":="];
+n2 -> n4;
+n5 [label="a"];
+n0 -> n5;
+n6 [label="["];
+n0 -> n6;
 }

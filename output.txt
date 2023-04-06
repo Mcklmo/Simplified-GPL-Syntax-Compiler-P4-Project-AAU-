@@ -1,1 +1,1 @@
-(start (stmts (stmt (assign_stmt a := (expr (val a))))) := <EOF>)
+(start stmts (stmts a :=) a [)
