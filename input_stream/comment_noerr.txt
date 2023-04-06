@@ -1,2 +1,5 @@
-/* i am a comment ///// \\\\\ **** */
+/* i am a comment ///// \\\\\ ****
+asdf 
+asdf
+ */
 a := 0

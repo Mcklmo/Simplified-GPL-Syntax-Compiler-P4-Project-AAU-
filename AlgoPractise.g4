@@ -10,7 +10,7 @@ ELSE: 'else';
 WHILE: 'while';
 AND: 'and';
 OR: 'or';
-ID: LETTER (LETTER | DIGIT | '_')*;
+ID: (LETTER | '_') (LETTER | DIGIT | '_')*;
 LIST_DCL: '[]';
 L_PAR: '(';
 R_PAR: ')';
