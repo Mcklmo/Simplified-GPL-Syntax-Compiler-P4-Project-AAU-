@@ -188,12 +188,12 @@ class AlgoPractiseListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by AlgoPractiseParser#list.
-    def enterList(self, ctx:AlgoPractiseParser.ListContext):
+    # Enter a parse tree produced by AlgoPractiseParser#elmnt_list.
+    def enterElmnt_list(self, ctx:AlgoPractiseParser.Elmnt_listContext):
         pass
 
-    # Exit a parse tree produced by AlgoPractiseParser#list.
-    def exitList(self, ctx:AlgoPractiseParser.ListContext):
+    # Exit a parse tree produced by AlgoPractiseParser#elmnt_list.
+    def exitElmnt_list(self, ctx:AlgoPractiseParser.Elmnt_listContext):
         pass
 
 

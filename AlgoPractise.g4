@@ -1,4 +1,3 @@
-
 grammar AlgoPractise;
 // Lexer
 BOOL_TYPE: 'bool';
@@ -20,7 +19,8 @@ R_CURLY: '}';
 RETURN: 'return';
 ASSIGN: ':=';
 NUMVAL: '-'? DIGIT+;
-STRINGVAL: '"' (ESC | ~["\n\r])*? '"'; // ~["\n\r] is equal to . without the escaped characters
+STRINGVAL:
+	'"' (ESC | ~["\n\r])*? '"'; // ~["\n\r] is equal to . without the escaped characters
 ESC: '\\"' | '\\\\' | '\\n' | '\\r';
 NEG: '!';
 EQUAL: '==';
@@ -54,36 +54,36 @@ stmts: ( stmt stmts | stmt);
 stmt: dcl | assign_stmt | cntrol | func_call;
 dcl: type assign_stmt;
 assign_stmt: ID ASSIGN expr;
-expr: // antlr4 gives highest precedence to the first alternative
-    expr OR expr
-    | expr AND expr
-    | expr EQUAL expr
-    | expr NE expr
-    | expr LTE expr
-    | expr GTE expr
-    | expr GT expr
-    | expr LT expr
-    | expr PLUS expr
-    | expr MINUS expr
-    | expr MULT expr
-    | expr DIV expr
-    | expr MOD expr
-    | <assoc=right>NEG expr
-    | val
-    | L_PAR expr R_PAR;
+expr: // antlr4 gives lowest precedence to the first alternative
+	expr OR expr
+	| expr AND expr
+	| expr EQUAL expr
+	| expr NE expr
+	| expr LTE expr
+	| expr GTE expr
+	| expr GT expr
+	| expr LT expr
+	| expr PLUS expr
+	| expr MINUS expr
+	| expr MULT expr
+	| expr DIV expr
+	| expr MOD expr
+	| <assoc = right>NEG expr
+	| val
+	| L_PAR expr R_PAR;
 val: (
-        ID
-        | NUMVAL
-        | STRINGVAL
-        | TRUE
-        | FALSE
-        | L_CURLY list R_CURLY
-        | ID ('[' val ']')+ // list subscript
-        | func_call
-    );
+		ID
+		| NUMVAL
+		| STRINGVAL
+		| TRUE
+		| FALSE
+		| L_CURLY elmnt_list R_CURLY
+		| ID ('[' val ']')+ // list subscript
+		| func_call
+	);
 cntrol: if_stmt | while_stmt;
 if_stmt: IF expr block | IF expr block else_stmt;
 else_stmt: ELSE if_stmt | ELSE block;
 while_stmt: WHILE expr block;
-func_call: ID L_PAR list R_PAR;
-list: val (COMMA val)*;
+func_call: ID L_PAR elmnt_list R_PAR;
+elmnt_list: val (COMMA val)*;

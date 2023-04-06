@@ -141,12 +141,12 @@ class AlgoPractiseParser ( Parser ):
     RULE_else_stmt = 17
     RULE_while_stmt = 18
     RULE_func_call = 19
-    RULE_list = 20
+    RULE_elmnt_list = 20
 
     ruleNames =  [ "start", "func", "func_decl", "type", "params", "param_lst", 
                    "param", "block", "endblock", "stmts", "stmt", "dcl", 
                    "assign_stmt", "expr", "val", "cntrol", "if_stmt", "else_stmt", 
-                   "while_stmt", "func_call", "list" ]
+                   "while_stmt", "func_call", "elmnt_list" ]
 
     EOF = Token.EOF
     T__0=1
@@ -1431,8 +1431,8 @@ class AlgoPractiseParser ( Parser ):
         def L_CURLY(self):
             return self.getToken(AlgoPractiseParser.L_CURLY, 0)
 
-        def list_(self):
-            return self.getTypedRuleContext(AlgoPractiseParser.ListContext,0)
+        def elmnt_list(self):
+            return self.getTypedRuleContext(AlgoPractiseParser.Elmnt_listContext,0)
 
 
         def R_CURLY(self):
@@ -1507,7 +1507,7 @@ class AlgoPractiseParser ( Parser ):
                 self.state = 182
                 self.match(AlgoPractiseParser.L_CURLY)
                 self.state = 183
-                self.list_()
+                self.elmnt_list()
                 self.state = 184
                 self.match(AlgoPractiseParser.R_CURLY)
                 pass
@@ -1841,8 +1841,8 @@ class AlgoPractiseParser ( Parser ):
         def L_PAR(self):
             return self.getToken(AlgoPractiseParser.L_PAR, 0)
 
-        def list_(self):
-            return self.getTypedRuleContext(AlgoPractiseParser.ListContext,0)
+        def elmnt_list(self):
+            return self.getTypedRuleContext(AlgoPractiseParser.Elmnt_listContext,0)
 
 
         def R_PAR(self):
@@ -1879,7 +1879,7 @@ class AlgoPractiseParser ( Parser ):
             self.state = 224
             self.match(AlgoPractiseParser.L_PAR)
             self.state = 225
-            self.list_()
+            self.elmnt_list()
             self.state = 226
             self.match(AlgoPractiseParser.R_PAR)
         except RecognitionException as re:
@@ -1891,7 +1891,7 @@ class AlgoPractiseParser ( Parser ):
         return localctx
 
 
-    class ListContext(ParserRuleContext):
+    class Elmnt_listContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1912,29 +1912,29 @@ class AlgoPractiseParser ( Parser ):
                 return self.getToken(AlgoPractiseParser.COMMA, i)
 
         def getRuleIndex(self):
-            return AlgoPractiseParser.RULE_list
+            return AlgoPractiseParser.RULE_elmnt_list
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterList" ):
-                listener.enterList(self)
+            if hasattr( listener, "enterElmnt_list" ):
+                listener.enterElmnt_list(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitList" ):
-                listener.exitList(self)
+            if hasattr( listener, "exitElmnt_list" ):
+                listener.exitElmnt_list(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitList" ):
-                return visitor.visitList(self)
+            if hasattr( visitor, "visitElmnt_list" ):
+                return visitor.visitElmnt_list(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def list_(self):
+    def elmnt_list(self):
 
-        localctx = AlgoPractiseParser.ListContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 40, self.RULE_list)
+        localctx = AlgoPractiseParser.Elmnt_listContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 40, self.RULE_elmnt_list)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)

@@ -101,7 +101,7 @@ if_stmt
 else_stmt
 while_stmt
 func_call
-list
+elmnt_list
 
 
 atn:

@@ -1,15 +1,5 @@
 digraph G {
-n0 [label="a:=a["];
-n1 [label=""];
+n0 [label="return"];
+n1 [label="return"];
 n0 -> n1;
-n2 [label="a:="];
-n0 -> n2;
-n3 [label="a"];
-n2 -> n3;
-n4 [label=":="];
-n2 -> n4;
-n5 [label="a"];
-n0 -> n5;
-n6 [label="["];
-n0 -> n6;
 }

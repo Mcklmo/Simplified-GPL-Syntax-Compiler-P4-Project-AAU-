@@ -109,8 +109,8 @@ class AlgoPractiseVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by AlgoPractiseParser#list.
-    def visitList(self, ctx:AlgoPractiseParser.ListContext):
+    # Visit a parse tree produced by AlgoPractiseParser#elmnt_list.
+    def visitElmnt_list(self, ctx:AlgoPractiseParser.Elmnt_listContext):
         return self.visitChildren(ctx)
 
 
