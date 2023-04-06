@@ -29,11 +29,6 @@ class AlgoPractiseVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by AlgoPractiseParser#type_decl.
-    def visitType_decl(self, ctx:AlgoPractiseParser.Type_declContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by AlgoPractiseParser#params.
     def visitParams(self, ctx:AlgoPractiseParser.ParamsContext):
         return self.visitChildren(ctx)

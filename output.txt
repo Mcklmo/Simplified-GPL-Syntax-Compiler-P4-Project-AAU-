@@ -1,1 +1,1 @@
-(start * / a := 0)
+(start (stmts (stmt (dcl (type (type (type num) []) []) (assign_stmt a := (expr (val { (list (val { (list (val { (list (val 1) , (val 2)) }) , (val { (list (val 3) , (val 4)) })) }) , (val { (list (val { (list (val 5) , (val 6)) })) })) })))))) <EOF>)

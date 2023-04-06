@@ -44,15 +44,6 @@ class AlgoPractiseListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by AlgoPractiseParser#type_decl.
-    def enterType_decl(self, ctx:AlgoPractiseParser.Type_declContext):
-        pass
-
-    # Exit a parse tree produced by AlgoPractiseParser#type_decl.
-    def exitType_decl(self, ctx:AlgoPractiseParser.Type_declContext):
-        pass
-
-
     # Enter a parse tree produced by AlgoPractiseParser#params.
     def enterParams(self, ctx:AlgoPractiseParser.ParamsContext):
         pass
