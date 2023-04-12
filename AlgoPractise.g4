@@ -52,7 +52,7 @@ block: L_CURLY stmts endblock;
 endblock: (RETURN val R_CURLY | R_CURLY);
 stmts: ( stmt stmts | stmt);
 stmt: dcl | assign_stmt | cntrol | func_call;
-dcl: type assign_stmt;
+dcl: type assign_stmt | type ID;
 assign_stmt: ID ASSIGN expr;
 expr: // antlr4 gives lowest precedence to the first alternative
 	expr OR expr
@@ -86,4 +86,4 @@ if_stmt: IF expr block | IF expr block else_stmt;
 else_stmt: ELSE if_stmt | ELSE block;
 while_stmt: WHILE expr block;
 func_call: ID L_PAR elmnt_list R_PAR;
-elmnt_list: val (COMMA val)*;
+elmnt_list: expr (COMMA expr)* | ;
