@@ -12,6 +12,8 @@ AND: 'and';
 OR: 'or';
 ID: (LETTER | '_') (LETTER | DIGIT | '_')*;
 LIST_DCL: '[]';
+L_BRACKET: '[';
+R_BRACKET: ']';
 L_PAR: '(';
 R_PAR: ')';
 L_CURLY: '{';
@@ -78,7 +80,7 @@ val: (
 		| TRUE
 		| FALSE
 		| L_CURLY elmnt_list R_CURLY
-		| ID ('[' val ']')+ // list subscript
+		| ID (L_BRACKET val R_BRACKET)+ // list subscript
 		| func_call
 	);
 cntrol: if_stmt | while_stmt;
