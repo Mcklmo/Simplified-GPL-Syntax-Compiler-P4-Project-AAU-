@@ -45,7 +45,10 @@ fragment LETTER: [a-zA-Z];
 start: (func | stmts)* EOF;
 func: type func_decl | func_decl;
 func_decl: ID params block;
-type: BOOL_TYPE | STR_TYPE | NUM_TYPE | type L_BRACKET R_BRACKET;
+type:
+	BOOL_TYPE (L_BRACKET R_BRACKET)*
+	| STR_TYPE (L_BRACKET R_BRACKET)*
+	| NUM_TYPE (L_BRACKET R_BRACKET)*;
 params: (L_PAR R_PAR | L_PAR param_lst R_PAR);
 param_lst: param (COMMA param)*;
 param: type ID;
@@ -87,4 +90,4 @@ if_stmt: IF expr block | IF expr block else_stmt;
 else_stmt: ELSE if_stmt | ELSE block;
 while_stmt: WHILE expr block;
 func_call: ID L_PAR elmnt_list R_PAR;
-elmnt_list: expr (COMMA expr)* | ;
+elmnt_list: expr (COMMA expr)* |;
