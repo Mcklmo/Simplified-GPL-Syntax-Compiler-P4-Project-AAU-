@@ -4,9 +4,17 @@ from nodes import StartNode, ASTNode
 from typing import List
 from antlr4.Token import CommonToken, Token
 from antlr4 import ParserRuleContext
-from nodes.DclValueNodes import NumDclNode, BoolDclNode, StringDclNode
+from nodes.BoolDcnNode import  BoolDclNode
+from nodes.NumDcnNode import  NumDclNode
+from nodes.StringDcnNode import  StringDclNode
 from nodes.Assign_stmtNode import Assign_stmtNode
 from nodes.IDNode import IDNode
+from nodes.FuncDclNode import FuncDclNode
+from nodes.Param_lstNode import Param_lstNode
+
+# TODO: 
+# Fix gramma
+# Handle lists (type) in dcl @ assignment
 
 class ASTvisitor(AlgoPractiseVisitor):
 
@@ -30,21 +38,21 @@ class ASTvisitor(AlgoPractiseVisitor):
 
         if not assign_context is None:
             return self.visit(assign_context)
-    
-        elif False: #TODO: Check for list (Is CFG right?)
-            pass
         
         else:
+            # TODO: list
             _type = ctx.type_().getText()
+ 
             if _type == "num":
                 return NumDclNode(ctx.ID(), ctx.start.line)
             if _type == "bool":
                 return BoolDclNode(ctx.ID(), ctx.start.line)
             if _type == "string":
                 return StringDclNode(ctx.ID(), ctx.start.line)
-        
+            
     def visitAssign_stmt(self, ctx: AlgoPractiseParser.Assign_stmtContext):
         #  = parrent
+        print(ctx.getText())
         assign_node = Assign_stmtNode(ctx.start.line)
 
         # Parrent is dcl
@@ -61,10 +69,11 @@ class ASTvisitor(AlgoPractiseVisitor):
 
     def assign_stmtDcl(self, ctx:AlgoPractiseParser.Assign_stmtContext, parent: ParserRuleContext):
         assign_node = Assign_stmtNode(ctx.start.line)
+        # TODO: list
         
         #                This is Assign_stmtNode
-        _type = parent.getChild(0).type_().getText()
-
+        _type = parent.type_().getText()
+        print(_type)
         if _type == "num":
             assign_node.children.append(NumDclNode(ctx.ID(), ctx.start.line))
         elif _type == "bool":
@@ -73,6 +82,40 @@ class ASTvisitor(AlgoPractiseVisitor):
             assign_node.children.append(StringDclNode(ctx.ID(), ctx.start.line))
         else: return None
             
-        
-        assign_node.children.append(ctx.expr())
+        #                                       ExprNode
+        assign_node.children.append(self.visit(ctx.expr()))
         return assign_node
+
+    def visitFunc_decl(self, ctx: AlgoPractiseParser.Func_declContext):
+        # TODO: CFG is wrong, return no work. Can a return value be expr? return 1+2
+        return_type = "void"
+        #                   Return type defined
+        if ctx.parentCtx.getChildCount() == 2:
+            return_type = ctx.parentCtx.getChild(0).getText()
+
+        funcNode = FuncDclNode(ctx.ID(), return_type, ctx.start.line)
+        #                                                       ParamNode
+        if not ctx.params() is None: funcNode.children.append(self.visit(ctx.params()))
+        #                   BlockNode
+        funcNode.children.append(self.visit(ctx.block()))
+
+        return funcNode
+
+    def visitParam(self, ctx: AlgoPractiseParser.ParamContext):
+        return IDNode(ctx.ID(), ctx.type_().getText(),  ctx.start.line)
+    
+    def visitParam_lst(self, ctx: AlgoPractiseParser.Param_lstContext):
+        paramNode = Param_lstNode(ctx.start.line)
+        for child in ctx.getChildren():
+            if child.getText() == ",": continue
+
+            if child.getChild(0).getText() in ("num", "bool", "string"):
+                paramNode.children.append(self.visit(child))
+            else:
+                #err
+                pass
+    
+        return paramNode
+    
+    def visitExpr(self, ctx: AlgoPractiseParser.ExprContext):
+        pass
