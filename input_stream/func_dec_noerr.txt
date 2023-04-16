@@ -1,0 +1,4 @@
+num funcname(num a) {
+
+    return 7
+}

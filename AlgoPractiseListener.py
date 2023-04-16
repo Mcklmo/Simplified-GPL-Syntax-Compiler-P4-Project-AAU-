@@ -80,15 +80,6 @@ class AlgoPractiseListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by AlgoPractiseParser#endblock.
-    def enterEndblock(self, ctx:AlgoPractiseParser.EndblockContext):
-        pass
-
-    # Exit a parse tree produced by AlgoPractiseParser#endblock.
-    def exitEndblock(self, ctx:AlgoPractiseParser.EndblockContext):
-        pass
-
-
     # Enter a parse tree produced by AlgoPractiseParser#stmts.
     def enterStmts(self, ctx:AlgoPractiseParser.StmtsContext):
         pass

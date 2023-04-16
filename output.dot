@@ -1,51 +1,71 @@
 digraph G {
-n0 [label="funcxyz(a+3,a())<EOF>"];
-n1 [label="funcxyz(a+3,a())"];
+n0 [label="numfuncname(numa){
+
+return7
+}<EOF>"];
+n1 [label="numfuncname(numa){
+
+return7
+}"];
 n0 -> n1;
-n2 [label="funcxyz(a+3,a())"];
+n2 [label="num"];
 n1 -> n2;
-n3 [label="funcxyz(a+3,a())"];
+n3 [label="num"];
 n2 -> n3;
-n4 [label="funcxyz"];
-n3 -> n4;
-n5 [label="("];
-n3 -> n5;
-n6 [label="a+3,a()"];
-n3 -> n6;
-n7 [label="a+3"];
+n4 [label="funcname(numa){
+
+return7
+}"];
+n1 -> n4;
+n5 [label="funcname"];
+n4 -> n5;
+n6 [label="(numa)"];
+n4 -> n6;
+n7 [label="("];
 n6 -> n7;
-n8 [label="a"];
-n7 -> n8;
-n9 [label="a"];
+n8 [label="numa"];
+n6 -> n8;
+n9 [label="numa"];
 n8 -> n9;
-n10 [label="a"];
+n10 [label="num"];
 n9 -> n10;
-n11 [label="+"];
-n7 -> n11;
-n12 [label="3"];
-n7 -> n12;
-n13 [label="3"];
-n12 -> n13;
-n14 [label="3"];
-n13 -> n14;
-n15 [label=","];
-n6 -> n15;
-n16 [label="a()"];
-n6 -> n16;
-n17 [label="a()"];
-n16 -> n17;
-n18 [label="a()"];
-n17 -> n18;
-n19 [label="a"];
+n11 [label="num"];
+n10 -> n11;
+n12 [label="a"];
+n9 -> n12;
+n13 [label=")"];
+n6 -> n13;
+n14 [label="{
+
+return7
+}"];
+n4 -> n14;
+n15 [label="{"];
+n14 -> n15;
+n16 [label="
+"];
+n14 -> n16;
+n17 [label="
+"];
+n14 -> n17;
+n18 [label="return7
+"];
+n14 -> n18;
+n19 [label="return7"];
 n18 -> n19;
-n20 [label="("];
-n18 -> n20;
-n21 [label=""];
-n18 -> n21;
-n22 [label=")"];
-n18 -> n22;
-n23 [label=")"];
-n3 -> n23;
-n24 [label="<EOF>"];
-n0 -> n24;
+n20 [label="return"];
+n19 -> n20;
+n21 [label="7"];
+n19 -> n21;
+n22 [label="7"];
+n21 -> n22;
+n23 [label="7"];
+n22 -> n23;
+n24 [label="
+"];
+n18 -> n24;
+n25 [label="}"];
+n14 -> n25;
+n26 [label="<EOF>"];
+n0 -> n26;
 }
