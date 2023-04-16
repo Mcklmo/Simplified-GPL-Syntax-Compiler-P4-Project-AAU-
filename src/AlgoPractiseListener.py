@@ -1,9 +1,9 @@
 # Generated from AlgoPractise.g4 by ANTLR 4.12.0
 from antlr4 import *
 if __name__ is not None and "." in __name__:
-    from .AlgoPractiseParser import AlgoPractiseParser
+    from ._parser.AlgoPractiseParser import AlgoPractiseParser
 else:
-    from AlgoPractiseParser import AlgoPractiseParser
+    from parser.AlgoPractiseParser import AlgoPractiseParser
 
 # This class defines a complete listener for a parse tree produced by AlgoPractiseParser.
 class AlgoPractiseListener(ParseTreeListener):
