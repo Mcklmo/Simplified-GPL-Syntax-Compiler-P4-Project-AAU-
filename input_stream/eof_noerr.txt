@@ -1,1 +1,9 @@
 return /* no newline at eof should not produce err */
+return
+
+num idxyz() {
+
+} 
+num iasdhf(){
+
+}

@@ -21,3 +21,5 @@ python main.py input_stream/noerror.txt
 dot -Tpng output.dot -o output.png
 output.png
 ```
+### Testing
+To test all test cases at once, run `python main.py input_stream/complete_noerr`.
