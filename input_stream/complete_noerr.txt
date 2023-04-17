@@ -25,8 +25,14 @@ num _a1 := 1
 a := "\""
 a:="liasdhfiluahfiuasdifhasdlifhia"
 a:="\n"
+a:="\\"
+a:="\r"
 return 0
 num ________lisdahf98764876aosdifhalidsfh8762467______a1 := 1
+
+if 1 > 2 {}
+else if 1>2 {}
+else {}
 num iasdhf(){
 
 }
