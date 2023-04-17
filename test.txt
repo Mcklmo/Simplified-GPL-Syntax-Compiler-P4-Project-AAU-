@@ -1,3 +1,5 @@
+bool[] a
+
 num testFunc(num t, string k) {
     num[] b := {1,2,3}
     num a := 0

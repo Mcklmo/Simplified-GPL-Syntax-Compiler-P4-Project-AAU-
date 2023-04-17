@@ -11,10 +11,8 @@ from nodes.Assign_stmtNode import Assign_stmtNode
 from nodes.IDNode import IDNode
 from nodes.FuncDclNode import FuncDclNode
 from nodes.Param_lstNode import Param_lstNode
+from nodes.ListDcnNode import ListDclNode
 
-# TODO: 
-# Fix gramma
-# Handle lists (type) in dcl @ assignment
 
 class ASTvisitor(AlgoPractiseVisitor):
 
@@ -40,8 +38,9 @@ class ASTvisitor(AlgoPractiseVisitor):
             return self.visit(assign_context)
         
         else:
-            # TODO: list
             _type = ctx.type_().getText()
+            if "[" in _type and "]" in _type:
+                return self.listDcl(ctx)
  
             if _type == "num":
                 return NumDclNode(ctx.ID(), ctx.start.line)
@@ -49,6 +48,9 @@ class ASTvisitor(AlgoPractiseVisitor):
                 return BoolDclNode(ctx.ID(), ctx.start.line)
             if _type == "string":
                 return StringDclNode(ctx.ID(), ctx.start.line)
+    
+    def listDcl(self, parent: AlgoPractiseParser.DclContext):
+        return ListDclNode(parent.ID(), parent.type_().getText().replace("[", "").replace("]", ""), parent.type_().getText().count("[]"), parent.start.line)
             
     def visitAssign_stmt(self, ctx: AlgoPractiseParser.Assign_stmtContext):
         #  = parrent
@@ -59,7 +61,6 @@ class ASTvisitor(AlgoPractiseVisitor):
         if isinstance(ctx.parentCtx, AlgoPractiseParser.DclContext): 
             return self.assign_stmtDcl(ctx, ctx.parentCtx) 
         
-        elif False: pass # Is list TODO: implement
         else:
             #                            IdNode                             ExprNode
             assign_node.children.extend([IDNode(ctx.ID(), ctx.start.line), self.visit(ctx.expr())])
@@ -69,12 +70,13 @@ class ASTvisitor(AlgoPractiseVisitor):
 
     def assign_stmtDcl(self, ctx:AlgoPractiseParser.Assign_stmtContext, parent: ParserRuleContext):
         assign_node = Assign_stmtNode(ctx.start.line)
-        # TODO: list
         
         #                This is Assign_stmtNode
         _type = parent.type_().getText()
-        print(_type)
-        if _type == "num":
+        if "[" in _type and "]" in _type:
+            assign_node.children.append(self.listDcl(ctx))
+        
+        elif _type == "num":
             assign_node.children.append(NumDclNode(ctx.ID(), ctx.start.line))
         elif _type == "bool":
             assign_node.children.append(BoolDclNode(ctx.ID(), ctx.start.line))
@@ -87,7 +89,6 @@ class ASTvisitor(AlgoPractiseVisitor):
         return assign_node
 
     def visitFunc_decl(self, ctx: AlgoPractiseParser.Func_declContext):
-        # TODO: CFG is wrong, return no work. Can a return value be expr? return 1+2
         return_type = "void"
         #                   Return type defined
         if ctx.parentCtx.getChildCount() == 2:
