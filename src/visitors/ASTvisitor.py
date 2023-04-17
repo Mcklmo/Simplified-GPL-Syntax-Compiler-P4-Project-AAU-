@@ -54,7 +54,6 @@ class ASTvisitor(AlgoPractiseVisitor):
             
     def visitAssign_stmt(self, ctx: AlgoPractiseParser.Assign_stmtContext):
         #  = parrent
-        print(ctx.getText())
         assign_node = Assign_stmtNode(ctx.start.line)
 
         # Parrent is dcl
@@ -74,7 +73,7 @@ class ASTvisitor(AlgoPractiseVisitor):
         #                This is Assign_stmtNode
         _type = parent.type_().getText()
         if "[" in _type and "]" in _type:
-            assign_node.children.append(self.listDcl(ctx))
+            assign_node.children.append(self.listDcl(parent))
         
         elif _type == "num":
             assign_node.children.append(NumDclNode(ctx.ID(), ctx.start.line))
