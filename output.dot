@@ -1,5 +1,5 @@
 digraph G {
-n0 [label="bool[]int[]a
+n0 [label="bool[]a
 
 numtestFunc(numt,stringk){
 num[]b:={1,2,3}
@@ -8,104 +8,191 @@ return3
 }
 
 
+<EOF>"];
+n1 [label="bool[]a
+
 "];
-n1 [label="bool"];
 n0 -> n1;
-n2 [label="["];
-n0 -> n2;
-n3 [label="]"];
-n0 -> n3;
-n4 [label="int"];
-n0 -> n4;
-n5 [label="["];
-n0 -> n5;
-n6 [label="]"];
-n0 -> n6;
-n7 [label="a"];
-n0 -> n7;
-n8 [label="
-"];
-n0 -> n8;
+n2 [label="bool[]a"];
+n1 -> n2;
+n3 [label="bool[]a"];
+n2 -> n3;
+n4 [label="bool[]"];
+n3 -> n4;
+n5 [label="bool"];
+n4 -> n5;
+n6 [label="["];
+n4 -> n6;
+n7 [label="]"];
+n4 -> n7;
+n8 [label="a"];
+n3 -> n8;
 n9 [label="
 "];
-n0 -> n9;
-n10 [label="num"];
-n0 -> n10;
-n11 [label="testFunc"];
+n1 -> n9;
+n10 [label="
+"];
+n1 -> n10;
+n11 [label="numtestFunc(numt,stringk){
+num[]b:={1,2,3}
+numa:=0
+return3
+}"];
 n0 -> n11;
-n12 [label="("];
-n0 -> n12;
+n12 [label="num"];
+n11 -> n12;
 n13 [label="num"];
-n0 -> n13;
-n14 [label="t"];
-n0 -> n14;
-n15 [label=","];
-n0 -> n15;
-n16 [label="string"];
-n0 -> n16;
-n17 [label="k"];
-n0 -> n17;
-n18 [label=")"];
-n0 -> n18;
-n19 [label="{"];
-n0 -> n19;
-n20 [label="
-"];
-n0 -> n20;
+n12 -> n13;
+n14 [label="testFunc(numt,stringk){
+num[]b:={1,2,3}
+numa:=0
+return3
+}"];
+n11 -> n14;
+n15 [label="testFunc"];
+n14 -> n15;
+n16 [label="(numt,stringk)"];
+n14 -> n16;
+n17 [label="("];
+n16 -> n17;
+n18 [label="numt,stringk"];
+n16 -> n18;
+n19 [label="numt"];
+n18 -> n19;
+n20 [label="num"];
+n19 -> n20;
 n21 [label="num"];
-n0 -> n21;
-n22 [label="["];
-n0 -> n22;
-n23 [label="]"];
-n0 -> n23;
-n24 [label="b"];
-n0 -> n24;
-n25 [label=":="];
-n0 -> n25;
-n26 [label="{"];
-n0 -> n26;
-n27 [label="1"];
-n0 -> n27;
-n28 [label=","];
-n0 -> n28;
-n29 [label="2"];
-n0 -> n29;
-n30 [label=","];
-n0 -> n30;
-n31 [label="3"];
-n0 -> n31;
-n32 [label="}"];
-n0 -> n32;
-n33 [label="
+n20 -> n21;
+n22 [label="t"];
+n19 -> n22;
+n23 [label=","];
+n18 -> n23;
+n24 [label="stringk"];
+n18 -> n24;
+n25 [label="string"];
+n24 -> n25;
+n26 [label="string"];
+n25 -> n26;
+n27 [label="k"];
+n24 -> n27;
+n28 [label=")"];
+n16 -> n28;
+n29 [label="{
+num[]b:={1,2,3}
+numa:=0
+return3
+}"];
+n14 -> n29;
+n30 [label="{"];
+n29 -> n30;
+n31 [label="
 "];
-n0 -> n33;
-n34 [label="num"];
-n0 -> n34;
-n35 [label="a"];
-n0 -> n35;
-n36 [label=":="];
-n0 -> n36;
-n37 [label="0"];
-n0 -> n37;
-n38 [label="
+n29 -> n31;
+n32 [label="num[]b:={1,2,3}
+numa:=0
+return3
 "];
-n0 -> n38;
-n39 [label="return"];
-n0 -> n39;
-n40 [label="3"];
-n0 -> n40;
-n41 [label="
+n29 -> n32;
+n33 [label="num[]b:={1,2,3}"];
+n32 -> n33;
+n34 [label="num[]b:={1,2,3}"];
+n33 -> n34;
+n35 [label="num[]"];
+n34 -> n35;
+n36 [label="num"];
+n35 -> n36;
+n37 [label="["];
+n35 -> n37;
+n38 [label="]"];
+n35 -> n38;
+n39 [label="b:={1,2,3}"];
+n34 -> n39;
+n40 [label="b"];
+n39 -> n40;
+n41 [label=":="];
+n39 -> n41;
+n42 [label="{1,2,3}"];
+n39 -> n42;
+n43 [label="{1,2,3}"];
+n42 -> n43;
+n44 [label="{"];
+n43 -> n44;
+n45 [label="1,2,3"];
+n43 -> n45;
+n46 [label="1"];
+n45 -> n46;
+n47 [label="1"];
+n46 -> n47;
+n48 [label="1"];
+n47 -> n48;
+n49 [label=","];
+n45 -> n49;
+n50 [label="2"];
+n45 -> n50;
+n51 [label="2"];
+n50 -> n51;
+n52 [label="2"];
+n51 -> n52;
+n53 [label=","];
+n45 -> n53;
+n54 [label="3"];
+n45 -> n54;
+n55 [label="3"];
+n54 -> n55;
+n56 [label="3"];
+n55 -> n56;
+n57 [label="}"];
+n43 -> n57;
+n58 [label="
 "];
-n0 -> n41;
-n42 [label="}"];
-n0 -> n42;
-n43 [label="
+n32 -> n58;
+n59 [label="numa:=0"];
+n32 -> n59;
+n60 [label="numa:=0"];
+n59 -> n60;
+n61 [label="num"];
+n60 -> n61;
+n62 [label="num"];
+n61 -> n62;
+n63 [label="a:=0"];
+n60 -> n63;
+n64 [label="a"];
+n63 -> n64;
+n65 [label=":="];
+n63 -> n65;
+n66 [label="0"];
+n63 -> n66;
+n67 [label="0"];
+n66 -> n67;
+n68 [label="0"];
+n67 -> n68;
+n69 [label="
 "];
-n0 -> n43;
-n44 [label="
+n32 -> n69;
+n70 [label="return3"];
+n32 -> n70;
+n71 [label="return"];
+n70 -> n71;
+n72 [label="3"];
+n70 -> n72;
+n73 [label="3"];
+n72 -> n73;
+n74 [label="3"];
+n73 -> n74;
+n75 [label="
 "];
-n0 -> n44;
-n45 [label="
+n32 -> n75;
+n76 [label="}"];
+n29 -> n76;
+n77 [label="
 "];
-n0 -> n45;
+n0 -> n77;
+n78 [label="
+"];
+n0 -> n78;
+n79 [label="
+"];
+n0 -> n79;
+n80 [label="<EOF>"];
+n0 -> n80;
 }

@@ -5,5 +5,3 @@ num testFunc(num t, string k) {
     num a := 0
     return 3 
 }
-
- 
