@@ -10,7 +10,7 @@ else:
 
 def serializedATN():
     return [
-        4,1,38,287,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,37,292,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,1,0,
         5,0,42,8,0,10,0,12,0,45,9,0,1,0,1,0,4,0,49,8,0,11,0,12,0,50,1,0,
@@ -30,91 +30,93 @@ def serializedATN():
         8,12,10,12,12,12,223,9,12,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,
         1,13,1,13,1,13,1,13,1,13,1,13,4,13,239,8,13,11,13,12,13,240,1,13,
         3,13,244,8,13,1,14,1,14,3,14,248,8,14,1,15,1,15,1,15,1,15,1,15,1,
-        15,1,15,1,15,1,15,3,15,259,8,15,1,16,1,16,1,16,1,16,3,16,265,8,16,
-        1,17,1,17,1,17,1,17,1,18,1,18,1,18,1,18,1,18,1,19,1,19,1,19,5,19,
-        279,8,19,10,19,12,19,282,9,19,1,19,3,19,285,8,19,1,19,0,1,24,20,
-        0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,0,0,319,0,
-        43,1,0,0,0,2,68,1,0,0,0,4,70,1,0,0,0,6,98,1,0,0,0,8,106,1,0,0,0,
-        10,108,1,0,0,0,12,116,1,0,0,0,14,137,1,0,0,0,16,145,1,0,0,0,18,156,
-        1,0,0,0,20,164,1,0,0,0,22,166,1,0,0,0,24,178,1,0,0,0,26,243,1,0,
-        0,0,28,247,1,0,0,0,30,258,1,0,0,0,32,264,1,0,0,0,34,266,1,0,0,0,
-        36,270,1,0,0,0,38,284,1,0,0,0,40,42,5,36,0,0,41,40,1,0,0,0,42,45,
-        1,0,0,0,43,41,1,0,0,0,43,44,1,0,0,0,44,55,1,0,0,0,45,43,1,0,0,0,
-        46,48,3,2,1,0,47,49,5,36,0,0,48,47,1,0,0,0,49,50,1,0,0,0,50,48,1,
-        0,0,0,50,51,1,0,0,0,51,54,1,0,0,0,52,54,3,16,8,0,53,46,1,0,0,0,53,
-        52,1,0,0,0,54,57,1,0,0,0,55,53,1,0,0,0,55,56,1,0,0,0,56,60,1,0,0,
-        0,57,55,1,0,0,0,58,61,3,2,1,0,59,61,3,18,9,0,60,58,1,0,0,0,60,59,
-        1,0,0,0,60,61,1,0,0,0,61,62,1,0,0,0,62,63,5,0,0,1,63,1,1,0,0,0,64,
-        65,3,6,3,0,65,66,3,4,2,0,66,69,1,0,0,0,67,69,3,4,2,0,68,64,1,0,0,
-        0,68,67,1,0,0,0,69,3,1,0,0,0,70,71,5,12,0,0,71,72,3,8,4,0,72,73,
-        3,14,7,0,73,5,1,0,0,0,74,79,5,1,0,0,75,76,5,13,0,0,76,78,5,14,0,
-        0,77,75,1,0,0,0,78,81,1,0,0,0,79,77,1,0,0,0,79,80,1,0,0,0,80,99,
-        1,0,0,0,81,79,1,0,0,0,82,87,5,2,0,0,83,84,5,13,0,0,84,86,5,14,0,
-        0,85,83,1,0,0,0,86,89,1,0,0,0,87,85,1,0,0,0,87,88,1,0,0,0,88,99,
-        1,0,0,0,89,87,1,0,0,0,90,95,5,3,0,0,91,92,5,13,0,0,92,94,5,14,0,
-        0,93,91,1,0,0,0,94,97,1,0,0,0,95,93,1,0,0,0,95,96,1,0,0,0,96,99,
-        1,0,0,0,97,95,1,0,0,0,98,74,1,0,0,0,98,82,1,0,0,0,98,90,1,0,0,0,
-        99,7,1,0,0,0,100,101,5,15,0,0,101,107,5,16,0,0,102,103,5,15,0,0,
-        103,104,3,10,5,0,104,105,5,16,0,0,105,107,1,0,0,0,106,100,1,0,0,
-        0,106,102,1,0,0,0,107,9,1,0,0,0,108,113,3,12,6,0,109,110,5,35,0,
-        0,110,112,3,12,6,0,111,109,1,0,0,0,112,115,1,0,0,0,113,111,1,0,0,
-        0,113,114,1,0,0,0,114,11,1,0,0,0,115,113,1,0,0,0,116,117,3,6,3,0,
-        117,118,5,12,0,0,118,13,1,0,0,0,119,123,5,17,0,0,120,122,5,36,0,
-        0,121,120,1,0,0,0,122,125,1,0,0,0,123,121,1,0,0,0,123,124,1,0,0,
-        0,124,126,1,0,0,0,125,123,1,0,0,0,126,127,3,16,8,0,127,128,5,18,
-        0,0,128,138,1,0,0,0,129,133,5,17,0,0,130,132,5,36,0,0,131,130,1,
-        0,0,0,132,135,1,0,0,0,133,131,1,0,0,0,133,134,1,0,0,0,134,136,1,
-        0,0,0,135,133,1,0,0,0,136,138,5,18,0,0,137,119,1,0,0,0,137,129,1,
-        0,0,0,138,15,1,0,0,0,139,141,3,18,9,0,140,142,5,36,0,0,141,140,1,
-        0,0,0,142,143,1,0,0,0,143,141,1,0,0,0,143,144,1,0,0,0,144,146,1,
-        0,0,0,145,139,1,0,0,0,146,147,1,0,0,0,147,145,1,0,0,0,147,148,1,
-        0,0,0,148,17,1,0,0,0,149,157,3,20,10,0,150,157,3,22,11,0,151,157,
-        3,28,14,0,152,157,3,36,18,0,153,154,5,11,0,0,154,157,3,24,12,0,155,
-        157,5,11,0,0,156,149,1,0,0,0,156,150,1,0,0,0,156,151,1,0,0,0,156,
-        152,1,0,0,0,156,153,1,0,0,0,156,155,1,0,0,0,157,19,1,0,0,0,158,159,
-        3,6,3,0,159,160,3,22,11,0,160,165,1,0,0,0,161,162,3,6,3,0,162,163,
-        5,12,0,0,163,165,1,0,0,0,164,158,1,0,0,0,164,161,1,0,0,0,165,21,
-        1,0,0,0,166,167,5,12,0,0,167,168,5,19,0,0,168,169,3,24,12,0,169,
-        23,1,0,0,0,170,171,6,12,-1,0,171,172,5,23,0,0,172,179,3,24,12,3,
-        173,179,3,26,13,0,174,175,5,15,0,0,175,176,3,24,12,0,176,177,5,16,
-        0,0,177,179,1,0,0,0,178,170,1,0,0,0,178,173,1,0,0,0,178,174,1,0,
-        0,0,179,221,1,0,0,0,180,181,10,16,0,0,181,182,5,10,0,0,182,220,3,
-        24,12,17,183,184,10,15,0,0,184,185,5,9,0,0,185,220,3,24,12,16,186,
-        187,10,14,0,0,187,188,5,24,0,0,188,220,3,24,12,15,189,190,10,13,
-        0,0,190,191,5,29,0,0,191,220,3,24,12,14,192,193,10,12,0,0,193,194,
-        5,25,0,0,194,220,3,24,12,13,195,196,10,11,0,0,196,197,5,26,0,0,197,
-        220,3,24,12,12,198,199,10,10,0,0,199,200,5,28,0,0,200,220,3,24,12,
-        11,201,202,10,9,0,0,202,203,5,27,0,0,203,220,3,24,12,10,204,205,
-        10,8,0,0,205,206,5,30,0,0,206,220,3,24,12,9,207,208,10,7,0,0,208,
-        209,5,31,0,0,209,220,3,24,12,8,210,211,10,6,0,0,211,212,5,32,0,0,
-        212,220,3,24,12,7,213,214,10,5,0,0,214,215,5,33,0,0,215,220,3,24,
-        12,6,216,217,10,4,0,0,217,218,5,34,0,0,218,220,3,24,12,5,219,180,
-        1,0,0,0,219,183,1,0,0,0,219,186,1,0,0,0,219,189,1,0,0,0,219,192,
-        1,0,0,0,219,195,1,0,0,0,219,198,1,0,0,0,219,201,1,0,0,0,219,204,
-        1,0,0,0,219,207,1,0,0,0,219,210,1,0,0,0,219,213,1,0,0,0,219,216,
-        1,0,0,0,220,223,1,0,0,0,221,219,1,0,0,0,221,222,1,0,0,0,222,25,1,
-        0,0,0,223,221,1,0,0,0,224,244,5,12,0,0,225,244,5,20,0,0,226,244,
-        5,21,0,0,227,244,5,4,0,0,228,244,5,5,0,0,229,230,5,17,0,0,230,231,
-        3,38,19,0,231,232,5,18,0,0,232,244,1,0,0,0,233,238,5,12,0,0,234,
-        235,5,13,0,0,235,236,3,26,13,0,236,237,5,14,0,0,237,239,1,0,0,0,
-        238,234,1,0,0,0,239,240,1,0,0,0,240,238,1,0,0,0,240,241,1,0,0,0,
-        241,244,1,0,0,0,242,244,3,36,18,0,243,224,1,0,0,0,243,225,1,0,0,
-        0,243,226,1,0,0,0,243,227,1,0,0,0,243,228,1,0,0,0,243,229,1,0,0,
-        0,243,233,1,0,0,0,243,242,1,0,0,0,244,27,1,0,0,0,245,248,3,30,15,
-        0,246,248,3,34,17,0,247,245,1,0,0,0,247,246,1,0,0,0,248,29,1,0,0,
-        0,249,250,5,6,0,0,250,251,3,24,12,0,251,252,3,14,7,0,252,259,1,0,
-        0,0,253,254,5,6,0,0,254,255,3,24,12,0,255,256,3,14,7,0,256,257,3,
-        32,16,0,257,259,1,0,0,0,258,249,1,0,0,0,258,253,1,0,0,0,259,31,1,
-        0,0,0,260,261,5,7,0,0,261,265,3,30,15,0,262,263,5,7,0,0,263,265,
-        3,14,7,0,264,260,1,0,0,0,264,262,1,0,0,0,265,33,1,0,0,0,266,267,
-        5,8,0,0,267,268,3,24,12,0,268,269,3,14,7,0,269,35,1,0,0,0,270,271,
-        5,12,0,0,271,272,5,15,0,0,272,273,3,38,19,0,273,274,5,16,0,0,274,
-        37,1,0,0,0,275,280,3,24,12,0,276,277,5,35,0,0,277,279,3,24,12,0,
-        278,276,1,0,0,0,279,282,1,0,0,0,280,278,1,0,0,0,280,281,1,0,0,0,
-        281,285,1,0,0,0,282,280,1,0,0,0,283,285,1,0,0,0,284,275,1,0,0,0,
-        284,283,1,0,0,0,285,39,1,0,0,0,29,43,50,53,55,60,68,79,87,95,98,
-        106,113,123,133,137,143,147,156,164,178,219,221,240,243,247,258,
-        264,280,284
+        15,1,15,1,15,4,15,258,8,15,11,15,12,15,259,1,15,1,15,3,15,264,8,
+        15,1,16,1,16,1,16,1,16,3,16,270,8,16,1,17,1,17,1,17,1,17,1,18,1,
+        18,1,18,1,18,1,18,1,19,1,19,1,19,5,19,284,8,19,10,19,12,19,287,9,
+        19,1,19,3,19,290,8,19,1,19,0,1,24,20,0,2,4,6,8,10,12,14,16,18,20,
+        22,24,26,28,30,32,34,36,38,0,0,325,0,43,1,0,0,0,2,68,1,0,0,0,4,70,
+        1,0,0,0,6,98,1,0,0,0,8,106,1,0,0,0,10,108,1,0,0,0,12,116,1,0,0,0,
+        14,137,1,0,0,0,16,145,1,0,0,0,18,156,1,0,0,0,20,164,1,0,0,0,22,166,
+        1,0,0,0,24,178,1,0,0,0,26,243,1,0,0,0,28,247,1,0,0,0,30,263,1,0,
+        0,0,32,269,1,0,0,0,34,271,1,0,0,0,36,275,1,0,0,0,38,289,1,0,0,0,
+        40,42,5,35,0,0,41,40,1,0,0,0,42,45,1,0,0,0,43,41,1,0,0,0,43,44,1,
+        0,0,0,44,55,1,0,0,0,45,43,1,0,0,0,46,48,3,2,1,0,47,49,5,35,0,0,48,
+        47,1,0,0,0,49,50,1,0,0,0,50,48,1,0,0,0,50,51,1,0,0,0,51,54,1,0,0,
+        0,52,54,3,16,8,0,53,46,1,0,0,0,53,52,1,0,0,0,54,57,1,0,0,0,55,53,
+        1,0,0,0,55,56,1,0,0,0,56,60,1,0,0,0,57,55,1,0,0,0,58,61,3,2,1,0,
+        59,61,3,18,9,0,60,58,1,0,0,0,60,59,1,0,0,0,60,61,1,0,0,0,61,62,1,
+        0,0,0,62,63,5,0,0,1,63,1,1,0,0,0,64,65,3,6,3,0,65,66,3,4,2,0,66,
+        69,1,0,0,0,67,69,3,4,2,0,68,64,1,0,0,0,68,67,1,0,0,0,69,3,1,0,0,
+        0,70,71,5,12,0,0,71,72,3,8,4,0,72,73,3,14,7,0,73,5,1,0,0,0,74,79,
+        5,1,0,0,75,76,5,13,0,0,76,78,5,14,0,0,77,75,1,0,0,0,78,81,1,0,0,
+        0,79,77,1,0,0,0,79,80,1,0,0,0,80,99,1,0,0,0,81,79,1,0,0,0,82,87,
+        5,2,0,0,83,84,5,13,0,0,84,86,5,14,0,0,85,83,1,0,0,0,86,89,1,0,0,
+        0,87,85,1,0,0,0,87,88,1,0,0,0,88,99,1,0,0,0,89,87,1,0,0,0,90,95,
+        5,3,0,0,91,92,5,13,0,0,92,94,5,14,0,0,93,91,1,0,0,0,94,97,1,0,0,
+        0,95,93,1,0,0,0,95,96,1,0,0,0,96,99,1,0,0,0,97,95,1,0,0,0,98,74,
+        1,0,0,0,98,82,1,0,0,0,98,90,1,0,0,0,99,7,1,0,0,0,100,101,5,15,0,
+        0,101,107,5,16,0,0,102,103,5,15,0,0,103,104,3,10,5,0,104,105,5,16,
+        0,0,105,107,1,0,0,0,106,100,1,0,0,0,106,102,1,0,0,0,107,9,1,0,0,
+        0,108,113,3,12,6,0,109,110,5,34,0,0,110,112,3,12,6,0,111,109,1,0,
+        0,0,112,115,1,0,0,0,113,111,1,0,0,0,113,114,1,0,0,0,114,11,1,0,0,
+        0,115,113,1,0,0,0,116,117,3,6,3,0,117,118,5,12,0,0,118,13,1,0,0,
+        0,119,123,5,17,0,0,120,122,5,35,0,0,121,120,1,0,0,0,122,125,1,0,
+        0,0,123,121,1,0,0,0,123,124,1,0,0,0,124,126,1,0,0,0,125,123,1,0,
+        0,0,126,127,3,16,8,0,127,128,5,18,0,0,128,138,1,0,0,0,129,133,5,
+        17,0,0,130,132,5,35,0,0,131,130,1,0,0,0,132,135,1,0,0,0,133,131,
+        1,0,0,0,133,134,1,0,0,0,134,136,1,0,0,0,135,133,1,0,0,0,136,138,
+        5,18,0,0,137,119,1,0,0,0,137,129,1,0,0,0,138,15,1,0,0,0,139,141,
+        3,18,9,0,140,142,5,35,0,0,141,140,1,0,0,0,142,143,1,0,0,0,143,141,
+        1,0,0,0,143,144,1,0,0,0,144,146,1,0,0,0,145,139,1,0,0,0,146,147,
+        1,0,0,0,147,145,1,0,0,0,147,148,1,0,0,0,148,17,1,0,0,0,149,157,3,
+        20,10,0,150,157,3,22,11,0,151,157,3,28,14,0,152,157,3,36,18,0,153,
+        154,5,11,0,0,154,157,3,24,12,0,155,157,5,11,0,0,156,149,1,0,0,0,
+        156,150,1,0,0,0,156,151,1,0,0,0,156,152,1,0,0,0,156,153,1,0,0,0,
+        156,155,1,0,0,0,157,19,1,0,0,0,158,159,3,6,3,0,159,160,3,22,11,0,
+        160,165,1,0,0,0,161,162,3,6,3,0,162,163,5,12,0,0,163,165,1,0,0,0,
+        164,158,1,0,0,0,164,161,1,0,0,0,165,21,1,0,0,0,166,167,5,12,0,0,
+        167,168,5,19,0,0,168,169,3,24,12,0,169,23,1,0,0,0,170,171,6,12,-1,
+        0,171,172,5,22,0,0,172,179,3,24,12,3,173,179,3,26,13,0,174,175,5,
+        15,0,0,175,176,3,24,12,0,176,177,5,16,0,0,177,179,1,0,0,0,178,170,
+        1,0,0,0,178,173,1,0,0,0,178,174,1,0,0,0,179,221,1,0,0,0,180,181,
+        10,16,0,0,181,182,5,10,0,0,182,220,3,24,12,17,183,184,10,15,0,0,
+        184,185,5,9,0,0,185,220,3,24,12,16,186,187,10,14,0,0,187,188,5,23,
+        0,0,188,220,3,24,12,15,189,190,10,13,0,0,190,191,5,28,0,0,191,220,
+        3,24,12,14,192,193,10,12,0,0,193,194,5,24,0,0,194,220,3,24,12,13,
+        195,196,10,11,0,0,196,197,5,25,0,0,197,220,3,24,12,12,198,199,10,
+        10,0,0,199,200,5,27,0,0,200,220,3,24,12,11,201,202,10,9,0,0,202,
+        203,5,26,0,0,203,220,3,24,12,10,204,205,10,8,0,0,205,206,5,29,0,
+        0,206,220,3,24,12,9,207,208,10,7,0,0,208,209,5,30,0,0,209,220,3,
+        24,12,8,210,211,10,6,0,0,211,212,5,31,0,0,212,220,3,24,12,7,213,
+        214,10,5,0,0,214,215,5,32,0,0,215,220,3,24,12,6,216,217,10,4,0,0,
+        217,218,5,33,0,0,218,220,3,24,12,5,219,180,1,0,0,0,219,183,1,0,0,
+        0,219,186,1,0,0,0,219,189,1,0,0,0,219,192,1,0,0,0,219,195,1,0,0,
+        0,219,198,1,0,0,0,219,201,1,0,0,0,219,204,1,0,0,0,219,207,1,0,0,
+        0,219,210,1,0,0,0,219,213,1,0,0,0,219,216,1,0,0,0,220,223,1,0,0,
+        0,221,219,1,0,0,0,221,222,1,0,0,0,222,25,1,0,0,0,223,221,1,0,0,0,
+        224,244,5,12,0,0,225,244,5,20,0,0,226,244,5,21,0,0,227,244,5,4,0,
+        0,228,244,5,5,0,0,229,230,5,17,0,0,230,231,3,38,19,0,231,232,5,18,
+        0,0,232,244,1,0,0,0,233,238,5,12,0,0,234,235,5,13,0,0,235,236,3,
+        26,13,0,236,237,5,14,0,0,237,239,1,0,0,0,238,234,1,0,0,0,239,240,
+        1,0,0,0,240,238,1,0,0,0,240,241,1,0,0,0,241,244,1,0,0,0,242,244,
+        3,36,18,0,243,224,1,0,0,0,243,225,1,0,0,0,243,226,1,0,0,0,243,227,
+        1,0,0,0,243,228,1,0,0,0,243,229,1,0,0,0,243,233,1,0,0,0,243,242,
+        1,0,0,0,244,27,1,0,0,0,245,248,3,30,15,0,246,248,3,34,17,0,247,245,
+        1,0,0,0,247,246,1,0,0,0,248,29,1,0,0,0,249,250,5,6,0,0,250,251,3,
+        24,12,0,251,252,3,14,7,0,252,264,1,0,0,0,253,254,5,6,0,0,254,255,
+        3,24,12,0,255,257,3,14,7,0,256,258,5,35,0,0,257,256,1,0,0,0,258,
+        259,1,0,0,0,259,257,1,0,0,0,259,260,1,0,0,0,260,261,1,0,0,0,261,
+        262,3,32,16,0,262,264,1,0,0,0,263,249,1,0,0,0,263,253,1,0,0,0,264,
+        31,1,0,0,0,265,266,5,7,0,0,266,270,3,30,15,0,267,268,5,7,0,0,268,
+        270,3,14,7,0,269,265,1,0,0,0,269,267,1,0,0,0,270,33,1,0,0,0,271,
+        272,5,8,0,0,272,273,3,24,12,0,273,274,3,14,7,0,274,35,1,0,0,0,275,
+        276,5,12,0,0,276,277,5,15,0,0,277,278,3,38,19,0,278,279,5,16,0,0,
+        279,37,1,0,0,0,280,285,3,24,12,0,281,282,5,34,0,0,282,284,3,24,12,
+        0,283,281,1,0,0,0,284,287,1,0,0,0,285,283,1,0,0,0,285,286,1,0,0,
+        0,286,290,1,0,0,0,287,285,1,0,0,0,288,290,1,0,0,0,289,280,1,0,0,
+        0,289,288,1,0,0,0,290,39,1,0,0,0,30,43,50,53,55,60,68,79,87,95,98,
+        106,113,123,133,137,143,147,156,164,178,219,221,240,243,247,259,
+        263,269,285,289
     ]
 
 class AlgoPractiseParser ( Parser ):
@@ -130,17 +132,17 @@ class AlgoPractiseParser ( Parser ):
     literalNames = [ "<INVALID>", "'bool'", "'string'", "'num'", "'true'", 
                      "'false'", "'if'", "'else'", "'while'", "'and'", "'or'", 
                      "'return'", "<INVALID>", "'['", "']'", "'('", "')'", 
-                     "'{'", "'}'", "':='", "<INVALID>", "<INVALID>", "<INVALID>", 
-                     "'!'", "'=='", "'<='", "'>='", "'<'", "'>'", "'!='", 
-                     "'+'", "'-'", "'*'", "'/'", "'%'", "','" ]
+                     "'{'", "'}'", "':='", "<INVALID>", "<INVALID>", "'!'", 
+                     "'=='", "'<='", "'>='", "'<'", "'>'", "'!='", "'+'", 
+                     "'-'", "'*'", "'/'", "'%'", "','" ]
 
     symbolicNames = [ "<INVALID>", "BOOL_TYPE", "STR_TYPE", "NUM_TYPE", 
                       "TRUE", "FALSE", "IF", "ELSE", "WHILE", "AND", "OR", 
                       "RETURN", "ID", "L_BRACKET", "R_BRACKET", "L_PAR", 
                       "R_PAR", "L_CURLY", "R_CURLY", "ASSIGN", "NUMVAL", 
-                      "STRINGVAL", "ESC", "NEG", "EQUAL", "LTE", "GTE", 
-                      "LT", "GT", "NE", "PLUS", "MINUS", "MULT", "DIV", 
-                      "MOD", "COMMA", "NEWLINE", "WS", "COMMENT" ]
+                      "STRINGVAL", "NEG", "EQUAL", "LTE", "GTE", "LT", "GT", 
+                      "NE", "PLUS", "MINUS", "MULT", "DIV", "MOD", "COMMA", 
+                      "NEWLINE", "WS", "COMMENT" ]
 
     RULE_start = 0
     RULE_func = 1
@@ -190,23 +192,22 @@ class AlgoPractiseParser ( Parser ):
     ASSIGN=19
     NUMVAL=20
     STRINGVAL=21
-    ESC=22
-    NEG=23
-    EQUAL=24
-    LTE=25
-    GTE=26
-    LT=27
-    GT=28
-    NE=29
-    PLUS=30
-    MINUS=31
-    MULT=32
-    DIV=33
-    MOD=34
-    COMMA=35
-    NEWLINE=36
-    WS=37
-    COMMENT=38
+    NEG=22
+    EQUAL=23
+    LTE=24
+    GTE=25
+    LT=26
+    GT=27
+    NE=28
+    PLUS=29
+    MINUS=30
+    MULT=31
+    DIV=32
+    MOD=33
+    COMMA=34
+    NEWLINE=35
+    WS=36
+    COMMENT=37
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -254,6 +255,14 @@ class AlgoPractiseParser ( Parser ):
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_start
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterStart" ):
+                listener.enterStart(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitStart" ):
+                listener.exitStart(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitStart" ):
                 return visitor.visitStart(self)
@@ -273,7 +282,7 @@ class AlgoPractiseParser ( Parser ):
             self.state = 43
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==36:
+            while _la==35:
                 self.state = 40
                 self.match(AlgoPractiseParser.NEWLINE)
                 self.state = 45
@@ -300,7 +309,7 @@ class AlgoPractiseParser ( Parser ):
                             self.state = 50 
                             self._errHandler.sync(self)
                             _la = self._input.LA(1)
-                            if not (_la==36):
+                            if not (_la==35):
                                 break
 
                         pass
@@ -355,6 +364,14 @@ class AlgoPractiseParser ( Parser ):
 
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_func
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterFunc" ):
+                listener.enterFunc(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitFunc" ):
+                listener.exitFunc(self)
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitFunc" ):
@@ -418,6 +435,14 @@ class AlgoPractiseParser ( Parser ):
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_func_decl
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterFunc_decl" ):
+                listener.enterFunc_decl(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitFunc_decl" ):
+                listener.exitFunc_decl(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitFunc_decl" ):
                 return visitor.visitFunc_decl(self)
@@ -478,6 +503,14 @@ class AlgoPractiseParser ( Parser ):
 
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_type
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterType" ):
+                listener.enterType(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitType" ):
+                listener.exitType(self)
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitType" ):
@@ -580,6 +613,14 @@ class AlgoPractiseParser ( Parser ):
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_params
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterParams" ):
+                listener.enterParams(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitParams" ):
+                listener.exitParams(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitParams" ):
                 return visitor.visitParams(self)
@@ -647,6 +688,14 @@ class AlgoPractiseParser ( Parser ):
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_param_lst
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterParam_lst" ):
+                listener.enterParam_lst(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitParam_lst" ):
+                listener.exitParam_lst(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitParam_lst" ):
                 return visitor.visitParam_lst(self)
@@ -668,7 +717,7 @@ class AlgoPractiseParser ( Parser ):
             self.state = 113
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==35:
+            while _la==34:
                 self.state = 109
                 self.match(AlgoPractiseParser.COMMA)
                 self.state = 110
@@ -702,6 +751,14 @@ class AlgoPractiseParser ( Parser ):
 
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_param
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterParam" ):
+                listener.enterParam(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitParam" ):
+                listener.exitParam(self)
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitParam" ):
@@ -757,6 +814,14 @@ class AlgoPractiseParser ( Parser ):
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_block
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterBlock" ):
+                listener.enterBlock(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitBlock" ):
+                listener.exitBlock(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitBlock" ):
                 return visitor.visitBlock(self)
@@ -782,7 +847,7 @@ class AlgoPractiseParser ( Parser ):
                 self.state = 123
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==36:
+                while _la==35:
                     self.state = 120
                     self.match(AlgoPractiseParser.NEWLINE)
                     self.state = 125
@@ -802,7 +867,7 @@ class AlgoPractiseParser ( Parser ):
                 self.state = 133
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==36:
+                while _la==35:
                     self.state = 130
                     self.match(AlgoPractiseParser.NEWLINE)
                     self.state = 135
@@ -846,6 +911,14 @@ class AlgoPractiseParser ( Parser ):
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_stmts
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterStmts" ):
+                listener.enterStmts(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitStmts" ):
+                listener.exitStmts(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitStmts" ):
                 return visitor.visitStmts(self)
@@ -878,7 +951,7 @@ class AlgoPractiseParser ( Parser ):
                         self.state = 143 
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        if not (_la==36):
+                        if not (_la==35):
                             break
 
 
@@ -929,6 +1002,14 @@ class AlgoPractiseParser ( Parser ):
 
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_stmt
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterStmt" ):
+                listener.enterStmt(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitStmt" ):
+                listener.exitStmt(self)
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitStmt" ):
@@ -1016,6 +1097,14 @@ class AlgoPractiseParser ( Parser ):
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_dcl
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterDcl" ):
+                listener.enterDcl(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitDcl" ):
+                listener.exitDcl(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitDcl" ):
                 return visitor.visitDcl(self)
@@ -1078,6 +1167,14 @@ class AlgoPractiseParser ( Parser ):
 
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_assign_stmt
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAssign_stmt" ):
+                listener.enterAssign_stmt(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAssign_stmt" ):
+                listener.exitAssign_stmt(self)
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitAssign_stmt" ):
@@ -1178,6 +1275,14 @@ class AlgoPractiseParser ( Parser ):
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_expr
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterExpr" ):
+                listener.enterExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitExpr" ):
+                listener.exitExpr(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitExpr" ):
                 return visitor.visitExpr(self)
@@ -1198,7 +1303,7 @@ class AlgoPractiseParser ( Parser ):
             self.state = 178
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [23]:
+            if token in [22]:
                 self.state = 171
                 self.match(AlgoPractiseParser.NEG)
                 self.state = 172
@@ -1472,6 +1577,14 @@ class AlgoPractiseParser ( Parser ):
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_val
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterVal" ):
+                listener.enterVal(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitVal" ):
+                listener.exitVal(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitVal" ):
                 return visitor.visitVal(self)
@@ -1580,6 +1693,14 @@ class AlgoPractiseParser ( Parser ):
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_cntrol
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterCntrol" ):
+                listener.enterCntrol(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitCntrol" ):
+                listener.exitCntrol(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitCntrol" ):
                 return visitor.visitCntrol(self)
@@ -1641,8 +1762,22 @@ class AlgoPractiseParser ( Parser ):
             return self.getTypedRuleContext(AlgoPractiseParser.Else_stmtContext,0)
 
 
+        def NEWLINE(self, i:int=None):
+            if i is None:
+                return self.getTokens(AlgoPractiseParser.NEWLINE)
+            else:
+                return self.getToken(AlgoPractiseParser.NEWLINE, i)
+
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_if_stmt
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterIf_stmt" ):
+                listener.enterIf_stmt(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitIf_stmt" ):
+                listener.exitIf_stmt(self)
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitIf_stmt" ):
@@ -1657,10 +1792,11 @@ class AlgoPractiseParser ( Parser ):
 
         localctx = AlgoPractiseParser.If_stmtContext(self, self._ctx, self.state)
         self.enterRule(localctx, 30, self.RULE_if_stmt)
+        self._la = 0 # Token type
         try:
-            self.state = 258
+            self.state = 263
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,25,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,26,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 249
@@ -1679,7 +1815,19 @@ class AlgoPractiseParser ( Parser ):
                 self.expr(0)
                 self.state = 255
                 self.block()
-                self.state = 256
+                self.state = 257 
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+                while True:
+                    self.state = 256
+                    self.match(AlgoPractiseParser.NEWLINE)
+                    self.state = 259 
+                    self._errHandler.sync(self)
+                    _la = self._input.LA(1)
+                    if not (_la==35):
+                        break
+
+                self.state = 261
                 self.else_stmt()
                 pass
 
@@ -1714,6 +1862,14 @@ class AlgoPractiseParser ( Parser ):
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_else_stmt
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterElse_stmt" ):
+                listener.enterElse_stmt(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitElse_stmt" ):
+                listener.exitElse_stmt(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitElse_stmt" ):
                 return visitor.visitElse_stmt(self)
@@ -1728,22 +1884,22 @@ class AlgoPractiseParser ( Parser ):
         localctx = AlgoPractiseParser.Else_stmtContext(self, self._ctx, self.state)
         self.enterRule(localctx, 32, self.RULE_else_stmt)
         try:
-            self.state = 264
+            self.state = 269
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,26,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,27,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 260
+                self.state = 265
                 self.match(AlgoPractiseParser.ELSE)
-                self.state = 261
+                self.state = 266
                 self.if_stmt()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 262
+                self.state = 267
                 self.match(AlgoPractiseParser.ELSE)
-                self.state = 263
+                self.state = 268
                 self.block()
                 pass
 
@@ -1778,6 +1934,14 @@ class AlgoPractiseParser ( Parser ):
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_while_stmt
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterWhile_stmt" ):
+                listener.enterWhile_stmt(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitWhile_stmt" ):
+                listener.exitWhile_stmt(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitWhile_stmt" ):
                 return visitor.visitWhile_stmt(self)
@@ -1793,11 +1957,11 @@ class AlgoPractiseParser ( Parser ):
         self.enterRule(localctx, 34, self.RULE_while_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 266
+            self.state = 271
             self.match(AlgoPractiseParser.WHILE)
-            self.state = 267
+            self.state = 272
             self.expr(0)
-            self.state = 268
+            self.state = 273
             self.block()
         except RecognitionException as re:
             localctx.exception = re
@@ -1831,6 +1995,14 @@ class AlgoPractiseParser ( Parser ):
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_func_call
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterFunc_call" ):
+                listener.enterFunc_call(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitFunc_call" ):
+                listener.exitFunc_call(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitFunc_call" ):
                 return visitor.visitFunc_call(self)
@@ -1846,13 +2018,13 @@ class AlgoPractiseParser ( Parser ):
         self.enterRule(localctx, 36, self.RULE_func_call)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 270
+            self.state = 275
             self.match(AlgoPractiseParser.ID)
-            self.state = 271
+            self.state = 276
             self.match(AlgoPractiseParser.L_PAR)
-            self.state = 272
+            self.state = 277
             self.elmnt_list()
-            self.state = 273
+            self.state = 278
             self.match(AlgoPractiseParser.R_PAR)
         except RecognitionException as re:
             localctx.exception = re
@@ -1886,6 +2058,14 @@ class AlgoPractiseParser ( Parser ):
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_elmnt_list
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterElmnt_list" ):
+                listener.enterElmnt_list(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitElmnt_list" ):
+                listener.exitElmnt_list(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitElmnt_list" ):
                 return visitor.visitElmnt_list(self)
@@ -1901,22 +2081,22 @@ class AlgoPractiseParser ( Parser ):
         self.enterRule(localctx, 38, self.RULE_elmnt_list)
         self._la = 0 # Token type
         try:
-            self.state = 284
+            self.state = 289
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [4, 5, 12, 15, 17, 20, 21, 23]:
+            if token in [4, 5, 12, 15, 17, 20, 21, 22]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 275
-                self.expr(0)
                 self.state = 280
+                self.expr(0)
+                self.state = 285
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==35:
-                    self.state = 276
+                while _la==34:
+                    self.state = 281
                     self.match(AlgoPractiseParser.COMMA)
-                    self.state = 277
-                    self.expr(0)
                     self.state = 282
+                    self.expr(0)
+                    self.state = 287
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 

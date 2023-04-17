@@ -20,7 +20,7 @@ L_CURLY: '{';
 R_CURLY: '}';
 ASSIGN: ':=';
 NUMVAL: '-'? DIGIT+;
-STRINGVAL: '"' ~('\r' | '\n' | '"' | '\\')* '"';
+STRINGVAL: '"' (~('\r' | '\n' | '"' | '\\') | ('\\"' | '\\n' | '\\r' | '\\\\'))* '"';
 NEG: '!';
 EQUAL: '==';
 LTE: '<=';
@@ -92,7 +92,7 @@ val: (
 		| func_call
 	);
 cntrol: if_stmt | while_stmt;
-if_stmt: IF expr block | IF expr block else_stmt;
+if_stmt: IF expr block | IF expr block NEWLINE+ else_stmt;
 else_stmt: ELSE if_stmt | ELSE block;
 while_stmt: WHILE expr block;
 func_call: ID L_PAR elmnt_list R_PAR;
