@@ -21,7 +21,7 @@ R_CURLY: '}';
 ASSIGN: ':=';
 NUMVAL: '-'? DIGIT+;
 STRINGVAL:
-	'"' (ESC | ~["\n\r])*? '"'; // ~["\n\r] is equal to . without the escaped characters
+	'"' (ESC | .)*? '"'; 
 ESC: '\\"' | '\\\\' | '\\n' | '\\r';
 NEG: '!';
 EQUAL: '==';
