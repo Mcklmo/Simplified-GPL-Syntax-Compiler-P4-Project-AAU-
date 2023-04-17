@@ -46,11 +46,6 @@ class AlgoPractiseVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by AlgoPractiseParser#endblock.
-    def visitEndblock(self, ctx:AlgoPractiseParser.EndblockContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by AlgoPractiseParser#stmts.
     def visitStmts(self, ctx:AlgoPractiseParser.StmtsContext):
         return self.visitChildren(ctx)

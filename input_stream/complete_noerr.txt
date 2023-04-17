@@ -1,0 +1,32 @@
+while 1>2{} 
+/* i am a comment ///// \\\\\ ****
+asdf 
+asdf
+ */
+bool idxyz
+bool idxzy := 0
+
+funcxyz(a+3,a())
+num funcname(num a,bool y,string h) {
+
+    return 7
+} 
+num [][][] a := {{{1,2},{3,4}},{{5,6}}}
+a := a[0]
+a := a[0][0][0][0][0][0][0][0][0][0][0][0]
+while a > b {
+    print(a)
+    } 
+return 
+num a := 1
+num aa := 1
+num a1 := 1
+num _a1 := 1
+a := "\""
+a:="liasdhfiluahfiuasdifhasdlifhia"
+a:="\n"
+return 0
+num ________lisdahf98764876aosdifhalidsfh8762467______a1 := 1
+num iasdhf(){
+
+}
