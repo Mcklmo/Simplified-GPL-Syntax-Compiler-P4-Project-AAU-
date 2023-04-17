@@ -2,7 +2,6 @@ import sys
 from antlr4 import *
 from AlgoPractiseLexer import AlgoPractiseLexer
 from AlgoPractiseParser import AlgoPractiseParser
-from AlgoPractiseListener import AlgoPractiseListener
 from antlr4.tree.Trees import Trees
 from antlr4 import FileStream, CommonTokenStream
 
@@ -31,9 +30,7 @@ def main(argv):
     stream = CommonTokenStream(lexer)
     parser = AlgoPractiseParser(stream)
     parse_tree = parser.start()
-    listener = AlgoPractiseListener()
     walker = ParseTreeWalker()
-    walker.walk(listener, parse_tree)
 
     # Print the parse tree
     tree_str = Trees.toStringTree(parse_tree, None, parser)

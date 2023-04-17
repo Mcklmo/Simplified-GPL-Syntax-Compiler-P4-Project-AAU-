@@ -20,9 +20,7 @@ L_CURLY: '{';
 R_CURLY: '}';
 ASSIGN: ':=';
 NUMVAL: '-'? DIGIT+;
-STRINGVAL:
-	'"' (ESC | .)*? '"'; 
-ESC: '\\"' | '\\\\' | '\\n' | '\\r';
+STRINGVAL: '"' ~('\r' | '\n' | '"' | '\\')* '"';
 NEG: '!';
 EQUAL: '==';
 LTE: '<=';
@@ -36,14 +34,14 @@ MULT: '*';
 DIV: '/';
 MOD: '%';
 COMMA: ',';
-NEWLINE: [\n]; 
+NEWLINE: [\n];
 WS: [ \t\r]+ -> skip;
 COMMENT: '/*' .*? '*/' -> skip; // multi-line comment
 // tells lexer to ignore these characters. Otherwise they will not be allowed in the input
 fragment DIGIT: [0-9];
 fragment LETTER: [a-zA-Z];
 // Parser
-start: (func NEWLINE+ | stmts)* (func | stmt)? EOF;
+start: NEWLINE* (func NEWLINE+ | stmts)* (func | stmt)? EOF;
 func: type func_decl | func_decl;
 func_decl: ID params block;
 type:
@@ -53,9 +51,17 @@ type:
 params: (L_PAR R_PAR | L_PAR param_lst R_PAR);
 param_lst: param (COMMA param)*;
 param: type ID;
-block: L_CURLY NEWLINE* stmts R_CURLY | L_CURLY NEWLINE* R_CURLY;
+block:
+	L_CURLY NEWLINE* stmts R_CURLY
+	| L_CURLY NEWLINE* R_CURLY;
 stmts: (stmt NEWLINE+)+;
-stmt: dcl | assign_stmt | cntrol | func_call | RETURN expr | RETURN;
+stmt:
+	dcl
+	| assign_stmt
+	| cntrol
+	| func_call
+	| RETURN expr
+	| RETURN;
 dcl: type assign_stmt | type ID;
 assign_stmt: ID ASSIGN expr;
 expr: // antlr4 gives lowest precedence to the first alternative
