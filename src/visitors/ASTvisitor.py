@@ -16,6 +16,7 @@ from nodes.BinExprNode import BinExprNode
 from nodes.NegExprNode import NegExprNode
 from nodes.ParenthesesExpr import ParenthesesExpr
 from nodes.ValNode import ValNode
+from nodes.While_stmtNode import While_stmtNode
 
 
 class ASTvisitor(AlgoPractiseVisitor):
@@ -150,3 +151,8 @@ class ASTvisitor(AlgoPractiseVisitor):
     
     def visitVal(self, ctx: AlgoPractiseParser.ValContext):
         pass
+
+    def visitWhile_stmt(self, ctx: AlgoPractiseParser.While_stmtContext):
+        while_node = While_stmtNode(ctx.start.line)
+        while_node.children.extend([self.visit(ctx.expr()), self.visit(ctx.block())])
+        return while_node
