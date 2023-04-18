@@ -1,2 +1,17 @@
 env/
 .antlr/
+
+*.vscode
+
+*.pyc
+*.pb
+*.sqlite3
+*__pycache__
+*env
+*.png
+*.PNG
+*.jpg
+*.env
+*.log
+*hato-317615-203e7f957785.json
+staticfiles

@@ -1,4 +1,4 @@
-bool[] a
+num i := 1+2
 
 num testFunc(num t, string k) {
     num[] b := {1,2,3}

@@ -70,7 +70,7 @@ expr: // antlr4 gives lowest precedence to the first alternative
 	| expr EQUAL expr
 	| expr NE expr
 	| expr LTE expr
-	| expr GTE expr
+	| expr GTE expr 
 	| expr GT expr
 	| expr LT expr
 	| expr PLUS expr
