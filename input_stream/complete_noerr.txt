@@ -11,6 +11,11 @@ num funcname(num a,bool y,string h) {
 
     return 7
 } 
+/* check if floats, ints, and signed numbers work */
+num a := 0.9
+a := -0.9
+a := 9
+a := -9
 num [][][] a := {{{1,2},{3,4}},{{5,6}}}
 a := a[0]
 a := a[0][0][0][0][0][0][0][0][0][0][0][0]
