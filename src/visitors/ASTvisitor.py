@@ -3,6 +3,7 @@ from _parser.AlgoPractiseParser import AlgoPractiseParser
 from nodes import StartNode, ASTNode
 from typing import List
 from antlr4.Token import CommonToken, Token
+from collections.abc import Iterable
 from antlr4 import ParserRuleContext
 from nodes.BoolDcnNode import  BoolDclNode
 from nodes.NumDcnNode import  NumDclNode
@@ -31,11 +32,14 @@ class ASTvisitor(AlgoPractiseVisitor):
         # Itterate through all childrn of node
         for child in children:
             # Check if child is terminal node
-            
             if child.getChildCount() == 0: 
                 continue
-        
-            node.children.append(self.visit(child))
+            
+            _ = self.visit(child)
+            if isinstance(_, Iterable):
+                node.children.extend(_)
+            else:
+                node.children.append(_)
         
         return node
 
@@ -185,25 +189,23 @@ class ASTvisitor(AlgoPractiseVisitor):
             func_call_node.children.append(self.visit(element))
         return func_call_node
 
-    def visitStmt(self,ctx:AlgoPractiseParser.StmtContext):
-        """initialize stmtNode from cst"""
-        stmt_node = StmtNode(ctx.start.line)
-        # could be declaration, assignment, control structure, function call, void return or return
-        if ctx.dcl() is not None:
-            stmt_node.children.append(self.visit(ctx.dcl()))
-        elif ctx.assign_stmt() is not None:
-            stmt_node.children.append(self.visit(ctx.assign_stmt()))
-        elif ctx.cntrol() is not None:
-            stmt_node.children.append(self.visit(ctx.cntrol()))
-        elif ctx.func_call() is not None:
-            stmt_node.children.append(self.visit(ctx.func_call()))
-        elif ctx.RETURN() is not None:
-            stmt_node.children.append(self.visit(ctx.RETURN()))
+    # def visitStmt(self,ctx:AlgoPractiseParser.StmtContext):
+    #     """initialize stmtNode from cst"""
+    #     stmt_node = StmtNode(ctx.start.line)
+    #     # could be declaration, assignment, control structure, function call, void return or return
+    #     if ctx.dcl() is not None:
+    #         stmt_node.children.append(self.visit(ctx.dcl()))
+    #     elif ctx.assign_stmt() is not None:
+    #         stmt_node.children.append(self.visit(ctx.assign_stmt()))
+    #     elif ctx.cntrol() is not None:
+    #         stmt_node.children.append(self.visit(ctx.cntrol()))
+    #     elif ctx.func_call() is not None:
+    #         stmt_node.children.append(self.visit(ctx.func_call()))
+    #     elif ctx.RETURN() is not None:
+    #         stmt_node.children.append(self.visit(ctx.RETURN()))
 
-        return stmt_node
+    #     return stmt_node
 
     def visitStmts(self,ctx:AlgoPractiseParser.StmtsContext):
-        """initialize stmtsNode from cst"""
-        stmts_node = StmtsNode(ctx.start.line)
-        stmts_node.children.extend([self.visit(child) for child in ctx.getChildren()])
-        return stmts_node
+        return [self.visit(child) for child in ctx.getChildren()]
+        #return ctx
