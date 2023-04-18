@@ -156,3 +156,20 @@ class ASTvisitor(AlgoPractiseVisitor):
         while_node = While_stmtNode(ctx.start.line)
         while_node.children.extend([self.visit(ctx.expr()), self.visit(ctx.block())])
         return while_node
+
+    def visitVal(self, ctx: AlgoPractiseParser.ValContext):
+        id_node = ctx.ID()
+        elem_list = ctx.elmnt_list()
+
+        if not id_node is None:
+            # ID or subscript
+            pass
+
+        elif not elem_list is None:
+            # raw List val
+            pass
+
+
+
+
+        

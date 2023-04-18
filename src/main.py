@@ -52,7 +52,7 @@ def main(argv=None):
     # if len(argv) < 2:
     #     print("Usage: python main.py <input_file>")
     #     return
-    i = r"./test.txt"
+    i = r"././input_stream/complete_noerr.txt"
     input_stream = FileStream(i)
     lexer = AlgoPractiseLexer(input_stream)
     stream = CommonTokenStream(lexer)
