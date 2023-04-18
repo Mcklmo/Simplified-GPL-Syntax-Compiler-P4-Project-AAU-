@@ -10,113 +10,117 @@ else:
 
 def serializedATN():
     return [
-        4,1,37,292,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,37,303,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
-        2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,1,0,
-        5,0,42,8,0,10,0,12,0,45,9,0,1,0,1,0,4,0,49,8,0,11,0,12,0,50,1,0,
-        5,0,54,8,0,10,0,12,0,57,9,0,1,0,1,0,3,0,61,8,0,1,0,1,0,1,1,1,1,1,
-        1,1,1,3,1,69,8,1,1,2,1,2,1,2,1,2,1,3,1,3,1,3,5,3,78,8,3,10,3,12,
-        3,81,9,3,1,3,1,3,1,3,5,3,86,8,3,10,3,12,3,89,9,3,1,3,1,3,1,3,5,3,
-        94,8,3,10,3,12,3,97,9,3,3,3,99,8,3,1,4,1,4,1,4,1,4,1,4,1,4,3,4,107,
-        8,4,1,5,1,5,1,5,5,5,112,8,5,10,5,12,5,115,9,5,1,6,1,6,1,6,1,7,1,
-        7,5,7,122,8,7,10,7,12,7,125,9,7,1,7,1,7,1,7,1,7,1,7,5,7,132,8,7,
-        10,7,12,7,135,9,7,1,7,3,7,138,8,7,1,8,1,8,4,8,142,8,8,11,8,12,8,
-        143,4,8,146,8,8,11,8,12,8,147,1,9,1,9,1,9,1,9,1,9,1,9,1,9,3,9,157,
-        8,9,1,10,1,10,1,10,1,10,1,10,1,10,3,10,165,8,10,1,11,1,11,1,11,1,
-        11,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,3,12,179,8,12,1,12,1,
-        12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,
-        12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,
-        12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,5,12,220,
-        8,12,10,12,12,12,223,9,12,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,
-        1,13,1,13,1,13,1,13,1,13,1,13,4,13,239,8,13,11,13,12,13,240,1,13,
-        3,13,244,8,13,1,14,1,14,3,14,248,8,14,1,15,1,15,1,15,1,15,1,15,1,
-        15,1,15,1,15,4,15,258,8,15,11,15,12,15,259,1,15,1,15,3,15,264,8,
-        15,1,16,1,16,1,16,1,16,3,16,270,8,16,1,17,1,17,1,17,1,17,1,18,1,
-        18,1,18,1,18,1,18,1,19,1,19,1,19,5,19,284,8,19,10,19,12,19,287,9,
-        19,1,19,3,19,290,8,19,1,19,0,1,24,20,0,2,4,6,8,10,12,14,16,18,20,
-        22,24,26,28,30,32,34,36,38,0,0,325,0,43,1,0,0,0,2,68,1,0,0,0,4,70,
-        1,0,0,0,6,98,1,0,0,0,8,106,1,0,0,0,10,108,1,0,0,0,12,116,1,0,0,0,
-        14,137,1,0,0,0,16,145,1,0,0,0,18,156,1,0,0,0,20,164,1,0,0,0,22,166,
-        1,0,0,0,24,178,1,0,0,0,26,243,1,0,0,0,28,247,1,0,0,0,30,263,1,0,
-        0,0,32,269,1,0,0,0,34,271,1,0,0,0,36,275,1,0,0,0,38,289,1,0,0,0,
-        40,42,5,35,0,0,41,40,1,0,0,0,42,45,1,0,0,0,43,41,1,0,0,0,43,44,1,
-        0,0,0,44,55,1,0,0,0,45,43,1,0,0,0,46,48,3,2,1,0,47,49,5,35,0,0,48,
-        47,1,0,0,0,49,50,1,0,0,0,50,48,1,0,0,0,50,51,1,0,0,0,51,54,1,0,0,
-        0,52,54,3,16,8,0,53,46,1,0,0,0,53,52,1,0,0,0,54,57,1,0,0,0,55,53,
-        1,0,0,0,55,56,1,0,0,0,56,60,1,0,0,0,57,55,1,0,0,0,58,61,3,2,1,0,
-        59,61,3,18,9,0,60,58,1,0,0,0,60,59,1,0,0,0,60,61,1,0,0,0,61,62,1,
-        0,0,0,62,63,5,0,0,1,63,1,1,0,0,0,64,65,3,6,3,0,65,66,3,4,2,0,66,
-        69,1,0,0,0,67,69,3,4,2,0,68,64,1,0,0,0,68,67,1,0,0,0,69,3,1,0,0,
-        0,70,71,5,12,0,0,71,72,3,8,4,0,72,73,3,14,7,0,73,5,1,0,0,0,74,79,
-        5,1,0,0,75,76,5,13,0,0,76,78,5,14,0,0,77,75,1,0,0,0,78,81,1,0,0,
-        0,79,77,1,0,0,0,79,80,1,0,0,0,80,99,1,0,0,0,81,79,1,0,0,0,82,87,
-        5,2,0,0,83,84,5,13,0,0,84,86,5,14,0,0,85,83,1,0,0,0,86,89,1,0,0,
-        0,87,85,1,0,0,0,87,88,1,0,0,0,88,99,1,0,0,0,89,87,1,0,0,0,90,95,
-        5,3,0,0,91,92,5,13,0,0,92,94,5,14,0,0,93,91,1,0,0,0,94,97,1,0,0,
-        0,95,93,1,0,0,0,95,96,1,0,0,0,96,99,1,0,0,0,97,95,1,0,0,0,98,74,
-        1,0,0,0,98,82,1,0,0,0,98,90,1,0,0,0,99,7,1,0,0,0,100,101,5,15,0,
-        0,101,107,5,16,0,0,102,103,5,15,0,0,103,104,3,10,5,0,104,105,5,16,
-        0,0,105,107,1,0,0,0,106,100,1,0,0,0,106,102,1,0,0,0,107,9,1,0,0,
-        0,108,113,3,12,6,0,109,110,5,34,0,0,110,112,3,12,6,0,111,109,1,0,
-        0,0,112,115,1,0,0,0,113,111,1,0,0,0,113,114,1,0,0,0,114,11,1,0,0,
-        0,115,113,1,0,0,0,116,117,3,6,3,0,117,118,5,12,0,0,118,13,1,0,0,
-        0,119,123,5,17,0,0,120,122,5,35,0,0,121,120,1,0,0,0,122,125,1,0,
-        0,0,123,121,1,0,0,0,123,124,1,0,0,0,124,126,1,0,0,0,125,123,1,0,
-        0,0,126,127,3,16,8,0,127,128,5,18,0,0,128,138,1,0,0,0,129,133,5,
-        17,0,0,130,132,5,35,0,0,131,130,1,0,0,0,132,135,1,0,0,0,133,131,
-        1,0,0,0,133,134,1,0,0,0,134,136,1,0,0,0,135,133,1,0,0,0,136,138,
-        5,18,0,0,137,119,1,0,0,0,137,129,1,0,0,0,138,15,1,0,0,0,139,141,
-        3,18,9,0,140,142,5,35,0,0,141,140,1,0,0,0,142,143,1,0,0,0,143,141,
-        1,0,0,0,143,144,1,0,0,0,144,146,1,0,0,0,145,139,1,0,0,0,146,147,
-        1,0,0,0,147,145,1,0,0,0,147,148,1,0,0,0,148,17,1,0,0,0,149,157,3,
-        20,10,0,150,157,3,22,11,0,151,157,3,28,14,0,152,157,3,36,18,0,153,
-        154,5,11,0,0,154,157,3,24,12,0,155,157,5,11,0,0,156,149,1,0,0,0,
-        156,150,1,0,0,0,156,151,1,0,0,0,156,152,1,0,0,0,156,153,1,0,0,0,
-        156,155,1,0,0,0,157,19,1,0,0,0,158,159,3,6,3,0,159,160,3,22,11,0,
-        160,165,1,0,0,0,161,162,3,6,3,0,162,163,5,12,0,0,163,165,1,0,0,0,
-        164,158,1,0,0,0,164,161,1,0,0,0,165,21,1,0,0,0,166,167,5,12,0,0,
-        167,168,5,19,0,0,168,169,3,24,12,0,169,23,1,0,0,0,170,171,6,12,-1,
-        0,171,172,5,22,0,0,172,179,3,24,12,3,173,179,3,26,13,0,174,175,5,
-        15,0,0,175,176,3,24,12,0,176,177,5,16,0,0,177,179,1,0,0,0,178,170,
-        1,0,0,0,178,173,1,0,0,0,178,174,1,0,0,0,179,221,1,0,0,0,180,181,
-        10,16,0,0,181,182,5,10,0,0,182,220,3,24,12,17,183,184,10,15,0,0,
-        184,185,5,9,0,0,185,220,3,24,12,16,186,187,10,14,0,0,187,188,5,23,
-        0,0,188,220,3,24,12,15,189,190,10,13,0,0,190,191,5,28,0,0,191,220,
-        3,24,12,14,192,193,10,12,0,0,193,194,5,24,0,0,194,220,3,24,12,13,
-        195,196,10,11,0,0,196,197,5,25,0,0,197,220,3,24,12,12,198,199,10,
-        10,0,0,199,200,5,27,0,0,200,220,3,24,12,11,201,202,10,9,0,0,202,
-        203,5,26,0,0,203,220,3,24,12,10,204,205,10,8,0,0,205,206,5,29,0,
-        0,206,220,3,24,12,9,207,208,10,7,0,0,208,209,5,30,0,0,209,220,3,
-        24,12,8,210,211,10,6,0,0,211,212,5,31,0,0,212,220,3,24,12,7,213,
-        214,10,5,0,0,214,215,5,32,0,0,215,220,3,24,12,6,216,217,10,4,0,0,
-        217,218,5,33,0,0,218,220,3,24,12,5,219,180,1,0,0,0,219,183,1,0,0,
-        0,219,186,1,0,0,0,219,189,1,0,0,0,219,192,1,0,0,0,219,195,1,0,0,
-        0,219,198,1,0,0,0,219,201,1,0,0,0,219,204,1,0,0,0,219,207,1,0,0,
-        0,219,210,1,0,0,0,219,213,1,0,0,0,219,216,1,0,0,0,220,223,1,0,0,
-        0,221,219,1,0,0,0,221,222,1,0,0,0,222,25,1,0,0,0,223,221,1,0,0,0,
-        224,244,5,12,0,0,225,244,5,20,0,0,226,244,5,21,0,0,227,244,5,4,0,
-        0,228,244,5,5,0,0,229,230,5,17,0,0,230,231,3,38,19,0,231,232,5,18,
-        0,0,232,244,1,0,0,0,233,238,5,12,0,0,234,235,5,13,0,0,235,236,3,
-        24,12,0,236,237,5,14,0,0,237,239,1,0,0,0,238,234,1,0,0,0,239,240,
-        1,0,0,0,240,238,1,0,0,0,240,241,1,0,0,0,241,244,1,0,0,0,242,244,
-        3,36,18,0,243,224,1,0,0,0,243,225,1,0,0,0,243,226,1,0,0,0,243,227,
-        1,0,0,0,243,228,1,0,0,0,243,229,1,0,0,0,243,233,1,0,0,0,243,242,
-        1,0,0,0,244,27,1,0,0,0,245,248,3,30,15,0,246,248,3,34,17,0,247,245,
-        1,0,0,0,247,246,1,0,0,0,248,29,1,0,0,0,249,250,5,6,0,0,250,251,3,
-        24,12,0,251,252,3,14,7,0,252,264,1,0,0,0,253,254,5,6,0,0,254,255,
-        3,24,12,0,255,257,3,14,7,0,256,258,5,35,0,0,257,256,1,0,0,0,258,
-        259,1,0,0,0,259,257,1,0,0,0,259,260,1,0,0,0,260,261,1,0,0,0,261,
-        262,3,32,16,0,262,264,1,0,0,0,263,249,1,0,0,0,263,253,1,0,0,0,264,
-        31,1,0,0,0,265,266,5,7,0,0,266,270,3,30,15,0,267,268,5,7,0,0,268,
-        270,3,14,7,0,269,265,1,0,0,0,269,267,1,0,0,0,270,33,1,0,0,0,271,
-        272,5,8,0,0,272,273,3,24,12,0,273,274,3,14,7,0,274,35,1,0,0,0,275,
-        276,5,12,0,0,276,277,5,15,0,0,277,278,3,38,19,0,278,279,5,16,0,0,
-        279,37,1,0,0,0,280,285,3,24,12,0,281,282,5,34,0,0,282,284,3,24,12,
-        0,283,281,1,0,0,0,284,287,1,0,0,0,285,283,1,0,0,0,285,286,1,0,0,
-        0,286,290,1,0,0,0,287,285,1,0,0,0,288,290,1,0,0,0,289,280,1,0,0,
-        0,289,288,1,0,0,0,290,39,1,0,0,0,30,43,50,53,55,60,68,79,87,95,98,
-        106,113,123,133,137,143,147,156,164,178,219,221,240,243,247,259,
-        263,269,285,289
+        2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
+        7,20,1,0,5,0,44,8,0,10,0,12,0,47,9,0,1,0,1,0,4,0,51,8,0,11,0,12,
+        0,52,1,0,5,0,56,8,0,10,0,12,0,59,9,0,1,0,1,0,3,0,63,8,0,1,0,1,0,
+        1,1,1,1,1,1,1,1,3,1,71,8,1,1,2,1,2,1,2,1,2,1,3,1,3,1,3,5,3,80,8,
+        3,10,3,12,3,83,9,3,1,3,1,3,1,3,5,3,88,8,3,10,3,12,3,91,9,3,1,3,1,
+        3,1,3,5,3,96,8,3,10,3,12,3,99,9,3,3,3,101,8,3,1,4,1,4,1,4,1,4,1,
+        4,1,4,3,4,109,8,4,1,5,1,5,1,5,5,5,114,8,5,10,5,12,5,117,9,5,1,6,
+        1,6,1,6,1,7,1,7,5,7,124,8,7,10,7,12,7,127,9,7,1,7,1,7,1,7,1,7,1,
+        7,5,7,134,8,7,10,7,12,7,137,9,7,1,7,3,7,140,8,7,1,8,1,8,4,8,144,
+        8,8,11,8,12,8,145,4,8,148,8,8,11,8,12,8,149,1,9,1,9,1,9,1,9,1,9,
+        1,9,1,9,3,9,159,8,9,1,10,1,10,1,10,1,10,1,10,1,10,3,10,167,8,10,
+        1,11,1,11,1,11,3,11,172,8,11,1,11,1,11,1,11,1,12,1,12,1,12,1,12,
+        4,12,181,8,12,11,12,12,12,182,1,13,1,13,1,13,1,13,1,13,1,13,1,13,
+        1,13,3,13,193,8,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,
+        1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,
+        1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,
+        1,13,1,13,1,13,1,13,5,13,234,8,13,10,13,12,13,237,9,13,1,14,1,14,
+        1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,14,4,14,250,8,14,11,14,
+        12,14,251,1,14,3,14,255,8,14,1,15,1,15,3,15,259,8,15,1,16,1,16,1,
+        16,1,16,1,16,1,16,1,16,1,16,4,16,269,8,16,11,16,12,16,270,1,16,1,
+        16,3,16,275,8,16,1,17,1,17,1,17,1,17,3,17,281,8,17,1,18,1,18,1,18,
+        1,18,1,19,1,19,1,19,1,19,1,19,1,20,1,20,1,20,5,20,295,8,20,10,20,
+        12,20,298,9,20,1,20,3,20,301,8,20,1,20,0,1,26,21,0,2,4,6,8,10,12,
+        14,16,18,20,22,24,26,28,30,32,34,36,38,40,0,0,337,0,45,1,0,0,0,2,
+        70,1,0,0,0,4,72,1,0,0,0,6,100,1,0,0,0,8,108,1,0,0,0,10,110,1,0,0,
+        0,12,118,1,0,0,0,14,139,1,0,0,0,16,147,1,0,0,0,18,158,1,0,0,0,20,
+        166,1,0,0,0,22,171,1,0,0,0,24,180,1,0,0,0,26,192,1,0,0,0,28,254,
+        1,0,0,0,30,258,1,0,0,0,32,274,1,0,0,0,34,280,1,0,0,0,36,282,1,0,
+        0,0,38,286,1,0,0,0,40,300,1,0,0,0,42,44,5,35,0,0,43,42,1,0,0,0,44,
+        47,1,0,0,0,45,43,1,0,0,0,45,46,1,0,0,0,46,57,1,0,0,0,47,45,1,0,0,
+        0,48,50,3,2,1,0,49,51,5,35,0,0,50,49,1,0,0,0,51,52,1,0,0,0,52,50,
+        1,0,0,0,52,53,1,0,0,0,53,56,1,0,0,0,54,56,3,16,8,0,55,48,1,0,0,0,
+        55,54,1,0,0,0,56,59,1,0,0,0,57,55,1,0,0,0,57,58,1,0,0,0,58,62,1,
+        0,0,0,59,57,1,0,0,0,60,63,3,2,1,0,61,63,3,18,9,0,62,60,1,0,0,0,62,
+        61,1,0,0,0,62,63,1,0,0,0,63,64,1,0,0,0,64,65,5,0,0,1,65,1,1,0,0,
+        0,66,67,3,6,3,0,67,68,3,4,2,0,68,71,1,0,0,0,69,71,3,4,2,0,70,66,
+        1,0,0,0,70,69,1,0,0,0,71,3,1,0,0,0,72,73,5,12,0,0,73,74,3,8,4,0,
+        74,75,3,14,7,0,75,5,1,0,0,0,76,81,5,1,0,0,77,78,5,13,0,0,78,80,5,
+        14,0,0,79,77,1,0,0,0,80,83,1,0,0,0,81,79,1,0,0,0,81,82,1,0,0,0,82,
+        101,1,0,0,0,83,81,1,0,0,0,84,89,5,2,0,0,85,86,5,13,0,0,86,88,5,14,
+        0,0,87,85,1,0,0,0,88,91,1,0,0,0,89,87,1,0,0,0,89,90,1,0,0,0,90,101,
+        1,0,0,0,91,89,1,0,0,0,92,97,5,3,0,0,93,94,5,13,0,0,94,96,5,14,0,
+        0,95,93,1,0,0,0,96,99,1,0,0,0,97,95,1,0,0,0,97,98,1,0,0,0,98,101,
+        1,0,0,0,99,97,1,0,0,0,100,76,1,0,0,0,100,84,1,0,0,0,100,92,1,0,0,
+        0,101,7,1,0,0,0,102,103,5,15,0,0,103,109,5,16,0,0,104,105,5,15,0,
+        0,105,106,3,10,5,0,106,107,5,16,0,0,107,109,1,0,0,0,108,102,1,0,
+        0,0,108,104,1,0,0,0,109,9,1,0,0,0,110,115,3,12,6,0,111,112,5,34,
+        0,0,112,114,3,12,6,0,113,111,1,0,0,0,114,117,1,0,0,0,115,113,1,0,
+        0,0,115,116,1,0,0,0,116,11,1,0,0,0,117,115,1,0,0,0,118,119,3,6,3,
+        0,119,120,5,12,0,0,120,13,1,0,0,0,121,125,5,17,0,0,122,124,5,35,
+        0,0,123,122,1,0,0,0,124,127,1,0,0,0,125,123,1,0,0,0,125,126,1,0,
+        0,0,126,128,1,0,0,0,127,125,1,0,0,0,128,129,3,16,8,0,129,130,5,18,
+        0,0,130,140,1,0,0,0,131,135,5,17,0,0,132,134,5,35,0,0,133,132,1,
+        0,0,0,134,137,1,0,0,0,135,133,1,0,0,0,135,136,1,0,0,0,136,138,1,
+        0,0,0,137,135,1,0,0,0,138,140,5,18,0,0,139,121,1,0,0,0,139,131,1,
+        0,0,0,140,15,1,0,0,0,141,143,3,18,9,0,142,144,5,35,0,0,143,142,1,
+        0,0,0,144,145,1,0,0,0,145,143,1,0,0,0,145,146,1,0,0,0,146,148,1,
+        0,0,0,147,141,1,0,0,0,148,149,1,0,0,0,149,147,1,0,0,0,149,150,1,
+        0,0,0,150,17,1,0,0,0,151,159,3,20,10,0,152,159,3,22,11,0,153,159,
+        3,30,15,0,154,159,3,38,19,0,155,156,5,11,0,0,156,159,3,26,13,0,157,
+        159,5,11,0,0,158,151,1,0,0,0,158,152,1,0,0,0,158,153,1,0,0,0,158,
+        154,1,0,0,0,158,155,1,0,0,0,158,157,1,0,0,0,159,19,1,0,0,0,160,161,
+        3,6,3,0,161,162,3,22,11,0,162,167,1,0,0,0,163,164,3,6,3,0,164,165,
+        5,12,0,0,165,167,1,0,0,0,166,160,1,0,0,0,166,163,1,0,0,0,167,21,
+        1,0,0,0,168,172,5,12,0,0,169,170,5,12,0,0,170,172,3,24,12,0,171,
+        168,1,0,0,0,171,169,1,0,0,0,172,173,1,0,0,0,173,174,5,19,0,0,174,
+        175,3,26,13,0,175,23,1,0,0,0,176,177,5,13,0,0,177,178,3,26,13,0,
+        178,179,5,14,0,0,179,181,1,0,0,0,180,176,1,0,0,0,181,182,1,0,0,0,
+        182,180,1,0,0,0,182,183,1,0,0,0,183,25,1,0,0,0,184,185,6,13,-1,0,
+        185,186,5,22,0,0,186,193,3,26,13,3,187,193,3,28,14,0,188,189,5,15,
+        0,0,189,190,3,26,13,0,190,191,5,16,0,0,191,193,1,0,0,0,192,184,1,
+        0,0,0,192,187,1,0,0,0,192,188,1,0,0,0,193,235,1,0,0,0,194,195,10,
+        16,0,0,195,196,5,10,0,0,196,234,3,26,13,17,197,198,10,15,0,0,198,
+        199,5,9,0,0,199,234,3,26,13,16,200,201,10,14,0,0,201,202,5,23,0,
+        0,202,234,3,26,13,15,203,204,10,13,0,0,204,205,5,28,0,0,205,234,
+        3,26,13,14,206,207,10,12,0,0,207,208,5,24,0,0,208,234,3,26,13,13,
+        209,210,10,11,0,0,210,211,5,25,0,0,211,234,3,26,13,12,212,213,10,
+        10,0,0,213,214,5,27,0,0,214,234,3,26,13,11,215,216,10,9,0,0,216,
+        217,5,26,0,0,217,234,3,26,13,10,218,219,10,8,0,0,219,220,5,29,0,
+        0,220,234,3,26,13,9,221,222,10,7,0,0,222,223,5,30,0,0,223,234,3,
+        26,13,8,224,225,10,6,0,0,225,226,5,31,0,0,226,234,3,26,13,7,227,
+        228,10,5,0,0,228,229,5,32,0,0,229,234,3,26,13,6,230,231,10,4,0,0,
+        231,232,5,33,0,0,232,234,3,26,13,5,233,194,1,0,0,0,233,197,1,0,0,
+        0,233,200,1,0,0,0,233,203,1,0,0,0,233,206,1,0,0,0,233,209,1,0,0,
+        0,233,212,1,0,0,0,233,215,1,0,0,0,233,218,1,0,0,0,233,221,1,0,0,
+        0,233,224,1,0,0,0,233,227,1,0,0,0,233,230,1,0,0,0,234,237,1,0,0,
+        0,235,233,1,0,0,0,235,236,1,0,0,0,236,27,1,0,0,0,237,235,1,0,0,0,
+        238,255,5,12,0,0,239,255,5,20,0,0,240,255,5,21,0,0,241,255,5,4,0,
+        0,242,255,5,5,0,0,243,244,5,17,0,0,244,245,3,40,20,0,245,246,5,18,
+        0,0,246,255,1,0,0,0,247,249,5,12,0,0,248,250,3,24,12,0,249,248,1,
+        0,0,0,250,251,1,0,0,0,251,249,1,0,0,0,251,252,1,0,0,0,252,255,1,
+        0,0,0,253,255,3,38,19,0,254,238,1,0,0,0,254,239,1,0,0,0,254,240,
+        1,0,0,0,254,241,1,0,0,0,254,242,1,0,0,0,254,243,1,0,0,0,254,247,
+        1,0,0,0,254,253,1,0,0,0,255,29,1,0,0,0,256,259,3,32,16,0,257,259,
+        3,36,18,0,258,256,1,0,0,0,258,257,1,0,0,0,259,31,1,0,0,0,260,261,
+        5,6,0,0,261,262,3,26,13,0,262,263,3,14,7,0,263,275,1,0,0,0,264,265,
+        5,6,0,0,265,266,3,26,13,0,266,268,3,14,7,0,267,269,5,35,0,0,268,
+        267,1,0,0,0,269,270,1,0,0,0,270,268,1,0,0,0,270,271,1,0,0,0,271,
+        272,1,0,0,0,272,273,3,34,17,0,273,275,1,0,0,0,274,260,1,0,0,0,274,
+        264,1,0,0,0,275,33,1,0,0,0,276,277,5,7,0,0,277,281,3,32,16,0,278,
+        279,5,7,0,0,279,281,3,14,7,0,280,276,1,0,0,0,280,278,1,0,0,0,281,
+        35,1,0,0,0,282,283,5,8,0,0,283,284,3,26,13,0,284,285,3,14,7,0,285,
+        37,1,0,0,0,286,287,5,12,0,0,287,288,5,15,0,0,288,289,3,40,20,0,289,
+        290,5,16,0,0,290,39,1,0,0,0,291,296,3,26,13,0,292,293,5,34,0,0,293,
+        295,3,26,13,0,294,292,1,0,0,0,295,298,1,0,0,0,296,294,1,0,0,0,296,
+        297,1,0,0,0,297,301,1,0,0,0,298,296,1,0,0,0,299,301,1,0,0,0,300,
+        291,1,0,0,0,300,299,1,0,0,0,301,41,1,0,0,0,32,45,52,55,57,62,70,
+        81,89,97,100,108,115,125,135,139,145,149,158,166,171,182,192,233,
+        235,251,254,258,270,274,280,296,300
     ]
 
 class AlgoPractiseParser ( Parser ):
@@ -156,19 +160,20 @@ class AlgoPractiseParser ( Parser ):
     RULE_stmt = 9
     RULE_dcl = 10
     RULE_assign_stmt = 11
-    RULE_expr = 12
-    RULE_val = 13
-    RULE_cntrol = 14
-    RULE_if_stmt = 15
-    RULE_else_stmt = 16
-    RULE_while_stmt = 17
-    RULE_func_call = 18
-    RULE_elmnt_list = 19
+    RULE_list_subscript = 12
+    RULE_expr = 13
+    RULE_val = 14
+    RULE_cntrol = 15
+    RULE_if_stmt = 16
+    RULE_else_stmt = 17
+    RULE_while_stmt = 18
+    RULE_func_call = 19
+    RULE_elmnt_list = 20
 
     ruleNames =  [ "start", "func", "func_decl", "type", "params", "param_lst", 
                    "param", "block", "stmts", "stmt", "dcl", "assign_stmt", 
-                   "expr", "val", "cntrol", "if_stmt", "else_stmt", "while_stmt", 
-                   "func_call", "elmnt_list" ]
+                   "list_subscript", "expr", "val", "cntrol", "if_stmt", 
+                   "else_stmt", "while_stmt", "func_call", "elmnt_list" ]
 
     EOF = Token.EOF
     BOOL_TYPE=1
@@ -271,34 +276,34 @@ class AlgoPractiseParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 43
+            self.state = 45
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==35:
-                self.state = 40
+                self.state = 42
                 self.match(AlgoPractiseParser.NEWLINE)
-                self.state = 45
+                self.state = 47
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 55
+            self.state = 57
             self._errHandler.sync(self)
             _alt = self._interp.adaptivePredict(self._input,3,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
-                    self.state = 53
+                    self.state = 55
                     self._errHandler.sync(self)
                     la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
                     if la_ == 1:
-                        self.state = 46
+                        self.state = 48
                         self.func()
-                        self.state = 48 
+                        self.state = 50 
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
                         while True:
-                            self.state = 47
+                            self.state = 49
                             self.match(AlgoPractiseParser.NEWLINE)
-                            self.state = 50 
+                            self.state = 52 
                             self._errHandler.sync(self)
                             _la = self._input.LA(1)
                             if not (_la==35):
@@ -307,28 +312,28 @@ class AlgoPractiseParser ( Parser ):
                         pass
 
                     elif la_ == 2:
-                        self.state = 52
+                        self.state = 54
                         self.stmts()
                         pass
 
              
-                self.state = 57
+                self.state = 59
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,3,self._ctx)
 
-            self.state = 60
+            self.state = 62
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,4,self._ctx)
             if la_ == 1:
-                self.state = 58
+                self.state = 60
                 self.func()
 
             elif la_ == 2:
-                self.state = 59
+                self.state = 61
                 self.stmt()
 
 
-            self.state = 62
+            self.state = 64
             self.match(AlgoPractiseParser.EOF)
         except RecognitionException as re:
             localctx.exception = re
@@ -371,19 +376,19 @@ class AlgoPractiseParser ( Parser ):
         localctx = AlgoPractiseParser.FuncContext(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_func)
         try:
-            self.state = 68
+            self.state = 70
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [1, 2, 3]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 64
+                self.state = 66
                 self.type_()
-                self.state = 65
+                self.state = 67
                 self.func_decl()
                 pass
             elif token in [12]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 67
+                self.state = 69
                 self.func_decl()
                 pass
             else:
@@ -434,11 +439,11 @@ class AlgoPractiseParser ( Parser ):
         self.enterRule(localctx, 4, self.RULE_func_decl)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 70
-            self.match(AlgoPractiseParser.ID)
-            self.state = 71
-            self.params()
             self.state = 72
+            self.match(AlgoPractiseParser.ID)
+            self.state = 73
+            self.params()
+            self.state = 74
             self.block()
         except RecognitionException as re:
             localctx.exception = re
@@ -495,56 +500,56 @@ class AlgoPractiseParser ( Parser ):
         self.enterRule(localctx, 6, self.RULE_type)
         self._la = 0 # Token type
         try:
-            self.state = 98
+            self.state = 100
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [1]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 74
+                self.state = 76
                 self.match(AlgoPractiseParser.BOOL_TYPE)
-                self.state = 79
+                self.state = 81
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==13:
-                    self.state = 75
+                    self.state = 77
                     self.match(AlgoPractiseParser.L_BRACKET)
-                    self.state = 76
+                    self.state = 78
                     self.match(AlgoPractiseParser.R_BRACKET)
-                    self.state = 81
+                    self.state = 83
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
                 pass
             elif token in [2]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 82
+                self.state = 84
                 self.match(AlgoPractiseParser.STR_TYPE)
-                self.state = 87
+                self.state = 89
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==13:
-                    self.state = 83
+                    self.state = 85
                     self.match(AlgoPractiseParser.L_BRACKET)
-                    self.state = 84
+                    self.state = 86
                     self.match(AlgoPractiseParser.R_BRACKET)
-                    self.state = 89
+                    self.state = 91
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
                 pass
             elif token in [3]:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 90
+                self.state = 92
                 self.match(AlgoPractiseParser.NUM_TYPE)
-                self.state = 95
+                self.state = 97
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==13:
-                    self.state = 91
+                    self.state = 93
                     self.match(AlgoPractiseParser.L_BRACKET)
-                    self.state = 92
+                    self.state = 94
                     self.match(AlgoPractiseParser.R_BRACKET)
-                    self.state = 97
+                    self.state = 99
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
@@ -596,22 +601,22 @@ class AlgoPractiseParser ( Parser ):
         self.enterRule(localctx, 8, self.RULE_params)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 106
+            self.state = 108
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,10,self._ctx)
             if la_ == 1:
-                self.state = 100
+                self.state = 102
                 self.match(AlgoPractiseParser.L_PAR)
-                self.state = 101
+                self.state = 103
                 self.match(AlgoPractiseParser.R_PAR)
                 pass
 
             elif la_ == 2:
-                self.state = 102
-                self.match(AlgoPractiseParser.L_PAR)
-                self.state = 103
-                self.param_lst()
                 self.state = 104
+                self.match(AlgoPractiseParser.L_PAR)
+                self.state = 105
+                self.param_lst()
+                self.state = 106
                 self.match(AlgoPractiseParser.R_PAR)
                 pass
 
@@ -664,17 +669,17 @@ class AlgoPractiseParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 108
+            self.state = 110
             self.param()
-            self.state = 113
+            self.state = 115
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==34:
-                self.state = 109
+                self.state = 111
                 self.match(AlgoPractiseParser.COMMA)
-                self.state = 110
+                self.state = 112
                 self.param()
-                self.state = 115
+                self.state = 117
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -719,9 +724,9 @@ class AlgoPractiseParser ( Parser ):
         self.enterRule(localctx, 12, self.RULE_param)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 116
+            self.state = 118
             self.type_()
-            self.state = 117
+            self.state = 119
             self.match(AlgoPractiseParser.ID)
         except RecognitionException as re:
             localctx.exception = re
@@ -773,44 +778,44 @@ class AlgoPractiseParser ( Parser ):
         self.enterRule(localctx, 14, self.RULE_block)
         self._la = 0 # Token type
         try:
-            self.state = 137
+            self.state = 139
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,14,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 119
+                self.state = 121
                 self.match(AlgoPractiseParser.L_CURLY)
-                self.state = 123
+                self.state = 125
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==35:
-                    self.state = 120
+                    self.state = 122
                     self.match(AlgoPractiseParser.NEWLINE)
-                    self.state = 125
+                    self.state = 127
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
-                self.state = 126
+                self.state = 128
                 self.stmts()
-                self.state = 127
+                self.state = 129
                 self.match(AlgoPractiseParser.R_CURLY)
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 129
+                self.state = 131
                 self.match(AlgoPractiseParser.L_CURLY)
-                self.state = 133
+                self.state = 135
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==35:
-                    self.state = 130
+                    self.state = 132
                     self.match(AlgoPractiseParser.NEWLINE)
-                    self.state = 135
+                    self.state = 137
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
-                self.state = 136
+                self.state = 138
                 self.match(AlgoPractiseParser.R_CURLY)
                 pass
 
@@ -863,20 +868,20 @@ class AlgoPractiseParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 145 
+            self.state = 147 
             self._errHandler.sync(self)
             _alt = 1
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
-                    self.state = 139
+                    self.state = 141
                     self.stmt()
-                    self.state = 141 
+                    self.state = 143 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     while True:
-                        self.state = 140
+                        self.state = 142
                         self.match(AlgoPractiseParser.NEWLINE)
-                        self.state = 143 
+                        self.state = 145 
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
                         if not (_la==35):
@@ -885,7 +890,7 @@ class AlgoPractiseParser ( Parser ):
 
                 else:
                     raise NoViableAltException(self)
-                self.state = 147 
+                self.state = 149 
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,16,self._ctx)
 
@@ -945,44 +950,44 @@ class AlgoPractiseParser ( Parser ):
         localctx = AlgoPractiseParser.StmtContext(self, self._ctx, self.state)
         self.enterRule(localctx, 18, self.RULE_stmt)
         try:
-            self.state = 156
+            self.state = 158
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,17,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 149
+                self.state = 151
                 self.dcl()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 150
+                self.state = 152
                 self.assign_stmt()
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 151
+                self.state = 153
                 self.cntrol()
                 pass
 
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 152
+                self.state = 154
                 self.func_call()
                 pass
 
             elif la_ == 5:
                 self.enterOuterAlt(localctx, 5)
-                self.state = 153
+                self.state = 155
                 self.match(AlgoPractiseParser.RETURN)
-                self.state = 154
+                self.state = 156
                 self.expr(0)
                 pass
 
             elif la_ == 6:
                 self.enterOuterAlt(localctx, 6)
-                self.state = 155
+                self.state = 157
                 self.match(AlgoPractiseParser.RETURN)
                 pass
 
@@ -1031,22 +1036,22 @@ class AlgoPractiseParser ( Parser ):
         localctx = AlgoPractiseParser.DclContext(self, self._ctx, self.state)
         self.enterRule(localctx, 20, self.RULE_dcl)
         try:
-            self.state = 164
+            self.state = 166
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,18,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 158
+                self.state = 160
                 self.type_()
-                self.state = 159
+                self.state = 161
                 self.assign_stmt()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 161
+                self.state = 163
                 self.type_()
-                self.state = 162
+                self.state = 164
                 self.match(AlgoPractiseParser.ID)
                 pass
 
@@ -1067,14 +1072,18 @@ class AlgoPractiseParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def ID(self):
-            return self.getToken(AlgoPractiseParser.ID, 0)
-
         def ASSIGN(self):
             return self.getToken(AlgoPractiseParser.ASSIGN, 0)
 
         def expr(self):
             return self.getTypedRuleContext(AlgoPractiseParser.ExprContext,0)
+
+
+        def ID(self):
+            return self.getToken(AlgoPractiseParser.ID, 0)
+
+        def list_subscript(self):
+            return self.getTypedRuleContext(AlgoPractiseParser.List_subscriptContext,0)
 
 
         def getRuleIndex(self):
@@ -1095,12 +1104,97 @@ class AlgoPractiseParser ( Parser ):
         self.enterRule(localctx, 22, self.RULE_assign_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 166
-            self.match(AlgoPractiseParser.ID)
-            self.state = 167
+            self.state = 171
+            self._errHandler.sync(self)
+            la_ = self._interp.adaptivePredict(self._input,19,self._ctx)
+            if la_ == 1:
+                self.state = 168
+                self.match(AlgoPractiseParser.ID)
+                pass
+
+            elif la_ == 2:
+                self.state = 169
+                self.match(AlgoPractiseParser.ID)
+                self.state = 170
+                self.list_subscript()
+                pass
+
+
+            self.state = 173
             self.match(AlgoPractiseParser.ASSIGN)
-            self.state = 168
+            self.state = 174
             self.expr(0)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class List_subscriptContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def L_BRACKET(self, i:int=None):
+            if i is None:
+                return self.getTokens(AlgoPractiseParser.L_BRACKET)
+            else:
+                return self.getToken(AlgoPractiseParser.L_BRACKET, i)
+
+        def expr(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(AlgoPractiseParser.ExprContext)
+            else:
+                return self.getTypedRuleContext(AlgoPractiseParser.ExprContext,i)
+
+
+        def R_BRACKET(self, i:int=None):
+            if i is None:
+                return self.getTokens(AlgoPractiseParser.R_BRACKET)
+            else:
+                return self.getToken(AlgoPractiseParser.R_BRACKET, i)
+
+        def getRuleIndex(self):
+            return AlgoPractiseParser.RULE_list_subscript
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitList_subscript" ):
+                return visitor.visitList_subscript(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def list_subscript(self):
+
+        localctx = AlgoPractiseParser.List_subscriptContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 24, self.RULE_list_subscript)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 180 
+            self._errHandler.sync(self)
+            _alt = 1
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
+                    self.state = 176
+                    self.match(AlgoPractiseParser.L_BRACKET)
+                    self.state = 177
+                    self.expr(0)
+                    self.state = 178
+                    self.match(AlgoPractiseParser.R_BRACKET)
+
+                else:
+                    raise NoViableAltException(self)
+                self.state = 182 
+                self._errHandler.sync(self)
+                _alt = self._interp.adaptivePredict(self._input,20,self._ctx)
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1192,219 +1286,219 @@ class AlgoPractiseParser ( Parser ):
         _parentState = self.state
         localctx = AlgoPractiseParser.ExprContext(self, self._ctx, _parentState)
         _prevctx = localctx
-        _startState = 24
-        self.enterRecursionRule(localctx, 24, self.RULE_expr, _p)
+        _startState = 26
+        self.enterRecursionRule(localctx, 26, self.RULE_expr, _p)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 178
+            self.state = 192
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [22]:
-                self.state = 171
+                self.state = 185
                 self.match(AlgoPractiseParser.NEG)
-                self.state = 172
+                self.state = 186
                 self.expr(3)
                 pass
             elif token in [4, 5, 12, 17, 20, 21]:
-                self.state = 173
+                self.state = 187
                 self.val()
                 pass
             elif token in [15]:
-                self.state = 174
+                self.state = 188
                 self.match(AlgoPractiseParser.L_PAR)
-                self.state = 175
+                self.state = 189
                 self.expr(0)
-                self.state = 176
+                self.state = 190
                 self.match(AlgoPractiseParser.R_PAR)
                 pass
             else:
                 raise NoViableAltException(self)
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 221
+            self.state = 235
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,21,self._ctx)
+            _alt = self._interp.adaptivePredict(self._input,23,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    self.state = 219
+                    self.state = 233
                     self._errHandler.sync(self)
-                    la_ = self._interp.adaptivePredict(self._input,20,self._ctx)
+                    la_ = self._interp.adaptivePredict(self._input,22,self._ctx)
                     if la_ == 1:
                         localctx = AlgoPractiseParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 180
+                        self.state = 194
                         if not self.precpred(self._ctx, 16):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 16)")
-                        self.state = 181
+                        self.state = 195
                         self.match(AlgoPractiseParser.OR)
-                        self.state = 182
+                        self.state = 196
                         self.expr(17)
                         pass
 
                     elif la_ == 2:
                         localctx = AlgoPractiseParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 183
+                        self.state = 197
                         if not self.precpred(self._ctx, 15):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 15)")
-                        self.state = 184
+                        self.state = 198
                         self.match(AlgoPractiseParser.AND)
-                        self.state = 185
+                        self.state = 199
                         self.expr(16)
                         pass
 
                     elif la_ == 3:
                         localctx = AlgoPractiseParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 186
+                        self.state = 200
                         if not self.precpred(self._ctx, 14):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 14)")
-                        self.state = 187
+                        self.state = 201
                         self.match(AlgoPractiseParser.EQUAL)
-                        self.state = 188
+                        self.state = 202
                         self.expr(15)
                         pass
 
                     elif la_ == 4:
                         localctx = AlgoPractiseParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 189
+                        self.state = 203
                         if not self.precpred(self._ctx, 13):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 13)")
-                        self.state = 190
+                        self.state = 204
                         self.match(AlgoPractiseParser.NE)
-                        self.state = 191
+                        self.state = 205
                         self.expr(14)
                         pass
 
                     elif la_ == 5:
                         localctx = AlgoPractiseParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 192
+                        self.state = 206
                         if not self.precpred(self._ctx, 12):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 12)")
-                        self.state = 193
+                        self.state = 207
                         self.match(AlgoPractiseParser.LTE)
-                        self.state = 194
+                        self.state = 208
                         self.expr(13)
                         pass
 
                     elif la_ == 6:
                         localctx = AlgoPractiseParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 195
+                        self.state = 209
                         if not self.precpred(self._ctx, 11):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 11)")
-                        self.state = 196
+                        self.state = 210
                         self.match(AlgoPractiseParser.GTE)
-                        self.state = 197
+                        self.state = 211
                         self.expr(12)
                         pass
 
                     elif la_ == 7:
                         localctx = AlgoPractiseParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 198
+                        self.state = 212
                         if not self.precpred(self._ctx, 10):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 10)")
-                        self.state = 199
+                        self.state = 213
                         self.match(AlgoPractiseParser.GT)
-                        self.state = 200
+                        self.state = 214
                         self.expr(11)
                         pass
 
                     elif la_ == 8:
                         localctx = AlgoPractiseParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 201
+                        self.state = 215
                         if not self.precpred(self._ctx, 9):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 9)")
-                        self.state = 202
+                        self.state = 216
                         self.match(AlgoPractiseParser.LT)
-                        self.state = 203
+                        self.state = 217
                         self.expr(10)
                         pass
 
                     elif la_ == 9:
                         localctx = AlgoPractiseParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 204
+                        self.state = 218
                         if not self.precpred(self._ctx, 8):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
-                        self.state = 205
+                        self.state = 219
                         self.match(AlgoPractiseParser.PLUS)
-                        self.state = 206
+                        self.state = 220
                         self.expr(9)
                         pass
 
                     elif la_ == 10:
                         localctx = AlgoPractiseParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 207
+                        self.state = 221
                         if not self.precpred(self._ctx, 7):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
-                        self.state = 208
+                        self.state = 222
                         self.match(AlgoPractiseParser.MINUS)
-                        self.state = 209
+                        self.state = 223
                         self.expr(8)
                         pass
 
                     elif la_ == 11:
                         localctx = AlgoPractiseParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 210
+                        self.state = 224
                         if not self.precpred(self._ctx, 6):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
-                        self.state = 211
+                        self.state = 225
                         self.match(AlgoPractiseParser.MULT)
-                        self.state = 212
+                        self.state = 226
                         self.expr(7)
                         pass
 
                     elif la_ == 12:
                         localctx = AlgoPractiseParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 213
+                        self.state = 227
                         if not self.precpred(self._ctx, 5):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
-                        self.state = 214
+                        self.state = 228
                         self.match(AlgoPractiseParser.DIV)
-                        self.state = 215
+                        self.state = 229
                         self.expr(6)
                         pass
 
                     elif la_ == 13:
                         localctx = AlgoPractiseParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 216
+                        self.state = 230
                         if not self.precpred(self._ctx, 4):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 4)")
-                        self.state = 217
+                        self.state = 231
                         self.match(AlgoPractiseParser.MOD)
-                        self.state = 218
+                        self.state = 232
                         self.expr(5)
                         pass
 
              
-                self.state = 223
+                self.state = 237
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,21,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,23,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1451,24 +1545,12 @@ class AlgoPractiseParser ( Parser ):
             return self.getTypedRuleContext(AlgoPractiseParser.Func_callContext,0)
 
 
-        def L_BRACKET(self, i:int=None):
+        def list_subscript(self, i:int=None):
             if i is None:
-                return self.getTokens(AlgoPractiseParser.L_BRACKET)
+                return self.getTypedRuleContexts(AlgoPractiseParser.List_subscriptContext)
             else:
-                return self.getToken(AlgoPractiseParser.L_BRACKET, i)
+                return self.getTypedRuleContext(AlgoPractiseParser.List_subscriptContext,i)
 
-        def expr(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(AlgoPractiseParser.ExprContext)
-            else:
-                return self.getTypedRuleContext(AlgoPractiseParser.ExprContext,i)
-
-
-        def R_BRACKET(self, i:int=None):
-            if i is None:
-                return self.getTokens(AlgoPractiseParser.R_BRACKET)
-            else:
-                return self.getToken(AlgoPractiseParser.R_BRACKET, i)
 
         def getRuleIndex(self):
             return AlgoPractiseParser.RULE_val
@@ -1485,71 +1567,67 @@ class AlgoPractiseParser ( Parser ):
     def val(self):
 
         localctx = AlgoPractiseParser.ValContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 26, self.RULE_val)
+        self.enterRule(localctx, 28, self.RULE_val)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 243
+            self.state = 254
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,23,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,25,self._ctx)
             if la_ == 1:
-                self.state = 224
+                self.state = 238
                 self.match(AlgoPractiseParser.ID)
                 pass
 
             elif la_ == 2:
-                self.state = 225
+                self.state = 239
                 self.match(AlgoPractiseParser.NUMVAL)
                 pass
 
             elif la_ == 3:
-                self.state = 226
+                self.state = 240
                 self.match(AlgoPractiseParser.STRINGVAL)
                 pass
 
             elif la_ == 4:
-                self.state = 227
+                self.state = 241
                 self.match(AlgoPractiseParser.TRUE)
                 pass
 
             elif la_ == 5:
-                self.state = 228
+                self.state = 242
                 self.match(AlgoPractiseParser.FALSE)
                 pass
 
             elif la_ == 6:
-                self.state = 229
+                self.state = 243
                 self.match(AlgoPractiseParser.L_CURLY)
-                self.state = 230
+                self.state = 244
                 self.elmnt_list()
-                self.state = 231
+                self.state = 245
                 self.match(AlgoPractiseParser.R_CURLY)
                 pass
 
             elif la_ == 7:
-                self.state = 233
+                self.state = 247
                 self.match(AlgoPractiseParser.ID)
-                self.state = 238 
+                self.state = 249 
                 self._errHandler.sync(self)
                 _alt = 1
                 while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt == 1:
-                        self.state = 234
-                        self.match(AlgoPractiseParser.L_BRACKET)
-                        self.state = 235
-                        self.expr(0)
-                        self.state = 236
-                        self.match(AlgoPractiseParser.R_BRACKET)
+                        self.state = 248
+                        self.list_subscript()
 
                     else:
                         raise NoViableAltException(self)
-                    self.state = 240 
+                    self.state = 251 
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,22,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,24,self._ctx)
 
                 pass
 
             elif la_ == 8:
-                self.state = 242
+                self.state = 253
                 self.func_call()
                 pass
 
@@ -1593,19 +1671,19 @@ class AlgoPractiseParser ( Parser ):
     def cntrol(self):
 
         localctx = AlgoPractiseParser.CntrolContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 28, self.RULE_cntrol)
+        self.enterRule(localctx, 30, self.RULE_cntrol)
         try:
-            self.state = 247
+            self.state = 258
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [6]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 245
+                self.state = 256
                 self.if_stmt()
                 pass
             elif token in [8]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 246
+                self.state = 257
                 self.while_stmt()
                 pass
             else:
@@ -1663,43 +1741,43 @@ class AlgoPractiseParser ( Parser ):
     def if_stmt(self):
 
         localctx = AlgoPractiseParser.If_stmtContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 30, self.RULE_if_stmt)
+        self.enterRule(localctx, 32, self.RULE_if_stmt)
         self._la = 0 # Token type
         try:
-            self.state = 263
+            self.state = 274
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,26,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,28,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 249
+                self.state = 260
                 self.match(AlgoPractiseParser.IF)
-                self.state = 250
+                self.state = 261
                 self.expr(0)
-                self.state = 251
+                self.state = 262
                 self.block()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 253
+                self.state = 264
                 self.match(AlgoPractiseParser.IF)
-                self.state = 254
+                self.state = 265
                 self.expr(0)
-                self.state = 255
+                self.state = 266
                 self.block()
-                self.state = 257 
+                self.state = 268 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while True:
-                    self.state = 256
+                    self.state = 267
                     self.match(AlgoPractiseParser.NEWLINE)
-                    self.state = 259 
+                    self.state = 270 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (_la==35):
                         break
 
-                self.state = 261
+                self.state = 272
                 self.else_stmt()
                 pass
 
@@ -1746,24 +1824,24 @@ class AlgoPractiseParser ( Parser ):
     def else_stmt(self):
 
         localctx = AlgoPractiseParser.Else_stmtContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 32, self.RULE_else_stmt)
+        self.enterRule(localctx, 34, self.RULE_else_stmt)
         try:
-            self.state = 269
+            self.state = 280
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,27,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,29,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 265
+                self.state = 276
                 self.match(AlgoPractiseParser.ELSE)
-                self.state = 266
+                self.state = 277
                 self.if_stmt()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 267
+                self.state = 278
                 self.match(AlgoPractiseParser.ELSE)
-                self.state = 268
+                self.state = 279
                 self.block()
                 pass
 
@@ -1810,14 +1888,14 @@ class AlgoPractiseParser ( Parser ):
     def while_stmt(self):
 
         localctx = AlgoPractiseParser.While_stmtContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 34, self.RULE_while_stmt)
+        self.enterRule(localctx, 36, self.RULE_while_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 271
+            self.state = 282
             self.match(AlgoPractiseParser.WHILE)
-            self.state = 272
+            self.state = 283
             self.expr(0)
-            self.state = 273
+            self.state = 284
             self.block()
         except RecognitionException as re:
             localctx.exception = re
@@ -1863,16 +1941,16 @@ class AlgoPractiseParser ( Parser ):
     def func_call(self):
 
         localctx = AlgoPractiseParser.Func_callContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 36, self.RULE_func_call)
+        self.enterRule(localctx, 38, self.RULE_func_call)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 275
+            self.state = 286
             self.match(AlgoPractiseParser.ID)
-            self.state = 276
+            self.state = 287
             self.match(AlgoPractiseParser.L_PAR)
-            self.state = 277
+            self.state = 288
             self.elmnt_list()
-            self.state = 278
+            self.state = 289
             self.match(AlgoPractiseParser.R_PAR)
         except RecognitionException as re:
             localctx.exception = re
@@ -1918,25 +1996,25 @@ class AlgoPractiseParser ( Parser ):
     def elmnt_list(self):
 
         localctx = AlgoPractiseParser.Elmnt_listContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 38, self.RULE_elmnt_list)
+        self.enterRule(localctx, 40, self.RULE_elmnt_list)
         self._la = 0 # Token type
         try:
-            self.state = 289
+            self.state = 300
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [4, 5, 12, 15, 17, 20, 21, 22]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 280
+                self.state = 291
                 self.expr(0)
-                self.state = 285
+                self.state = 296
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==34:
-                    self.state = 281
+                    self.state = 292
                     self.match(AlgoPractiseParser.COMMA)
-                    self.state = 282
+                    self.state = 293
                     self.expr(0)
-                    self.state = 287
+                    self.state = 298
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
@@ -1961,7 +2039,7 @@ class AlgoPractiseParser ( Parser ):
     def sempred(self, localctx:RuleContext, ruleIndex:int, predIndex:int):
         if self._predicates == None:
             self._predicates = dict()
-        self._predicates[12] = self.expr_sempred
+        self._predicates[13] = self.expr_sempred
         pred = self._predicates.get(ruleIndex, None)
         if pred is None:
             raise Exception("No predicate with index:" + str(ruleIndex))

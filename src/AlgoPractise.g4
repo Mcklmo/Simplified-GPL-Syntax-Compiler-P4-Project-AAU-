@@ -63,7 +63,8 @@ stmt:
 	| RETURN expr
 	| RETURN;
 dcl: type assign_stmt | type ID;
-assign_stmt: ID ASSIGN expr;
+assign_stmt: (ID | ID list_subscript) ASSIGN expr;
+list_subscript: (L_BRACKET expr R_BRACKET)+;
 expr: // antlr4 gives lowest precedence to the first alternative
 	expr OR expr
 	| expr AND expr
@@ -88,7 +89,7 @@ val: (
 		| TRUE
 		| FALSE
 		| L_CURLY elmnt_list R_CURLY
-		| ID (L_BRACKET expr R_BRACKET)+ // list subscript
+		| ID list_subscript+ 
 		| func_call
 	);
 cntrol: if_stmt | while_stmt;
