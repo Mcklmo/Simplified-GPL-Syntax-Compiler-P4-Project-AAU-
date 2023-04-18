@@ -35,11 +35,11 @@ class ASTvisitor(AlgoPractiseVisitor):
             if child.getChildCount() == 0: 
                 continue
             
+            ## Workaround for bypassing stmts as a ast node
             _ = self.visit(child)
-            if isinstance(_, Iterable):
-                node.children.extend(_)
-            else:
-                node.children.append(_)
+            concat_method = node.children.extend if isinstance(_, Iterable) else node.children.append
+            concat_method(_)
+
         
         return node
 

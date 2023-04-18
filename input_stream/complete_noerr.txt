@@ -1,4 +1,9 @@
-while 1>2{} 
+while 1>2{
+    num a := 1
+    num a := 1
+    num a := 1
+    
+} 
 /* i am a comment ///// \\\\\ ****
 asdf 
 asdf
