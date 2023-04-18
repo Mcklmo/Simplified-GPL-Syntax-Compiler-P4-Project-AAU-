@@ -20,8 +20,6 @@ from nodes.ValNode import ValNode
 from nodes.While_stmtNode import While_stmtNode
 from nodes.BlockNode import BlockNode
 from nodes.Func_callNode import Func_callNode
-from nodes.StmtNode import StmtNode
-from nodes.StmtsNode import StmtsNode
 
 class ASTvisitor(AlgoPractiseVisitor):
 
@@ -189,23 +187,5 @@ class ASTvisitor(AlgoPractiseVisitor):
             func_call_node.children.append(self.visit(element))
         return func_call_node
 
-    # def visitStmt(self,ctx:AlgoPractiseParser.StmtContext):
-    #     """initialize stmtNode from cst"""
-    #     stmt_node = StmtNode(ctx.start.line)
-    #     # could be declaration, assignment, control structure, function call, void return or return
-    #     if ctx.dcl() is not None:
-    #         stmt_node.children.append(self.visit(ctx.dcl()))
-    #     elif ctx.assign_stmt() is not None:
-    #         stmt_node.children.append(self.visit(ctx.assign_stmt()))
-    #     elif ctx.cntrol() is not None:
-    #         stmt_node.children.append(self.visit(ctx.cntrol()))
-    #     elif ctx.func_call() is not None:
-    #         stmt_node.children.append(self.visit(ctx.func_call()))
-    #     elif ctx.RETURN() is not None:
-    #         stmt_node.children.append(self.visit(ctx.RETURN()))
-
-    #     return stmt_node
-
     def visitStmts(self,ctx:AlgoPractiseParser.StmtsContext):
         return [self.visit(child) for child in ctx.getChildren()]
-        #return ctx
