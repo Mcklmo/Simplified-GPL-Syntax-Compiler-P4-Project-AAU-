@@ -19,7 +19,7 @@ def generate_tree_dot(tree, parser, parent=None, counter=[0]):
         for child in tree.children:
             child_dot, child_id = generate_tree_dot(child, parser, node_id, counter)
             dot += child_dot
-
+ 
     return dot, node_id
 
 def pretty_print_AST(node: ASTNode, indent_level: int = 0):

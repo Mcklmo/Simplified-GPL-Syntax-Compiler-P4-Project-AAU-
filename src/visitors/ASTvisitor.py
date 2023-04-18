@@ -12,10 +12,10 @@ from nodes.IDNode import IDNode
 from nodes.FuncDclNode import FuncDclNode
 from nodes.Param_lstNode import Param_lstNode
 from nodes.ListDcnNode import ListDclNode
-from nodes.BinExpr import BinExpr
-from nodes.NegExpr import NegExpr
+from nodes.BinExprNode import BinExprNode
+from nodes.NegExprNode import NegExprNode
 from nodes.ParenthesesExpr import ParenthesesExpr
-from nodes.ValExpr import ValExpr
+from nodes.ValNode import ValNode
 
 
 class ASTvisitor(AlgoPractiseVisitor):
@@ -127,22 +127,24 @@ class ASTvisitor(AlgoPractiseVisitor):
         expr = None
         if len(sub_exprs) == 2:
             # BinaryExpr
-            expr = BinExpr(ctx.getChild(1), ctx.start.line)
+            expr = BinExprNode(ctx.getChild(1).getText(), ctx.start.line)
             expr.children.extend([self.visit(ctx.getChild(0)), self.visit(ctx.getChild(2))])
+            
         elif len(sub_exprs) == 1:
             # either neg or parantheses
-            if ctx.getChildren()[0] == "!":
-                expr = NegExpr(ctx.start.line)
+            print(ctx.getChild(0).getText())
+            if ctx.getChild(0).getText() == "!":
+                expr = NegExprNode(ctx.start.line)
                 expr.children.append(self.visit(ctx.getChild(1)))
 
-            elif ctx.getChildren()[0] == "(":
+            elif ctx.getChild(0).getText() == "(":
                 expr = ParenthesesExpr(ctx.start.line)
                 expr.children.append(self.visit(ctx.getChild(1)))
             else:
                 pass
                 #err
         else:
-            expr = ValExpr(ctx.start.line)
+            expr = ValNode(ctx.start.line)
             expr.children.append(self.visit(ctx.getChild(0)))
         return expr
     
