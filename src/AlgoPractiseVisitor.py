@@ -1,7 +1,7 @@
 # Generated from AlgoPractise.g4 by ANTLR 4.12.0
 from antlr4 import *
 if __name__ is not None and "." in __name__:
-    from .AlgoPractiseParser import AlgoPractiseParser
+    from ._parser.AlgoPractiseParser import AlgoPractiseParser
 else:
     from AlgoPractiseParser import AlgoPractiseParser
 
@@ -66,6 +66,11 @@ class AlgoPractiseVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by AlgoPractiseParser#assign_stmt.
     def visitAssign_stmt(self, ctx:AlgoPractiseParser.Assign_stmtContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by AlgoPractiseParser#list_subscript.
+    def visitList_subscript(self, ctx:AlgoPractiseParser.List_subscriptContext):
         return self.visitChildren(ctx)
 
 
