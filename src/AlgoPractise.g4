@@ -88,7 +88,7 @@ val: (
 		| TRUE
 		| FALSE
 		| L_CURLY elmnt_list R_CURLY
-		| ID (L_BRACKET val R_BRACKET)+ // list subscript
+		| ID (L_BRACKET expr R_BRACKET)+ // list subscript
 		| func_call
 	);
 cntrol: if_stmt | while_stmt;
