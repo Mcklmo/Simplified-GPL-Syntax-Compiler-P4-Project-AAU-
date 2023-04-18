@@ -19,7 +19,7 @@ R_PAR: ')';
 L_CURLY: '{';
 R_CURLY: '}';
 ASSIGN: ':=';
-NUMVAL: '-'? DIGIT+;
+NUMVAL: '-'? DIGIT+ ('.' DIGIT+)?;
 STRINGVAL: '"' (~('\r' | '\n' | '"' | '\\') | ('\\"' | '\\n' | '\\r' | '\\\\'))* '"';
 NEG: '!';
 EQUAL: '==';
