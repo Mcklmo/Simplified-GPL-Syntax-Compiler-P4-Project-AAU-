@@ -9,6 +9,7 @@ bool idxzy := 0
 atest [0] := 1
 atest [0][0][0][0] := 1
 a [0] := a[1]
+/* func call */
 funcxyz(a+3,a())
 num funcname(num a,bool y,string h) {
 
@@ -44,3 +45,4 @@ else {}
 num iasdhf(){
 
 }
+bool a := 0

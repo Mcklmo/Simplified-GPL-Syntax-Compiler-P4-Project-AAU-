@@ -66,6 +66,11 @@ class AlgoPractiseVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by AlgoPractiseParser#list_subscript.
+    def visitList_subscript(self, ctx:AlgoPractiseParser.List_subscriptContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by AlgoPractiseParser#expr.
     def visitExpr(self, ctx:AlgoPractiseParser.ExprContext):
         return self.visitChildren(ctx)

@@ -18,7 +18,9 @@ from nodes.ParenthesesExpr import ParenthesesExpr
 from nodes.ValNode import ValNode
 from nodes.While_stmtNode import While_stmtNode
 from nodes.BlockNode import BlockNode
-
+from nodes.Func_callNode import Func_callNode
+from nodes.StmtNode import StmtNode
+from nodes.StmtsNode import StmtsNode
 
 class ASTvisitor(AlgoPractiseVisitor):
 
@@ -154,7 +156,6 @@ class ASTvisitor(AlgoPractiseVisitor):
 
     def visitWhile_stmt(self, ctx: AlgoPractiseParser.While_stmtContext):
         while_node = While_stmtNode(ctx.start.line)
-        i = ctx.block()
         while_node.children.extend([self.visit(ctx.expr()), self.visit(ctx.block())])
         return while_node
     
@@ -177,9 +178,32 @@ class ASTvisitor(AlgoPractiseVisitor):
             # raw List val
             pass
    
-    def visitBlock(self, ctx: AlgoPractiseParser.BlockContext):
-        block_node = BlockNode(ctx.start.line)
-        stmts = ctx.stmts()
-        if not stmts is None:       
-            block_node.children.extend([self.visit(stmt) for stmt in stmts.stmt()])
-        return block_node
+    def visitFunc_call(self, ctx: AlgoPractiseParser.Func_callContext):
+        """initialize func_callNode from cst"""
+        func_call_node = Func_callNode(ctx.start.line,ctx.ID())
+        for element in ctx.elmnt_list().expr():
+            func_call_node.children.append(self.visit(element))
+        return func_call_node
+
+    def visitStmt(self,ctx:AlgoPractiseParser.StmtContext):
+        """initialize stmtNode from cst"""
+        stmt_node = StmtNode(ctx.start.line)
+        # could be declaration, assignment, control structure, function call, void return or return
+        if ctx.dcl() is not None:
+            stmt_node.children.append(self.visit(ctx.dcl()))
+        elif ctx.assign_stmt() is not None:
+            stmt_node.children.append(self.visit(ctx.assign_stmt()))
+        elif ctx.cntrol() is not None:
+            stmt_node.children.append(self.visit(ctx.cntrol()))
+        elif ctx.func_call() is not None:
+            stmt_node.children.append(self.visit(ctx.func_call()))
+        elif ctx.RETURN() is not None:
+            stmt_node.children.append(self.visit(ctx.RETURN()))
+
+        return stmt_node
+
+    def visitStmts(self,ctx:AlgoPractiseParser.StmtsContext):
+        """initialize stmtsNode from cst"""
+        stmts_node = StmtsNode(ctx.start.line)
+        stmts_node.children.extend([self.visit(child) for child in ctx.getChildren()])
+        return stmts_node

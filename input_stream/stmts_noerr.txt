@@ -1,0 +1,5 @@
+bool a := true 
+a := false 
+foo(1,2) 
+while 1 > 2 {}
+return 

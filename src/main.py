@@ -52,7 +52,7 @@ def main(argv=None):
     # if len(argv) < 2:
     #     print("Usage: python main.py <input_file>")
     #     return
-    i = r"././input_stream/complete_noerr.txt"
+    i = r"././input_stream/stmts_noerr.txt"
     input_stream = FileStream(i)
     lexer = AlgoPractiseLexer(input_stream)
     stream = CommonTokenStream(lexer)
@@ -62,7 +62,9 @@ def main(argv=None):
     visitor = ASTvisitor.ASTvisitor()
     root = visitor.visit(parse_tree)
     print("CST:")
-    pretty_print_CST(parse_tree)
+    tree_str = Trees.toStringTree(parse_tree, None, parser)
+    print(tree_str)
+    # Print the parse tree
     print("AST:")
     pretty_print_AST(root)
     # listener = AlgoPractiseListener()
