@@ -17,6 +17,7 @@ from nodes.NegExprNode import NegExprNode
 from nodes.ParenthesesExpr import ParenthesesExpr
 from nodes.ValNode import ValNode
 from nodes.While_stmtNode import While_stmtNode
+from nodes.BlockNode import BlockNode
 
 
 class ASTvisitor(AlgoPractiseVisitor):
@@ -133,7 +134,6 @@ class ASTvisitor(AlgoPractiseVisitor):
             
         elif len(sub_exprs) == 1:
             # either neg or parantheses
-            print(ctx.getChild(0).getText())
             if ctx.getChild(0).getText() == "!":
                 expr = NegExprNode(ctx.start.line)
                 expr.children.append(self.visit(ctx.getChild(1)))
@@ -154,8 +154,16 @@ class ASTvisitor(AlgoPractiseVisitor):
 
     def visitWhile_stmt(self, ctx: AlgoPractiseParser.While_stmtContext):
         while_node = While_stmtNode(ctx.start.line)
+        i = ctx.block()
         while_node.children.extend([self.visit(ctx.expr()), self.visit(ctx.block())])
         return while_node
+    
+    def visitBlock(self, ctx: AlgoPractiseParser.BlockContext):
+        block_node = BlockNode(ctx.start.line)
+        stmts = ctx.stmts()
+        if not stmts is None:       
+            block_node.children.extend([self.visit(stmt) for stmt in stmts.stmt()])
+        return block_node
 
     def visitVal(self, ctx: AlgoPractiseParser.ValContext):
         id_node = ctx.ID()
@@ -168,8 +176,10 @@ class ASTvisitor(AlgoPractiseVisitor):
         elif not elem_list is None:
             # raw List val
             pass
-
-
-
-
-        
+   
+    def visitBlock(self, ctx: AlgoPractiseParser.BlockContext):
+        block_node = BlockNode(ctx.start.line)
+        stmts = ctx.stmts()
+        if not stmts is None:       
+            block_node.children.extend([self.visit(stmt) for stmt in stmts.stmt()])
+        return block_node
