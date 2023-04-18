@@ -5,7 +5,13 @@ Before any other steps, make sure you have a recent python version and all requi
 
 Usually, this already exists. Use the command if you made changes to the grammar.
 
-Command: `antlr4 -Dlanguage=Python3 AlgoPractise.g4 -visitor -no-listener`
+Command: 
+```
+cd src
+antlr4 -Dlanguage=Python3 AlgoPractise.g4 -visitor -no-listener
+```
+
+move AlgoParser.py to _parser directory manually!
 
 
 ## Parse source code using generated parser

@@ -5,7 +5,10 @@ asdf
  */
 bool idxyz
 bool idxzy := 0
-
+/* list subscripting */
+atest [0] := 1
+atest [0][0][0][0] := 1
+a [0] := a[1]
 funcxyz(a+3,a())
 num funcname(num a,bool y,string h) {
 
