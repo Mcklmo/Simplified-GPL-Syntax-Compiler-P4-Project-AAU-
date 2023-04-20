@@ -1,4 +1,5 @@
 from _parser.AlgoPractiseParser import AlgoPractiseParser
+from abstract_syntax.ElementListNode import ElementListNode
 
 from .SingleDispatchVisitor import SingleDispatchVisitor
 from abstract_syntax.StartNode import StartNode
@@ -25,6 +26,7 @@ from abstract_syntax.StringNode import StringNode
 from abstract_syntax.ExpressionNode import ExpressionNode
 from abstract_syntax.ValueNode import ValueNode
 from abstract_syntax.StatementNode import StatementNode
+from abstract_syntax.IDNode import IDNode
 
 
 class ASTSingleDispatchVisitor(SingleDispatchVisitor):
@@ -46,7 +48,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
             statements.append(self.visitStatementNode(statement))
 
         return StartNode(functions, statements)
-    
+
     def visitStatementsNode(self, cst_node: AlgoPractiseParser.StmtsContext):
         statements = []
         for stmts in cst_node:
@@ -55,36 +57,96 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         return statements
 
     def visitStatementNode(self, cst_node: AlgoPractiseParser.StmtContext):
-        ast_node = None 
+        ast_node = None
         # print(type(cst_node),vars(cst_node))
         # exit()
         if cst_node.dcl():
             ast_node = self.visitDeclarationStatementNode(cst_node.dcl())
 
         elif cst_node.assign_stmt():
-            ast_node = self.visitAssignmentStatementNode(cst_node.assign_stmt())
+            ast_node = self.visitAssignmentStatementNode(
+                cst_node.assign_stmt())
 
-        elif cst_node.func_call(): 
-            ast_node = self.visitFunctionCallStatementNode(cst_node.func_call())
+        elif cst_node.func_call():
+            ast_node = self.visitFunctionCallStatementNode(
+                cst_node.func_call())
 
         elif cst_node.cntrol():
             ast_node = self.visitControlStatementNode(cst_node.cntrol())
         elif cst_node.RETURN() and cst_node.expr():
             ast_node = self.visitReturnStatementNode(cst_node.expr())
         else:
-            # return void 
+            # return void
             ast_node = self.visitReturnStatementNode(None)
 
         return ast_node
 
     def visitControlStatementNode(self, cst_node: AlgoPractiseParser.CntrolContext):
-        pass 
+        pass
 
-    def visitAssignmentStatementNode(self, cst_node: AssignmentStatementNode):
-        print("bar")
+    def visitAssignmentStatementNode(self, cst_node: AlgoPractiseParser.Assign_stmtContext):
+        identifier = cst_node.ID()
+        expression = self.visitExpressionNode(cst_node.expr())
+        list_subscript_ctx = cst_node.list_subscript()
+        list_subscript = None 
+        if list_subscript_ctx:
+            list_subscript = self.visitListSubscriptValueNode(identifier,
+                                                              list_subscript_ctx)
+        return AssignmentStatementNode(identifier, list_subscript, expression)
 
-    def visitBinaryExpressionNode(self, cst_node: BinaryExpressionNode):
-        print("baz")
+    def visitExpressionNode(self, cst_node: AlgoPractiseParser.ExprContext):
+        negation = cst_node.NEG()
+        if negation:
+            expr = self.visitExpressionNode(cst_node.expr(0))
+            operator = negation.getText()
+            return UnaryExpressionNode(expr, operator)
+        val = cst_node.val()
+        if val:
+            return self.visitValNode(val)
+
+    def visitValNode(self, cst_node: AlgoPractiseParser.ValContext):
+        identifier = cst_node.ID()
+        list_subscript = cst_node.list_subscript(0)
+        if list_subscript:
+            return self.visitListSubscriptValueNode(identifier, list_subscript)
+        if identifier:
+            return IDNode(identifier)
+        numval = cst_node.NUMVAL()
+        if numval:
+            return NumberNode(numval)
+        stringval = cst_node.STRINGVAL()
+        if stringval:
+            return StringNode(stringval)
+        true = cst_node.TRUE()
+        if true:
+            return BooleanNode(true)
+        false = cst_node.FALSE()
+        if false:
+            return BooleanNode(false)
+        elmnt_list = cst_node.elmnt_list()
+        if elmnt_list:
+            return self.visitElementListNode(elmnt_list)
+        func_call = cst_node.func_call()
+        if func_call:
+            return self.visitFunctionCallExpressionNode(func_call)
+
+    def visitElementListNode(self, cst_node: AlgoPractiseParser.Elmnt_listContext):
+        elementList = []
+        for element in cst_node.expr():
+            elementList.append(self.visitExpressionNode(element))
+        return ElementListNode(elementList)
+
+    def visitFunctionCallExpressionNode(self, cst_node: AlgoPractiseParser.Func_callContext):
+        identifier = cst_node.ID()
+        arguments = self.visitElementListNode(cst_node.elmnt_list())
+
+        return FunctionCallExpressionNode(identifier, arguments)
+
+    def visitListSubscriptValueNode(self, identifier: str, cst_node: AlgoPractiseParser.List_subscriptContext):
+        subscripts = []
+        for subscript in cst_node.expr():
+            subscripts.append(self.visitExpressionNode(subscript))
+        return ListSubscriptValueNode(identifier, subscripts)
 
     def visitBlockNode(self, cst_node: BlockNode):
         print("qux")
@@ -98,9 +160,6 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
     def visitElseStatementNode(self, cst_node: ElseStatementNode):
         print("grault")
 
-    def visitFunctionCallExpressionNode(self, cst_node: FunctionCallExpressionNode):
-        print("garply")
-
     def visitFunctionCallStatementNode(self, cst_node: FunctionCallStatementNode):
         print("waldo")
 
@@ -109,9 +168,6 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
 
     def visitIfStatementNode(self, cst_node: IfStatementNode):
         print("plugh")
-
-    def visitListSubscriptValueNode(self, cst_node: ListSubscriptValueNode):
-        print("xyzzy")
 
     def visitNumberNode(self, cst_node: NumberNode):
         print("thud")
@@ -134,8 +190,5 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
     def visitStringNode(self, cst_node: StringNode):
         print("thud")
 
-    def visitExpressionNode(self, cst_node: ExpressionNode):
-        print("thud")
-
-    def visitValNode(self, cst_node: ValueNode):
+    def visitBinaryExpressionNode(self, cst_node: BinaryExpressionNode):
         print("thud")

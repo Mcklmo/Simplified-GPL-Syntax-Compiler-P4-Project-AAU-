@@ -29,6 +29,7 @@ from abstract_syntax.UnaryExpressionNode import UnaryExpressionNode
 from abstract_syntax.WhileStatementNode import WhileStatementNode
 from abstract_syntax.StatementNode import StatementNode
 
+
 class SingleDispatchVisitor(ABC):
 
     def Dispatch(self, node: Node):
@@ -47,7 +48,7 @@ class SingleDispatchVisitor(ABC):
             # "StringNode": self.visitStringNode,
             "DclContext": self.visitDeclarationStatementNode,
             "Else_stmtContext": self.visitElseStatementNode,
-            "Func_callContext":self.visitFunctionCallStatementNode,
+            "Func_callContext": self.visitFunctionCallStatementNode,
             # "FunctionCallExpressionNode": self.visitFunctionCallExpressionNode,
             # "FunctionCallStatementNode": self.visitFunctionCallStatementNode,
             "Func_declContext": self.visitFunctionNode,
@@ -65,16 +66,20 @@ class SingleDispatchVisitor(ABC):
         return func(node)
     
     @abstractmethod
+    def visitElementListNode(self, cst_node: AlgoPractiseParser.Elmnt_listContext):
+        pass
+
+    @abstractmethod
     def visitStatementsNode(self):
         pass
-    
+
     @abstractmethod
-    def visitControlStatementNode(self,node):
+    def visitControlStatementNode(self, node):
         pass
-    
+
     @abstractmethod
-    def visitStatementNode(self,node:StatementNode):
-        pass 
+    def visitStatementNode(self, node: StatementNode):
+        pass
 
     @abstractmethod
     def visitAssignmentStatementNode(self, node: AssignmentStatementNode):
@@ -121,7 +126,7 @@ class SingleDispatchVisitor(ABC):
         pass
 
     @abstractmethod
-    def visitListSubscriptValueNode(self, node: ListSubscriptValueNode):
+    def visitListSubscriptValueNode(self,identifier:str ,node: ListSubscriptValueNode):
         pass
 
     @abstractmethod
@@ -159,5 +164,3 @@ class SingleDispatchVisitor(ABC):
     @abstractmethod
     def visitValNode(self, node: Node):
         pass
-
-    

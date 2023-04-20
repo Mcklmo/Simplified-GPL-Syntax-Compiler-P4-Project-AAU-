@@ -7,6 +7,8 @@ from visitors.ASTvisitor import ASTvisitor
 from visitors.ASTSingleDispatchVisitor import ASTSingleDispatchVisitor
 from antlr4 import FileStream, CommonTokenStream
 
+from abstract_syntax.Node import Node
+
 
 def pretty_print_CST(node, indent_level=0):
     t = Trees
@@ -21,6 +23,23 @@ def pretty_print_CST(node, indent_level=0):
         pretty_print_CST(node.getChild(i), indent_level + 1)
 
 
+def pretty_print_ast(node, indent=""):
+    print(indent, node.__class__.__name__)
+    indent += "    "
+
+    for attribute_name, attribute_value in vars(node).items():
+        if isinstance(attribute_value, Node):
+            pretty_print_ast(attribute_value, indent)
+        elif isinstance(attribute_value, list):
+            for item in attribute_value:
+                if isinstance(item, Node):
+                    pretty_print_ast(item, indent)
+                else:
+                    print(indent, attribute_name, item)
+        else:
+            print(indent, attribute_name, attribute_value)
+
+
 def main(argv=None):
     i = r"././input_stream/assignment_noerr.txt"
     input_stream = FileStream(i)
@@ -33,13 +52,10 @@ def main(argv=None):
     # ast_root = visitor.visit(parse_tree_start_node)
     single_dispatch_visitor = ASTSingleDispatchVisitor()
     ast_root = single_dispatch_visitor.Dispatch(parse_tree_start_node)
-    ast_root.pretty_print()
-    # print("CST:")
-    # tree_str = Trees.toStringTree(parse_tree_start_node, None, parser)
-    # print(tree_str)
-    # # Print the parse tree
-    # print("AST:")
-    # pretty_print_AST(ast_root)
+    pretty_print_ast(ast_root)
+    
+    # printCST(parser, parse_tree_start_node)
+    
     # listener = AlgoPractiseListener()
     # walker = ParseTreeWalker()
     # walker.walk(listener, parse_tree)
@@ -60,6 +76,12 @@ def main(argv=None):
     #     output_file.write("digraph G {\n")
     #     output_file.write(dot)
     #     output_file.write("}\n")
+
+
+def printCST(parser, parse_tree_start_node):
+    print("CST:")
+    tree_str = Trees.toStringTree(parse_tree_start_node, None, parser)
+    print(tree_str)
 
 
 if __name__ == "__main__":
