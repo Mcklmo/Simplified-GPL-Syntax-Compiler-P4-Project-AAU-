@@ -1,5 +1,5 @@
-from ValueNode import ValueNode
-from ExpressionNode import ExpressionNode
+from .ValueNode import ValueNode
+from .ExpressionNode import ExpressionNode
 from typing import List 
 
 class ListSubscriptValueNode(ValueNode):

@@ -1,5 +1,5 @@
-from StatementNode import StatementNode
-from ExpressionNode import ExpressionNode
+from .StatementNode import StatementNode
+from .ExpressionNode import ExpressionNode
 from typing import List, Optional
 
 class FunctionCallStatementNode(StatementNode):

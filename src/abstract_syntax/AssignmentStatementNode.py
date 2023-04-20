@@ -1,6 +1,7 @@
-from StatementNode import StatementNode
+from .StatementNode import StatementNode
+from .ExpressionNode import ExpressionNode
+
 from typing import List, Optional
-from ExpressionNode import ExpressionNode
 
 class AssignmentStatementNode(StatementNode):
     

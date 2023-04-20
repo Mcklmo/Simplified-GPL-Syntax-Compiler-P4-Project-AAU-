@@ -1,4 +1,4 @@
-from ConstantNode import ConstantNode
+from .ConstantNode import ConstantNode
 
 class BooleanNode(ConstantNode):
     def __init__(self, value: bool) -> None:

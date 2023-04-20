@@ -1,10 +1,10 @@
 from .AlgoPractiseVisitor import AlgoPractiseVisitor
 from _parser.AlgoPractiseParser import AlgoPractiseParser
-from nodes import StartNode, ASTNode
 from typing import List
 from antlr4.Token import CommonToken, Token
 from collections.abc import Iterable
 from antlr4 import ParserRuleContext
+from nodes import StartNode, ASTNode
 from nodes.BoolDcnNode import BoolDclNode
 from nodes.NumDcnNode import NumDclNode
 from nodes.StringDcnNode import StringDclNode

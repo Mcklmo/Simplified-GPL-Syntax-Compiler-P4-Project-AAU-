@@ -1,7 +1,7 @@
-from ControlStatementNode import ControlStatementNode
-from BlockNode import BlockNode
-from ExpressionNode import ExpressionNode
-from ElseStatementNode import ElseStatementNode
+from .ControlStatementNode import ControlStatementNode
+from .BlockNode import BlockNode
+from .ExpressionNode import ExpressionNode
+from .ElseStatementNode import ElseStatementNode
 from typing import Optional
 
 class IfStatementNode(ControlStatementNode):

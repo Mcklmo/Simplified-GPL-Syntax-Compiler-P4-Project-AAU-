@@ -1,4 +1,4 @@
-from Node import Node
+from .Node import Node
 
 class TypeNode(Node):
     def __init__(self, type: str, dimensions :int) -> None:

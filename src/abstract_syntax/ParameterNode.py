@@ -1,5 +1,5 @@
-from Node import Node
-from TypeNode import TypeNode
+from .Node import Node
+from .TypeNode import TypeNode
 
 class ParameterNode(Node):
     def __init__(self, identifier: str, type: TypeNode) -> None:

@@ -1,8 +1,9 @@
-from Node import Node
-from TypeNode import TypeNode
-from ParameterNode import ParameterNode
+from .Node import Node
+from .TypeNode import TypeNode
+from .ParameterNode import ParameterNode
+from .BlockNode import BlockNode
+
 from typing import List
-from BlockNode import BlockNode
 
 class FunctionNode(Node):
     def __init__(self, identifier: str,type:TypeNode, params: List[ParameterNode], block: BlockNode) -> None:

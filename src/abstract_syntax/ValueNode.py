@@ -1,4 +1,4 @@
-from ExpressionNode import ExpressionNode
+from .ExpressionNode import ExpressionNode
 
 class ValueNode(ExpressionNode):
     pass 

@@ -1,5 +1,4 @@
-from ValueNode import ValueNode
-from ExpressionNode import ExpressionNode
+from .ExpressionNode import ExpressionNode
 from typing import List, Optional
 
 class FunctionCallExpressionNode(ExpressionNode):

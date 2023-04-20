@@ -1,4 +1,4 @@
-from ValueNode import ValueNode
+from .ValueNode import ValueNode
 
 class ConstantNode(ValueNode):
     pass 
