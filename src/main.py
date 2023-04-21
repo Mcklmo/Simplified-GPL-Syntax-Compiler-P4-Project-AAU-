@@ -41,7 +41,7 @@ def pretty_print_ast(node, indent=""):
 
 
 def main(argv=None):
-    i = r"././input_stream/block_noerr.txt"
+    i = r"././input_stream/if_else_stmt_noerr.txt"
     input_stream = FileStream(i)
     lexer = AlgoPractiseLexer(input_stream)
     stream = CommonTokenStream(lexer)

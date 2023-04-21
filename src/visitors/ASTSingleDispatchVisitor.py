@@ -84,7 +84,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
             return self.visitWhileStatementNode(while_statement_ctx)
         if_statement_ctx = cst_node.if_stmt()
         if if_statement_ctx:
-            raise("if statements not implemented. call moritz")
+            return self.visitIfStatementNode(if_statement_ctx)
         
 
     def visitAssignmentStatementNode(self, cst_node: AlgoPractiseParser.Assign_stmtContext):
@@ -162,12 +162,8 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         print("thud")
         return WhileStatementNode(self.visitExpressionNode(cst_node.expr()), self.visitBlockNode(cst_node.block()))
         
-
-
     def visitBooleanNode(self, cst_node: BooleanNode):
         print("hello")
-        #boolean = cst_node.boolean
-        #return BooleanNode(boolean.value)
         
     def visitDeclarationStatementNode(self, cst_node: DeclarationStatementNode):
         print("corge")
@@ -181,8 +177,14 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
     def visitFunctionNode(self, cst_node: FunctionNode):
         print("fred")
 
-    def visitIfStatementNode(self, cst_node: IfStatementNode):
+    def visitIfStatementNode(self, cst_node: AlgoPractiseParser.If_stmtContext):
         print("plugh")
+        else_node = cst_node.else_stmt()
+        if else_node:
+            raise Exception("else node not implemented. call moritz")
+        return IfStatementNode(self.visitExpressionNode(cst_node.expr()), self.visitBlockNode(cst_node.block()))
+        #return WhileStatementNode(self.visitExpressionNode(cst_node.expr()), self.visitBlockNode(cst_node.block()))
+
 
     def visitNumberNode(self, cst_node: NumberNode):
         print("james")
