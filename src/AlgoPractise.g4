@@ -41,7 +41,7 @@ COMMENT: '/*' .*? '*/' -> skip; // multi-line comment
 fragment DIGIT: [0-9];
 fragment LETTER: [a-zA-Z];
 // Parser
-start: NEWLINE* (func NEWLINE+ | stmts)* (func | stmt)? EOF;
+start: NEWLINE* (func NEWLINE+ | stmt NEWLINE+)* (func | stmt)? EOF;
 func: type func_decl | func_decl;
 func_decl: ID params block;
 type:
@@ -52,7 +52,7 @@ params: (L_PAR R_PAR | L_PAR param_lst R_PAR);
 param_lst: param (COMMA param)*;
 param: type ID;
 block:
-	L_CURLY NEWLINE* stmts R_CURLY
+	L_CURLY NEWLINE* (stmt NEWLINE+)* R_CURLY
 	| L_CURLY NEWLINE* R_CURLY;
 stmts: (stmt NEWLINE+)+;
 stmt:

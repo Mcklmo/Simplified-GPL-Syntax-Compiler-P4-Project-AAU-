@@ -1,7 +1,6 @@
 from .Node import Node
 from .FunctionNode import FunctionNode
 from .StatementNode import StatementNode
-
 from typing import List, Optional
 
 class StartNode(Node):

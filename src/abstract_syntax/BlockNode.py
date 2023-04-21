@@ -1,8 +1,8 @@
 from .Node import Node
-from .StatementNode import StatementNode
+from .StatementsNode import StatementsNode
 from typing import List
 
 class BlockNode(Node):
-    def __init__(self, statements: List[StatementNode]) -> None:
+    def __init__(self, statements_node: StatementsNode) -> None:
         super().__init__()
-        self.statements = statements
+        self.statements_node = statements_node

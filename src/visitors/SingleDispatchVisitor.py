@@ -90,7 +90,7 @@ class SingleDispatchVisitor(ABC):
         pass
 
     @abstractmethod
-    def visitBinaryExpressionNode(self, node: BinaryExpressionNode):
+    def visit_binary_expression_node(self, node: BinaryExpressionNode):
         pass
 
     @abstractmethod
@@ -130,7 +130,7 @@ class SingleDispatchVisitor(ABC):
         pass
 
     @abstractmethod
-    def visitNumberNode(self, node: NumberNode):
+    def visit_number_node(self, node: NumberNode):
         pass
 
     @abstractmethod
@@ -138,11 +138,11 @@ class SingleDispatchVisitor(ABC):
         pass
 
     @abstractmethod
-    def visitReturnStatementNode(self, node: ReturnStatementNode):
+    def visit_return_statement_node(self, node: ReturnStatementNode):
         pass
 
     @abstractmethod
-    def visitStringNode(self, node: StringNode):
+    def visit_string_node(self, node: StringNode):
         pass
 
     @abstractmethod
@@ -150,7 +150,7 @@ class SingleDispatchVisitor(ABC):
         pass
 
     @abstractmethod
-    def visitUnaryExpressionNode(self, node: UnaryExpressionNode):
+    def visit_unary_expression_node(self, node: UnaryExpressionNode):
         pass
 
     @abstractmethod
