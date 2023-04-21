@@ -22,10 +22,10 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
 
     INPUT_FILE_NAME = "temp_test_input.txt"
 
-    @classmethod
-    def create_input_file(cls, input_string: str) -> None:
-        with open(cls.INPUT_FILE_NAME, "w") as input_file:
+    def create_and_parse_input_file(self, input_string: str) -> None:
+        with open(self.INPUT_FILE_NAME, "w") as input_file:
             input_file.write(input_string)
+        return self.parse(self.INPUT_FILE_NAME)
 
     @classmethod
     def delete_input_file(cls) -> None:
@@ -97,14 +97,13 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
     def test_visitStatementNode(self):
         return
         # Call create_input_file with the input string for this test
-        self.create_input_file("your_input_string_here")
+        self.create_and_parse_input_file("your_input_string_here")
 
         ast = self.parse(self.INPUT_FILE_NAME)
         # Add assertions to test the generated abstract syntax tree after calling visitStatementNode
 
     def test_list_subscript(self):
-        self.create_input_file("a := a[0][0]")
-        ast = self.parse(self.INPUT_FILE_NAME)
+        ast = self.create_and_parse_input_file("a := a[0][0]")
         expected_ast = StartNode(
             functions=[],
             statements=[
