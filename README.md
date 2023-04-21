@@ -1,5 +1,4 @@
-# Usage
-## Requirements
+# Requirements
 Make sure you have a recent python version and all requirements installed, using:
 
 `pip install -r requirements.txt`
@@ -18,13 +17,13 @@ If unsure whether installing the requirements was successful, run:
 
 and check if the module names from `requirements.txt` are listed.
 
-## Create or update parser
+# Create or update parser
 
 `antlr4 -Dlanguage=Python3 src\AlgoPractise.g4 -visitor -nolisteners`
 
 [Remember to move `AlgoPractiseLexer.py` to `src/_lexer` and `AlgoPractiseParser.py` to `src/_parser`!]
 
-## Parse source code
+# Parse source code
 
 `src\main.py`
 
