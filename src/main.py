@@ -1,5 +1,5 @@
 from antlr4 import *
-from AlgoPractiseLexer import AlgoPractiseLexer
+from _lexer.AlgoPractiseLexer import AlgoPractiseLexer
 from _parser.AlgoPractiseParser import AlgoPractiseParser
 from antlr4.tree.Trees import Trees
 from nodes import ASTNode
@@ -41,7 +41,7 @@ def pretty_print_ast(node, indent=""):
 
 
 def main(argv=None):
-    i = r"././input_stream/assignment_noerr.txt"
+    i = r"././input_stream/block_noerr.txt"
     input_stream = FileStream(i)
     lexer = AlgoPractiseLexer(input_stream)
     stream = CommonTokenStream(lexer)

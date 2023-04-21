@@ -27,6 +27,7 @@ from abstract_syntax.ExpressionNode import ExpressionNode
 from abstract_syntax.ValueNode import ValueNode
 from abstract_syntax.StatementNode import StatementNode
 from abstract_syntax.IDNode import IDNode
+from abstract_syntax.StatementsNode import StatementsNode
 
 
 class ASTSingleDispatchVisitor(SingleDispatchVisitor):
@@ -38,23 +39,19 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         functions = cst_node.func()
         for function in functions:
             self.visitFunctionNode(function)
-
-        statements = cst_node.stmts()
-        self.visitStatementsNode(statements)
-
-        # cfg allows single stmt
-        statement = cst_node.stmt()
-        if statement:
+  
+        statements = []
+        statements_ctx = cst_node.stmt()
+        for statement in statements_ctx:
             statements.append(self.visitStatementNode(statement))
 
         return StartNode(functions, statements)
 
     def visitStatementsNode(self, cst_node: AlgoPractiseParser.StmtsContext):
         statements = []
-        for stmts in cst_node:
-            for statement in stmts.stmt():
-                statements.append(self.visitStatementNode(statement))
-        return statements
+        for stmt in cst_node.stmt():
+            statements.append(self.visitStatementNode(stmt))
+        return StatementsNode(statements)
 
     def visitStatementNode(self, cst_node: AlgoPractiseParser.StmtContext):
         ast_node = None
@@ -82,7 +79,13 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         return ast_node
 
     def visitControlStatementNode(self, cst_node: AlgoPractiseParser.CntrolContext):
-        pass
+        while_statement_ctx = cst_node.while_stmt()
+        if while_statement_ctx:
+            return self.visitWhileStatementNode(while_statement_ctx)
+        if_statement_ctx = cst_node.if_stmt()
+        if if_statement_ctx:
+            raise("if statements not implemented. call moritz")
+        
 
     def visitAssignmentStatementNode(self, cst_node: AlgoPractiseParser.Assign_stmtContext):
         identifier = cst_node.ID()
@@ -148,12 +151,24 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
             subscripts.append(self.visitExpressionNode(subscript))
         return ListSubscriptValueNode(identifier, subscripts)
 
-    def visitBlockNode(self, cst_node: BlockNode):
+    def visitBlockNode(self, cst_node: AlgoPractiseParser.BlockContext):
         print("qux")
+        statements = []
+        for statement in cst_node.stmt():
+            statements.append(self.visitStatementNode(statement))
+        return BlockNode(statements)
+        
+    def visitWhileStatementNode(self, cst_node: AlgoPractiseParser.While_stmtContext):
+        print("thud")
+        return WhileStatementNode(self.visitExpressionNode(cst_node.expr()), self.visitBlockNode(cst_node.block()))
+        
+
 
     def visitBooleanNode(self, cst_node: BooleanNode):
-        print("quux")
-
+        print("hello")
+        #boolean = cst_node.boolean
+        #return BooleanNode(boolean.value)
+        
     def visitDeclarationStatementNode(self, cst_node: DeclarationStatementNode):
         print("corge")
 
@@ -170,25 +185,29 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         print("plugh")
 
     def visitNumberNode(self, cst_node: NumberNode):
-        print("thud")
+        print("james")
+        #number = cst_node.value
+        #return NumberNode(number)
 
     def visitParameterNode(self, cst_node: ParameterNode):
         print("thud")
 
     def visitReturnStatementNode(self, cst_node: ReturnStatementNode):
-        print("thud")
+        print("chain")
 
     def visitUnaryExpressionNode(self, cst_node: UnaryExpressionNode):
         print("thud")
 
-    def visitWhileStatementNode(self, cst_node: WhileStatementNode):
-        print("thud")
+
+
 
     def visitTypeNode(self, cst_node: TypeNode):
         print("thud")
 
     def visitStringNode(self, cst_node: StringNode):
         print("thud")
+        #string = cst_node.value
+        #return StringNode(string)
 
     def visitBinaryExpressionNode(self, cst_node: BinaryExpressionNode):
         print("thud")
