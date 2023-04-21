@@ -36,12 +36,12 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
 
         functions = cst_node.func()
         for function in functions:
-            self.visitFunctionNode(function)
+            self.visit_function_node(function)
   
         statements = []
         statements_ctx = cst_node.stmt()
         for statement in statements_ctx:
-            statements.append(self.visitStatementNode(statement))
+            statements.append(self.visit_statement_node(statement))
 
         return StartNode(functions, statements)
 
@@ -74,7 +74,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
             return self.visit_while_statement_node(while_statement_ctx)
         if_statement_ctx = cst_node.if_stmt()
         if if_statement_ctx:
-            return self.visitIfStatementNode(if_statement_ctx)
+            return self.visit_if_statement_node(if_statement_ctx)
         
 
     def visit_assignment_statement_node(self, cst_node: AlgoPractiseParser.Assign_stmtContext):
@@ -106,9 +106,9 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
             return self.visit_list_subscript_value_node(identifier, list_subscript)
         if identifier:
             return identifier
-        numval = cst_node.NUMVAL().getText()
+        numval = cst_node.NUMVAL()
         if numval:
-            return NumberNode(numval)
+            return NumberNode(numval.getText())
         stringval = cst_node.STRINGVAL()
         if stringval:
             return StringNode(stringval)
@@ -148,12 +148,12 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         print("qux")
         statements = []
         for statement in cst_node.stmt():
-            statements.append(self.visitStatementNode(statement))
+            statements.append(self.visit_statement_node(statement))
         return BlockNode(statements)
         
     def visit_while_statement_node(self, cst_node: AlgoPractiseParser.While_stmtContext):
         print("thud")
-        return WhileStatementNode(self.visitExpressionNode(cst_node.expr()), self.visitBlockNode(cst_node.block()))
+        return WhileStatementNode(self.visit_expression_node(cst_node.expr()), self.visit_block_node(cst_node.block()))
         
     def visitBooleanNode(self, cst_node: BooleanNode):
         print("quux")
@@ -175,7 +175,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         else_node = cst_node.else_stmt()
         if else_node:
             raise Exception("else node not implemented. call moritz")
-        return IfStatementNode(self.visitExpressionNode(cst_node.expr()), self.visitBlockNode(cst_node.block()))
+        return IfStatementNode(self.visit_expression_node(cst_node.expr()), self.visit_block_node(cst_node.block()))
         #return WhileStatementNode(self.visitExpressionNode(cst_node.expr()), self.visitBlockNode(cst_node.block()))
 
 

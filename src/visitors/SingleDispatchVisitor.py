@@ -70,10 +70,6 @@ class SingleDispatchVisitor(ABC):
         pass
 
     @abstractmethod
-    def visit_statements_node(self):
-        pass
-
-    @abstractmethod
     def visit_control_statement_node(self, node):
         pass
 
