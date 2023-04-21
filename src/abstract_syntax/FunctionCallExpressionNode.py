@@ -6,3 +6,9 @@ class FunctionCallExpressionNode(ExpressionNode):
         super().__init__()
         self.identifier = identifier
         self.arguments = arguments
+
+    def __eq__(self, other):
+        return isinstance(other, FunctionCallExpressionNode) and self.identifier == other.identifier and self.arguments == other.arguments
+    
+    def __repr__(self):
+        return f"FunctionCallExpressionNode(identifier={self.identifier}, arguments={self.arguments})"

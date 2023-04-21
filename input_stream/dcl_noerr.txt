@@ -1,2 +1,3 @@
 bool idxyz
+bool[][]  a
 bool idxzy := 0

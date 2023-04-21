@@ -1,5 +1,5 @@
 from antlr4 import *
-from AlgoPractiseLexer import AlgoPractiseLexer
+from _lexer.AlgoPractiseLexer import AlgoPractiseLexer
 from _parser.AlgoPractiseParser import AlgoPractiseParser
 from antlr4.tree.Trees import Trees
 from nodes import ASTNode
@@ -31,17 +31,20 @@ def pretty_print_ast(node, indent=""):
         if isinstance(attribute_value, Node):
             pretty_print_ast(attribute_value, indent)
         elif isinstance(attribute_value, list):
+            print(indent, attribute_name, f"[{len(attribute_value)}]")
+            indent += "    "
             for item in attribute_value:
                 if isinstance(item, Node):
                     pretty_print_ast(item, indent)
                 else:
                     print(indent, attribute_name, item)
+            indent = indent[:-4]
         else:
             print(indent, attribute_name, attribute_value)
 
 
 def main(argv=None):
-    i = r"././input_stream/assignment_noerr.txt"
+    i = r"././input_stream/list_subscript_noerr.txt"
     input_stream = FileStream(i)
     lexer = AlgoPractiseLexer(input_stream)
     stream = CommonTokenStream(lexer)
@@ -51,7 +54,7 @@ def main(argv=None):
     # visitor = ASTvisitor()
     # ast_root = visitor.visit(parse_tree_start_node)
     single_dispatch_visitor = ASTSingleDispatchVisitor()
-    ast_root = single_dispatch_visitor.Dispatch(parse_tree_start_node)
+    ast_root = single_dispatch_visitor.dispatch(parse_tree_start_node)
     pretty_print_ast(ast_root)
     
     # printCST(parser, parse_tree_start_node)

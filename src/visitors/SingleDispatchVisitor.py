@@ -32,32 +32,32 @@ from abstract_syntax.StatementNode import StatementNode
 
 class SingleDispatchVisitor(ABC):
 
-    def Dispatch(self, node: Node):
+    def dispatch(self, node: Node):
         node_type = type(node).__name__
         switcher = {
-            "Assign_stmtContext": self.visitAssignmentStatementNode,
-            "StartContext": self.visitStartNode,
-            "StatementContext": self.visitStatementNode,
-            "ExprContext": self.visitExpressionNode,
+            "Assign_stmtContext": self.visit_assignment_statement_node,
+            "StartContext": self.visit_start_node,
+            "StatementContext": self.visit_statement_node,
+            "ExprContext": self.visit_expression_node,
             # "BinaryExpressionNode": self.visitBinaryExpressionNode,
             # "UnaryExpressionNode": self.visitUnaryExpressionNode,
-            "BlockContext": self.visitBlockNode,
-            "ValContext": self.visitValNode,
+            "BlockContext": self.visit_block_node,
+            "ValContext": self.visit_val_node,
             # "BooleanNode": self.visitBooleanNode,
             # "NumberNode": self.visitNumberNode,
             # "StringNode": self.visitStringNode,
-            "DclContext": self.visitDeclarationStatementNode,
-            "Else_stmtContext": self.visitElseStatementNode,
-            "Func_callContext": self.visitFunctionCallStatementNode,
+            "DclContext": self.visit_declaration_statement_node,
+            "Else_stmtContext": self.visit_else_statement_node,
+            "Func_callContext": self.visit_function_call_statement_node,
             # "FunctionCallExpressionNode": self.visitFunctionCallExpressionNode,
             # "FunctionCallStatementNode": self.visitFunctionCallStatementNode,
-            "Func_declContext": self.visitFunctionNode,
-            "If_stmtContext": self.visitIfStatementNode,
-            "List_subscriptContext": self.visitListSubscriptValueNode,
-            "ParamContext": self.visitParameterNode,
+            "Func_declContext": self.visit_function_node,
+            "If_stmtContext": self.visit_if_statement_node,
+            "List_subscriptContext": self.visit_list_subscript_value_node,
+            "ParamContext": self.visit_parameter_node,
             # "ReturnStatementNode": self.visitReturnStatementNode,
-            "TypeContext": self.visitTypeNode,
-            "While_stmtContext": self.visitWhileStatementNode,
+            "TypeContext": self.visit_type_node,
+            "While_stmtContext": self.visit_while_statement_node,
         }
         func = switcher.get(node_type, None)
         if func is None:
@@ -66,27 +66,27 @@ class SingleDispatchVisitor(ABC):
         return func(node)
     
     @abstractmethod
-    def visitElementListNode(self, cst_node: AlgoPractiseParser.Elmnt_listContext):
+    def visit_element_list_node(self, cst_node: AlgoPractiseParser.Elmnt_listContext):
         pass
 
     @abstractmethod
-    def visitStatementsNode(self):
+    def visit_statements_node(self):
         pass
 
     @abstractmethod
-    def visitControlStatementNode(self, node):
+    def visit_control_statement_node(self, node):
         pass
 
     @abstractmethod
-    def visitStatementNode(self, node: StatementNode):
+    def visit_statement_node(self, node: StatementNode):
         pass
 
     @abstractmethod
-    def visitAssignmentStatementNode(self, node: AssignmentStatementNode):
+    def visit_assignment_statement_node(self, node: AssignmentStatementNode):
         pass
 
     @abstractmethod
-    def visitStartNode(self, node: StartNode):
+    def visit_start_node(self, node: StartNode):
         pass
 
     @abstractmethod
@@ -94,7 +94,7 @@ class SingleDispatchVisitor(ABC):
         pass
 
     @abstractmethod
-    def visitBlockNode(self, node: BlockNode):
+    def visit_block_node(self, node: BlockNode):
         pass
 
     @abstractmethod
@@ -102,31 +102,31 @@ class SingleDispatchVisitor(ABC):
         pass
 
     @abstractmethod
-    def visitDeclarationStatementNode(self, node: DeclarationStatementNode):
+    def visit_declaration_statement_node(self, node: DeclarationStatementNode):
         pass
 
     @abstractmethod
-    def visitElseStatementNode(self, node: ElseStatementNode):
+    def visit_else_statement_node(self, node: ElseStatementNode):
         pass
 
     @abstractmethod
-    def visitFunctionCallExpressionNode(self, node: FunctionCallExpressionNode):
+    def visit_function_call_expression_node(self, node: FunctionCallExpressionNode):
         pass
 
     @abstractmethod
-    def visitFunctionCallStatementNode(self, node: FunctionCallStatementNode):
+    def visit_function_call_statement_node(self, node: FunctionCallStatementNode):
         pass
 
     @abstractmethod
-    def visitFunctionNode(self, node: FunctionNode):
+    def visit_function_node(self, node: FunctionNode):
         pass
 
     @abstractmethod
-    def visitIfStatementNode(self, node: IfStatementNode):
+    def visit_if_statement_node(self, node: IfStatementNode):
         pass
 
     @abstractmethod
-    def visitListSubscriptValueNode(self,identifier:str ,node: ListSubscriptValueNode):
+    def visit_list_subscript_value_node(self,identifier:str ,node: ListSubscriptValueNode):
         pass
 
     @abstractmethod
@@ -134,7 +134,7 @@ class SingleDispatchVisitor(ABC):
         pass
 
     @abstractmethod
-    def visitParameterNode(self, node: ParameterNode):
+    def visit_parameter_node(self, node: ParameterNode):
         pass
 
     @abstractmethod
@@ -146,7 +146,7 @@ class SingleDispatchVisitor(ABC):
         pass
 
     @abstractmethod
-    def visitTypeNode(self, node: TypeNode):
+    def visit_type_node(self, node: TypeNode):
         pass
 
     @abstractmethod
@@ -154,13 +154,13 @@ class SingleDispatchVisitor(ABC):
         pass
 
     @abstractmethod
-    def visitWhileStatementNode(self, node: WhileStatementNode):
+    def visit_while_statement_node(self, node: WhileStatementNode):
         pass
 
     @abstractmethod
-    def visitExpressionNode(self, node: Node):
+    def visit_expression_node(self, node: Node):
         pass
 
     @abstractmethod
-    def visitValNode(self, node: Node):
+    def visit_val_node(self, node: Node):
         pass

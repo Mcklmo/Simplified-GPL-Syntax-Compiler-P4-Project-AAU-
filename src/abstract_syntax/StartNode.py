@@ -9,3 +9,10 @@ class StartNode(Node):
         super().__init__()
         self.functions: List[FunctionNode] = functions
         self.statements: List[StatementNode] = statements
+
+      
+    def __eq__(self, other):
+        return isinstance(other, StartNode) and self.functions == other.functions and self.statements == other.statements
+    
+    def __repr__(self):
+        return f"StartNode(functions={self.functions}, statements={self.statements})"

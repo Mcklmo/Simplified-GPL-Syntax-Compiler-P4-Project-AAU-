@@ -11,3 +11,10 @@ class FunctionNode(Node):
         self.identifier   = identifier
         self.params = params
         self.block   = block 
+    
+    def __eq__(self, other):
+        print("hello im alive")
+        return isinstance(other, FunctionNode) and self.identifier == other.identifier and self.params == other.params and self.block == other.block
+    
+    def __repr__(self):
+        return f"FunctionNode(identifier={self.identifier}, params={self.params}, block={self.block})"

@@ -89,7 +89,7 @@ val: (
 		| TRUE
 		| FALSE
 		| L_CURLY elmnt_list R_CURLY
-		| ID list_subscript+ 
+		| ID list_subscript 
 		| func_call
 	);
 cntrol: if_stmt | while_stmt;

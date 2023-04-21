@@ -12,6 +12,7 @@ antlr4 -Dlanguage=Python3 AlgoPractise.g4 -visitor -no-listener
 ```
 
 move AlgoParser.py to _parser directory manually!
+also Lexer to _lexer!
 
 
 ## Parse source code using generated parser

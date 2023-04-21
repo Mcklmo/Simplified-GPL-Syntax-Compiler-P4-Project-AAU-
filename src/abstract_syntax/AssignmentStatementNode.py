@@ -14,3 +14,11 @@ class AssignmentStatementNode(StatementNode):
         self.subscripts = subscripts
         self.expression = expression
 
+  
+    # Add __eq__ method
+    def __eq__(self, other):
+        return isinstance(other, AssignmentStatementNode) and self.expression == other.expression and self.identifier == other.identifier and self.subscripts == other.subscripts
+    
+    # Add __repr__ method
+    def __repr__(self):
+        return f"AssignmentStatementNode(identifier={self.identifier}, subscripts={self.subscripts}, expression={self.expression})"
