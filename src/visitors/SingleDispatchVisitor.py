@@ -86,10 +86,6 @@ class SingleDispatchVisitor(ABC):
         pass
 
     @abstractmethod
-    def visit_binary_expression_node(self, node: BinaryExpressionNode):
-        pass
-
-    @abstractmethod
     def visit_block_node(self, node: BlockNode):
         pass
 
