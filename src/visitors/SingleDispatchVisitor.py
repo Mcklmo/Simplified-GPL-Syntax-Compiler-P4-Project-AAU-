@@ -94,10 +94,6 @@ class SingleDispatchVisitor(ABC):
         pass
 
     @abstractmethod
-    def visitBooleanNode(self, node: BooleanNode):
-        pass
-
-    @abstractmethod
     def visit_declaration_statement_node(self, node: DeclarationStatementNode):
         pass
 
@@ -126,19 +122,11 @@ class SingleDispatchVisitor(ABC):
         pass
 
     @abstractmethod
-    def visit_number_node(self, node: NumberNode):
-        pass
-
-    @abstractmethod
     def visit_parameter_node(self, node: ParameterNode):
         pass
 
     @abstractmethod
     def visit_return_statement_node(self, node: ReturnStatementNode):
-        pass
-
-    @abstractmethod
-    def visit_string_node(self, node: StringNode):
         pass
 
     @abstractmethod

@@ -145,18 +145,13 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         return ListSubscriptValueNode(identifier, subscripts)
 
     def visit_block_node(self, cst_node: BlockNode):
-        print("qux")
         statements = []
         for statement in cst_node.stmt():
             statements.append(self.visit_statement_node(statement))
         return BlockNode(statements)
         
     def visit_while_statement_node(self, cst_node: AlgoPractiseParser.While_stmtContext):
-        print("thud")
         return WhileStatementNode(self.visit_expression_node(cst_node.expr()), self.visit_block_node(cst_node.block()))
-        
-    def visitBooleanNode(self, cst_node: BooleanNode):
-        print("quux")
 
     def visit_declaration_statement_node(self, cst_node: DeclarationStatementNode):
         print("corge")
@@ -178,12 +173,6 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         return IfStatementNode(self.visit_expression_node(cst_node.expr()), self.visit_block_node(cst_node.block()))
         #return WhileStatementNode(self.visitExpressionNode(cst_node.expr()), self.visitBlockNode(cst_node.block()))
 
-
-    def visit_number_node(self, cst_node: NumberNode):
-        print("james")
-        #number = cst_node.value
-        #return NumberNode(number)
-
     def visit_parameter_node(self, cst_node: ParameterNode):
         print("thud")
 
@@ -195,11 +184,6 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
 
     def visit_type_node(self, cst_node: TypeNode):
         print("thud")
-
-    def visit_string_node(self, cst_node: StringNode):
-        print("thud")
-        #string = cst_node.value
-        #return StringNode(string)
 
     def visit_binary_expression_node(self, cst_node: BinaryExpressionNode):
         print("thud")
