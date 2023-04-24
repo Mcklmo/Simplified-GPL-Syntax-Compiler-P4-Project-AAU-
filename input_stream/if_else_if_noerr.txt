@@ -1,6 +1,6 @@
 if a < b {
     a := b
-} 
-else {
+}
+else if a < b{
     b := a
 }
