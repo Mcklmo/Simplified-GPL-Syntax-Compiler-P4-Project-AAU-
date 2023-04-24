@@ -1,0 +1,69 @@
+{
+  "vars": [
+    {
+      "a": {
+        "type": "num",
+        "value": 0
+      }
+    }
+  ],
+  "functions": [
+    {
+      "b": {
+        "type": "string",
+        "params": [
+          {
+            "s": {
+              "type": "string"
+            }
+          }
+        ],
+        "block": {
+          "vars": [
+            {
+              "a": {
+                "type": "num",
+                "value": 1
+              }
+            }
+          ],
+          "functions": [],
+          "childs": [
+            {
+              "vars": [],
+              "functions": [],
+              "childs": [
+                {
+                  "vars": [
+                    {
+                      "b": {
+                        "type": "num",
+                        "value": 9
+                      }
+                    }
+                  ],
+                  "functions": [],
+                  "childs": []
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "childs": [
+    {
+      "vars": [
+        {
+          "c": {
+            "type": "num",
+            "value": 8
+          }
+        }
+      ],
+      "functions": [],
+      "childs": []
+    }
+  ]
+}

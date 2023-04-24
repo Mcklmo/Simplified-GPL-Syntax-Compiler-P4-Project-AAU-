@@ -1,0 +1,16 @@
+num a := 0
+string b(s string) {
+    num a := 1
+    while a > 0 {
+        a := 3
+        if a < 0 {
+            num b := 9
+            1 := 5
+        }
+    }
+    return s
+}
+
+if 1 > 0 {
+    num c := 8
+}
