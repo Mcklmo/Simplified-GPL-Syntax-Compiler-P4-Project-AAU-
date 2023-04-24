@@ -144,3 +144,7 @@ class SingleDispatchVisitor(ABC):
     @abstractmethod
     def visit_val_node(self, node: Node):
         pass
+    
+    @abstractmethod
+    def visit_parameters_node(self, ctx):
+        pass

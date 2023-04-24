@@ -43,16 +43,17 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
 
     def visit_start_node(self, cst_node: AlgoPractiseParser.StartContext):
 
-        functions = cst_node.func()
-        for function in functions:
-            self.visit_function_node(function)
+        functions_ctxs = cst_node.func()
+        function_nodes = []
+        for function_ctx in functions_ctxs:
+            function_nodes.append(self.visit_function_node(function_ctx))
+  
+        statement_nodes = []
+        statements_ctxs = cst_node.stmt()
+        for statement_ctx in statements_ctxs:
+            statement_nodes.append(self.visit_statement_node(statement_ctx))
 
-        statements = []
-        statements_ctx = cst_node.stmt()
-        for statement in statements_ctx:
-            statements.append(self.visit_statement_node(statement))
-
-        return StartNode(functions, statements)
+        return StartNode(function_nodes, statement_nodes)
 
     def visit_statement_node(self, cst_node: AlgoPractiseParser.StmtContext):
         ast_node = None
@@ -187,16 +188,25 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
 
     def visit_else_statement_node(self, cst_node: ElseStatementNode):
         print("grault")
+    #matthias
+    def visit_function_node(self, cst_node: AlgoPractiseParser.FuncContext):
+        func_dcl_ctx = cst_node.func_decl()
+        identifier = func_dcl_ctx.ID().getText()
+        block = self.visit_block_node(func_dcl_ctx.block())
+        params = self.visit_parameters_node(func_dcl_ctx.params())
+        type_ctx = cst_node.type_()
+        if type_ctx:
+            type_node = self.visit_type_node(type_ctx)
+            return FunctionNode(identifier, params, block, type_node)
+
+        return FunctionNode(identifier, params, block)
+    #rasmus
     # moritz
 
     def visit_function_call_statement_node(self, cst_node: AlgoPractiseParser.Func_callContext):
         identifier = cst_node.ID().getText()
         arguments = self.visit_element_list_node(cst_node.elmnt_list())
         return FunctionCallStatementNode(identifier, arguments)
-    # matthias
-
-    def visit_function_node(self, cst_node: FunctionNode):
-        print("fred")
     # rasmus
 
     def visit_if_statement_node(self, cst_node: IfStatementNode):
@@ -205,11 +215,22 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         if else_node:
             raise Exception("else node not implemented. call moritz")
         return IfStatementNode(self.visit_expression_node(cst_node.expr()), self.visit_block_node(cst_node.block()))
-        # return WhileStatementNode(self.visitExpressionNode(cst_node.expr()), self.visitBlockNode(cst_node.block()))
-    # matthias
+        #return WhileStatementNode(self.visitExpressionNode(cst_node.expr()), self.visitBlockNode(cst_node.block()))
+    #matthias
+    def visit_parameter_node(self, cst_node: AlgoPractiseParser.ParamContext):
+        _type = self.visit_type_node(cst_node.type_())
+        identifier = cst_node.ID().getText()
+        return ParameterNode(identifier, _type)
+    #matthias
+    def visit_parameters_node(self, cst_node: AlgoPractiseParser.ParamsContext):
+        param_ctxs = cst_node.param_lst().param()
+        param_nodes = []
+        for param_ctx in param_ctxs:
+            param_nodes.append(self.visit_parameter_node(param_ctx))
+        return param_nodes
 
-    def visit_parameter_node(self, cst_node: ParameterNode):
-        print("thud")
+    #emily
+        # return WhileStatementNode(self.visitExpressionNode(cst_node.expr()), self.visitBlockNode(cst_node.block()))
     # moritz
 
     def visit_return_statement_node(self, cst_node: AlgoPractiseParser.ExprContext = None):
