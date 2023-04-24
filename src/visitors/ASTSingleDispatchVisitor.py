@@ -23,9 +23,18 @@ from abstract_syntax.BooleanNode import BooleanNode
 from abstract_syntax.NumberNode import NumberNode
 from abstract_syntax.StringNode import StringNode
 
+from antlr4 import ParserRuleContext
+
 from abstract_syntax.ExpressionNode import ExpressionNode
 from abstract_syntax.ValueNode import ValueNode
 from abstract_syntax.StatementNode import StatementNode
+
+def get_operator(cst_node: ParserRuleContext):
+    terminal_types = ["OR", "AND", "EQUAL", "NE", "LTE", "GTE", "GT", "LT", "PLUS", "MINUS", "MULT", "DIV", "MOD"]
+    for t in terminal_types:
+        if t in dir(cst_node):
+            return getattr(cst_node, t)()
+    return None
 
 
 class ASTSingleDispatchVisitor(SingleDispatchVisitor):
@@ -89,13 +98,31 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
 
     def visit_expression_node(self, cst_node: AlgoPractiseParser.ExprContext):
         negation = cst_node.NEG()
+        expressions = cst_node.expr()
         if negation:
-            expr = self.visit_expression_node(cst_node.expr(0))
+            expr = self.visit_expression_node(expressions[0])
             operator = negation.getText()
             return UnaryExpressionNode(expr, operator)
+        
+
         val = cst_node.val()
         if val:
             return self.visit_val_node(val)
+        
+        if expressions is not None and len(expressions) == 2:
+            # Binary
+            return BinaryExpressionNode(
+                left=expressions[0],
+                right=expressions[1],
+                operator=get_operator(cst_node).getText()
+            )
+        
+        if expressions is not None and len(expressions) == 1:
+            # (  )
+            return self.visit_expression_node(expressions[0])
+        
+
+
 
     def visit_val_node(self, cst_node: AlgoPractiseParser.ValContext):
         identifier = cst_node.ID()
@@ -182,9 +209,10 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
     #emily
     def visit_unary_expression_node(self, cst_node: UnaryExpressionNode):
         print("thud")
+    
     #malthe
-    def visit_type_node(self, cst_node: TypeNode):
-        print("thud")
-    #malthe
-    def visit_binary_expression_node(self, cst_node: BinaryExpressionNode):
-        print("thud")
+    def visit_type_node(self, cst_node: AlgoPractiseParser.TypeContext):
+        return TypeNode(
+            type="bool" if cst_node.BOOL_TYPE() else "num" if cst_node.NUM_TYPE() else "string",
+            dimensions=len(cst_node.L_BRACKET()) if not cst_node.L_BRACKET() is None else 0
+        )
