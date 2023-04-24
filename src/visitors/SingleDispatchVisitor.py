@@ -130,10 +130,6 @@ class SingleDispatchVisitor(ABC):
         pass
 
     @abstractmethod
-    def visit_unary_expression_node(self, node: UnaryExpressionNode):
-        pass
-
-    @abstractmethod
     def visit_while_statement_node(self, node: WhileStatementNode):
         pass
 
