@@ -193,13 +193,16 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         func_dcl_ctx = cst_node.func_decl()
         identifier = func_dcl_ctx.ID().getText()
         block = self.visit_block_node(func_dcl_ctx.block())
-        params = self.visit_parameters_node(func_dcl_ctx.params())
+        params_ctx = func_dcl_ctx.params()
+        if params_ctx:
+            param_nodes = self.visit_parameters_node(params_ctx)
         type_ctx = cst_node.type_()
         if type_ctx:
             type_node = self.visit_type_node(type_ctx)
-            return FunctionNode(identifier, params, block, type_node)
-
-        return FunctionNode(identifier, params, block)
+            return FunctionNode(identifier, block,param_nodes,  type_node)
+        if param_nodes:
+            return FunctionNode(identifier,block, param_nodes)
+        return FunctionNode(identifier, block)
     #rasmus
     # moritz
 
@@ -223,7 +226,10 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         return ParameterNode(identifier, _type)
     #matthias
     def visit_parameters_node(self, cst_node: AlgoPractiseParser.ParamsContext):
-        param_ctxs = cst_node.param_lst().param()
+        param_lst_ctx = cst_node.param_lst()
+        if not param_lst_ctx:
+            return []
+        param_ctxs = param_lst_ctx.param()
         param_nodes = []
         for param_ctx in param_ctxs:
             param_nodes.append(self.visit_parameter_node(param_ctx))
