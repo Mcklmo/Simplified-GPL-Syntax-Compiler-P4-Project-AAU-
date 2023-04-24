@@ -32,7 +32,7 @@ from abstract_syntax.StatementNode import StatementNode
 def get_operator(cst_node: ParserRuleContext):
     terminal_types = ["OR", "AND", "EQUAL", "NE", "LTE", "GTE", "GT", "LT", "PLUS", "MINUS", "MULT", "DIV", "MOD"]
     for t in terminal_types:
-        if t in dir(cst_node):
+        if t in dir(cst_node) and not getattr(cst_node, t)() is None:
             return getattr(cst_node, t)()
     return None
 
