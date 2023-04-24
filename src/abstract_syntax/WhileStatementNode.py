@@ -5,5 +5,5 @@ from typing import Optional
 
 class WhileStatementNode(ControlStatementNode):
     def __init__(self, condition: ExpressionNode, block: BlockNode) -> None:
-        super().__init__(block)
         self.expression = condition
+        self.block = block

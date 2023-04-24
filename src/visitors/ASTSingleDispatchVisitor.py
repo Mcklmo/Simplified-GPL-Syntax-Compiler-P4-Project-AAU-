@@ -7,7 +7,6 @@ from abstract_syntax.AssignmentStatementNode import AssignmentStatementNode
 from abstract_syntax.BlockNode import BlockNode
 from abstract_syntax.DeclarationStatementNode import DeclarationStatementNode
 from abstract_syntax.ElseStatementNode import ElseStatementNode
-from abstract_syntax.ElseIfStatementNode import ElseIfStatementNode
 from abstract_syntax.FunctionCallStatementNode import FunctionCallStatementNode
 from abstract_syntax.FunctionNode import FunctionNode
 from abstract_syntax.IfStatementNode import IfStatementNode
@@ -100,10 +99,10 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         return AssignmentStatementNode(identifier, list_subscript, expression)
 
     def visit_expression_node(self, cst_node: AlgoPractiseParser.ExprContext):
+        expression_ctxs = cst_node.expr()
         negation = cst_node.NEG()
-        expressions = cst_node.expr()
         if negation:
-            expr = self.visit_expression_node(expressions[0])
+            expr = self.visit_expression_node(expression_ctxs[0])
             operator = negation.getText()
             return UnaryExpressionNode(expr, operator)
 
@@ -111,17 +110,17 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         if val:
             return self.visit_val_node(val)
 
-        if expressions is not None and len(expressions) == 2:
+        if expression_ctxs is not None and len(expression_ctxs) == 2:
             # Binary
             return BinaryExpressionNode(
-                left=expressions[0],
-                right=expressions[1],
+                left=self.visit_expression_node(expression_ctxs[0]),
+                right=self.visit_expression_node(expression_ctxs[1]),
                 operator=get_operator(cst_node).getText()
             )
 
-        if expressions is not None and len(expressions) == 1:
+        if expression_ctxs is not None and len(expression_ctxs) == 1:
             # (  )
-            return self.visit_expression_node(expressions[0])
+            return self.visit_expression_node(expression_ctxs[0])
 
     def visit_val_node(self, cst_node: AlgoPractiseParser.ValContext):
         identifier = cst_node.ID()
@@ -192,21 +191,13 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         return DeclarationStatementNode(type_node, assignment=assignment_statement_node)
     
     def visit_else_statement_node(self, cst_node: AlgoPractiseParser.Else_stmtContext):
-        print("grault")
-        else_if_ctx = cst_node.if_stmt()
-        if else_if_ctx:
-            return self.visit_else_if_statement_node(cst_node)
-            # return(ElseStatementNode(self.visit_block_node(cst_node.block()), self.visit_if_statement_node(else_if_ctx)))
-        else:
-            return (ElseStatementNode(self.visit_block_node(cst_node.block())))
+        if_ctx = cst_node.if_stmt()
+        if if_ctx:
+            return ElseStatementNode(if_statement=self.visit_if_statement_node(if_ctx))
+        return (ElseStatementNode(block=self.visit_block_node(cst_node.block())))
 
-    def visit_else_if_statement_node(self, cst_node: AlgoPractiseParser.Else_stmtContext):
-        print("george")
-        return ElseIfStatementNode(cst_node.if_stmt())
-        
     def visit_if_statement_node(self, cst_node: AlgoPractiseParser.If_stmtContext):
         if cst_node.else_stmt():
-            i = cst_node.block()
             return IfStatementNode(self.visit_expression_node(cst_node.expr()), self.visit_block_node(cst_node.block()),  self.visit_else_statement_node(cst_node.else_stmt()))
         else:
             return IfStatementNode(self.visit_expression_node(cst_node.expr()), self.visit_block_node(cst_node.block()))

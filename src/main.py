@@ -9,7 +9,7 @@ from antlr4 import FileStream, CommonTokenStream
 
 from abstract_syntax.Node import Node
 
-SOURCE_CODE_FILE_NAME = r"././input_stream/complete_noerr.txt"
+SOURCE_CODE_FILE_NAME = r"././input_stream/if_else_if_noerr.txt"
 
 
 def main(argv=None):
