@@ -154,8 +154,15 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         return WhileStatementNode(self.visit_expression_node(cst_node.expr()), self.visit_block_node(cst_node.block()))
 
     # emily
-    def visit_declaration_statement_node(self, cst_node: DeclarationStatementNode):
-        print("corge")
+    def visit_declaration_statement_node(self, cst_node: AlgoPractiseParser.DclContext):
+        type_node = self.visit_type_node(cst_node.type_())
+        if cst_node.ID():
+            identifier = cst_node.ID().getText()
+            return DeclarationStatementNode(type_node, identifier=identifier)
+        # has assignment statement
+        assignment_statement_node = self.visit_assignment_statement_node(cst_node.assign_stmt())
+        return DeclarationStatementNode(type_node, assignment=assignment_statement_node)
+    
     #rasmus
     def visit_else_statement_node(self, cst_node: ElseStatementNode):
         print("grault")
@@ -180,7 +187,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
     def visit_return_statement_node(self, cst_node: ReturnStatementNode):
         print("chain")
     #emily
-    def visit_unary_expression_node(self, cst_node: UnaryExpressionNode):
+    def visit_unary_expression_node(self, cst_node: AlgoPractiseParser.ValContext):
         print("thud")
     #malthe
     def visit_type_node(self, cst_node: TypeNode):
