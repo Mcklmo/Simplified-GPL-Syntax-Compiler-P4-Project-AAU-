@@ -153,18 +153,19 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
     def visit_while_statement_node(self, cst_node: AlgoPractiseParser.While_stmtContext):
         return WhileStatementNode(self.visit_expression_node(cst_node.expr()), self.visit_block_node(cst_node.block()))
 
+    # emily
     def visit_declaration_statement_node(self, cst_node: DeclarationStatementNode):
         print("corge")
-
+    #rasmus
     def visit_else_statement_node(self, cst_node: ElseStatementNode):
         print("grault")
-
+    #moritz
     def visit_function_call_statement_node(self, cst_node: FunctionCallStatementNode):
         print("waldo")
-
+    #matthias
     def visit_function_node(self, cst_node: FunctionNode):
         print("fred")
-
+    #rasmus
     def visit_if_statement_node(self, cst_node: IfStatementNode):
         print("plugh")
         else_node = cst_node.else_stmt()
@@ -172,18 +173,18 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
             raise Exception("else node not implemented. call moritz")
         return IfStatementNode(self.visit_expression_node(cst_node.expr()), self.visit_block_node(cst_node.block()))
         #return WhileStatementNode(self.visitExpressionNode(cst_node.expr()), self.visitBlockNode(cst_node.block()))
-
+    #matthias
     def visit_parameter_node(self, cst_node: ParameterNode):
         print("thud")
-
+    #moritz
     def visit_return_statement_node(self, cst_node: ReturnStatementNode):
         print("chain")
-
+    #emily
     def visit_unary_expression_node(self, cst_node: UnaryExpressionNode):
         print("thud")
-
+    #malthe
     def visit_type_node(self, cst_node: TypeNode):
         print("thud")
-
+    #malthe
     def visit_binary_expression_node(self, cst_node: BinaryExpressionNode):
         print("thud")
