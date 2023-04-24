@@ -23,7 +23,7 @@ def main(argv=None):
     ast_root = single_dispatch_visitor.dispatch(parse_tree_start_node)
     print_ast(ast_root)
     
-    print_cst(parser, parse_tree_start_node)
+    # print_cst(parser, parse_tree_start_node)
     
     # listener = AlgoPractiseListener()
     # walker = ParseTreeWalker()
