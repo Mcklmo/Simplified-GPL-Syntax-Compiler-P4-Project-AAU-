@@ -14,8 +14,11 @@ class FunctionNode(Node):
         self._type = _type
     
     def __eq__(self, other):
-        print("hello im alive")
-        return isinstance(other, FunctionNode) and self.identifier == other.identifier and self.params == other.params and self.block == other.block and self._type == other._type
+        ident = self.identifier == other.identifier
+        params = self.params == other.params
+        block = self.block == other.block
+        _type = self._type == other._type
+        return isinstance(other, FunctionNode) and ident and params and block and _type
     
     def __repr__(self):
         return f"FunctionNode(identifier={self.identifier}, params={self.params}, block={self.block}, type = {self._type})"
