@@ -48,51 +48,32 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
         return ast
 
     def test_visitStartNode(self):
-        return
-        # # Call create_input_file with the input string for this test
-        # self.create_input_file("""
-        # num a := 1
-        # num foo(num a, num b) {
-        #     num c := a + b
-        #     return c
-        # }
-        # """)
+        # Call create_input_file with the input string for this test
+        ast = self.create_and_parse_input_file("""
+        num a
+        foo() {
+        }
+        """)
 
-        # ast = self.parse(self.INPUT_FILE_NAME)
-        # # Add assertions to test the generated abstract syntax tree after calling visitStartNode
-        # expected_ast = StartNode(
-        #     functions=[
-        #         FunctionNode(
-        #             identifier="foo",
-        #             params=[
-        #                 ParameterNode(
-        #                     identifier="a",
-        #                     type=TypeNode("num")
-        #                 ),
-        #                 ParameterNode(
-        #                     identifier="b",
-        #                     type=TypeNode("num")
-        #                 )
-        #             ],
-        #             block=BlockNode(
-        #                 statements=[
-        #                     DeclarationStatementNode(
-        #                         identifier="c",
-        #                         type=TypeNode("num"),
-        #                         value=BinaryExpressionNode(
-        #                             left=IDNode("a"),
-        #                             operator="+",
-        #                             right=IDNode("b")
-        #                         )
-        #                     ),
-        #                     ReturnStatementNode(
-        #                         value=IDNode("c")
-        #                     )
-        #                 ]
-        #             ),
-        #             type=TypeNode("num")
-        #         )
-        #     ],
+        # Add assertions to test the generated abstract syntax tree after calling visitStartNode
+        expected_ast = StartNode(
+            functions=[
+                FunctionNode(
+                    identifier="foo",
+                    params=[
+                    ],
+                    block=BlockNode(
+                    ),
+                )
+            ],
+            statements=[
+                DeclarationStatementNode(
+                    TypeNode("num", 0),
+                    identifier="a",
+                )
+            ]
+        )
+        self.assertEqual(ast, expected_ast)
 
     def test_visitStatementNode(self):
         return

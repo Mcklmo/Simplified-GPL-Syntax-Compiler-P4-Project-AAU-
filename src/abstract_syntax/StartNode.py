@@ -11,7 +11,16 @@ class StartNode(Node):
 
       
     def __eq__(self, other):
-        return isinstance(other, StartNode) and self.functions == other.functions and self.statements == other.statements
+        _=0
+        funcs = self.functions == other.functions
+        statements = True  
+        for i in range(len(self.statements)):
+            try:
+                if self.statements[i] != other.statements[i]:
+                    statements = False
+            except:
+                return False
+        return isinstance(other, StartNode) and funcs and statements
     
     def __repr__(self):
         return f"StartNode(functions={self.functions}, statements={self.statements})"
