@@ -4,10 +4,11 @@ test_ast_single_dispatch_visitor = TestASTSingleDispatchVisitor()
 
 test_ast_single_dispatch_visitor.setUp()
 i=0
-for method_name in dir(test_ast_single_dispatch_visitor):
+print("Running tests...\n")
+for method_name in dir(test_ast_single_dispatch_visitor) :
     if method_name.startswith("test_"):
-        method = getattr(test_ast_single_dispatch_visitor, method_name)
-        method()
-        print(f"Test {method_name} passed")
+        test_method = getattr(test_ast_single_dispatch_visitor, method_name)
+        test_method()
+        print(f"{method_name}")
         i+=1
-print(f"{i} tests passed")
+print(f"\n{i} tests ok")
