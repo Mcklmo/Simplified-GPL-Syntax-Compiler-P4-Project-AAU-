@@ -23,6 +23,10 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
 
     INPUT_FILE_NAME = "temp_test_input.txt"
 
+    def _test_expected_ast(self, expected_ast, source_code, msg=""):
+        actual_ast = self.create_and_parse_input_file(source_code)
+        self.assertEqual(expected_ast, actual_ast, msg)
+
     def create_and_parse_input_file(self, input_string: str) -> None:
         with open(self.INPUT_FILE_NAME, "w") as input_file:
             input_file.write(input_string)
@@ -50,7 +54,7 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
 
     def test_visit_if_statement_node(self):
         """runs 4 different test cases. Case 1: if else if else. Case 2: if else if. Case 3: if else. Case 4: if"""
-        actual_ast_if_else_if_else = self.create_and_parse_input_file("""
+        if_else_if_else_source_code = """
         if a < 0 {
             a := 0
         } 
@@ -59,7 +63,7 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
         } 
         else {
             a := 0
-        }""")
+        }"""
         expected_ast_if_else_if_else = StartNode(
             functions=[],
             statements=[
@@ -110,16 +114,15 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
                 ),
             ],
         )
-        self.assertEqual(actual_ast_if_else_if_else,
-                         expected_ast_if_else_if_else, "if else if else")
-
-        actual_ast_if_else_if = self.create_and_parse_input_file("""
+        self._test_expected_ast(expected_ast_if_else_if_else, if_else_if_else_source_code, "if else if else")
+        
+        if_else_if_source_code = """
         if a < 0 {
             a := 0
         } 
         else if a < 0 {
             a := 0
-        }""")
+        }"""
         expected_ast_if_else_if = StartNode(
             functions=[],
             statements=[
@@ -161,15 +164,15 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
                 ),
             ],
         )
-        self.assertEqual(actual_ast_if_else_if, expected_ast_if_else_if, "if else if")
-
-        actual_ast_if_else = self.create_and_parse_input_file("""
+        self._test_expected_ast(expected_ast_if_else_if, if_else_if_source_code, "if else if")
+        
+        if_else_source_code = """
         if a < 0 {
             a := 0
         } 
         else {
             a := 0
-        }""")
+        }"""
         expected_ast_if_else = StartNode(
             functions=[],
             statements=[
@@ -202,9 +205,9 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
                 ),
             ],
         )
-        self.assertEqual(actual_ast_if_else, expected_ast_if_else, "if else")
+        self._test_expected_ast(expected_ast_if_else, if_else_source_code, "if else")
 
-        actual_ast_if = self.create_and_parse_input_file("""
+        if_source_code = ("""
         if a < 0 {
             a := 0
         }""")
@@ -228,17 +231,15 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
                 ),
             ],
         )
-        self.assertEqual(actual_ast_if, expected_ast_if, "if")
+        self._test_expected_ast(expected_ast_if, if_source_code, "if")
 
+        
     def test_visitStartNode(self):
-        # Call create_input_file with the input string for this test
-        actual_ast = self.create_and_parse_input_file("""
+        source_code = """
         num a
         foo() {
         }
-        """)
-
-        # Add assertions to test the generated abstract syntax tree after calling visitStartNode
+        """
         expected_ast = StartNode(
             functions=[
                 FunctionNode(
@@ -256,10 +257,12 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
                 )
             ]
         )
-        self.assertEqual(actual_ast, expected_ast)
+        self._test_expected_ast(expected_ast, source_code, "visitStartNode")
 
     def test_list_subscript(self):
-        actual_ast = self.create_and_parse_input_file("a := a[0][0]")
+        source_code = """
+        a := a[0][0]
+        """
         expected_ast = StartNode(
             functions=[],
             statements=[
@@ -275,7 +278,7 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
                     )
                 )
             ])
-        self.assertEqual(actual_ast, expected_ast)
+        self._test_expected_ast(expected_ast, source_code, "test_list_subscript")
 
     @ classmethod
     def tearDownClass(cls):
