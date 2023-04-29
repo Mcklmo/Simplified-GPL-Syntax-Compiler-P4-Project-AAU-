@@ -15,11 +15,8 @@ class StartNode(Node):
         funcs = self.functions == other.functions
         statements = True  
         for i in range(len(self.statements)):
-            try:
-                if self.statements[i] != other.statements[i]:
-                    statements = False
-            except:
-                return False
+            if self.statements[i] != other.statements[i]:
+                statements = False
         return isinstance(other, StartNode) and funcs and statements
     
     def __repr__(self):

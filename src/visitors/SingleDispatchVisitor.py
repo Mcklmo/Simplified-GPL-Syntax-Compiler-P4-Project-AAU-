@@ -1,18 +1,18 @@
-from .AlgoPractiseVisitor import AlgoPractiseVisitor
+# from .AlgoPractiseVisitor import AlgoPractiseVisitor
 from _parser.AlgoPractiseParser import AlgoPractiseParser
-from typing import List
-from antlr4.Token import CommonToken, Token
-from collections.abc import Iterable
-from antlr4 import ParserRuleContext
+# from typing import List
+# from antlr4.Token import CommonToken, Token
+# from collections.abc import Iterable
+# from antlr4 import ParserRuleContext
 from abc import ABC, abstractmethod
 
 
 from abstract_syntax.Node import Node
 from abstract_syntax.StartNode import StartNode
 from abstract_syntax.AssignmentStatementNode import AssignmentStatementNode
-from abstract_syntax.BinaryExpressionNode import BinaryExpressionNode
+# from abstract_syntax.BinaryExpressionNode import BinaryExpressionNode
 from abstract_syntax.BlockNode import BlockNode
-from abstract_syntax.BooleanNode import BooleanNode
+# from abstract_syntax.BooleanNode import BooleanNode
 from abstract_syntax.DeclarationStatementNode import DeclarationStatementNode
 from abstract_syntax.ElseStatementNode import ElseStatementNode
 from abstract_syntax.FunctionCallExpressionNode import FunctionCallExpressionNode
@@ -20,12 +20,12 @@ from abstract_syntax.FunctionCallStatementNode import FunctionCallStatementNode
 from abstract_syntax.FunctionNode import FunctionNode
 from abstract_syntax.IfStatementNode import IfStatementNode
 from abstract_syntax.ListSubscriptValueNode import ListSubscriptValueNode
-from abstract_syntax.NumberNode import NumberNode
+# from abstract_syntax.NumberNode import NumberNode
 from abstract_syntax.ParameterNode import ParameterNode
 from abstract_syntax.ReturnStatementNode import ReturnStatementNode
-from abstract_syntax.StringNode import StringNode
+# from abstract_syntax.StringNode import StringNode
 from abstract_syntax.TypeNode import TypeNode
-from abstract_syntax.UnaryExpressionNode import UnaryExpressionNode
+# from abstract_syntax.UnaryExpressionNode import UnaryExpressionNode
 from abstract_syntax.WhileStatementNode import WhileStatementNode
 from abstract_syntax.StatementNode import StatementNode
 

@@ -12,7 +12,8 @@ from abstract_syntax.FunctionNode import FunctionNode
 from abstract_syntax.ListSubscriptValueNode import ListSubscriptValueNode
 from abstract_syntax.NumberNode import NumberNode
 from abstract_syntax.ParameterNode import ParameterNode
-from abstract_syntax.ReturnStatementNode import ReturnStatementNode
+from abstract_syntax.IfStatementNode import IfStatementNode
+from abstract_syntax.ElseStatementNode import ElseStatementNode
 from abstract_syntax.StartNode import StartNode
 from abstract_syntax.TypeNode import TypeNode
 from visitors.ASTSingleDispatchVisitor import ASTSingleDispatchVisitor
@@ -47,9 +48,190 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
         ast = self.visitor.visit_start_node(cst)
         return ast
 
+    def test_visit_if_statement_node(self):
+        actual_ast_if_else_if_else = self.create_and_parse_input_file("""
+        if a < 0 {
+            a := 0
+        } 
+        else if a < 0 {
+            a := 0
+        } 
+        else {
+            a := 0
+        }""")
+        expected_ast_if_else_if_else = StartNode(
+            functions=[],
+            statements=[
+                IfStatementNode(
+                    condition=BinaryExpressionNode(
+                        left="a",
+                        right=NumberNode(0.0),
+                        operator="<",
+                    ),
+                    block=BlockNode(
+                        statements_nodes=[
+                            AssignmentStatementNode(
+                                "a",
+                                expression=NumberNode(0.0),
+                            )
+                        ],
+                    ),
+                    else_node=ElseStatementNode(
+                        if_statement=IfStatementNode(
+                            condition=BinaryExpressionNode(
+                                left="a",
+                                right=NumberNode(0.0),
+                                operator="<",
+                            ),
+                            block=BlockNode(
+                                statements_nodes=[
+                                    AssignmentStatementNode(
+                                        "a",
+                                        expression=NumberNode(
+                                            0.0),
+                                    )
+                                ],
+                            ),
+                            else_node=ElseStatementNode(
+                                block=BlockNode(
+                                    statements_nodes=[
+                                        AssignmentStatementNode(
+                                            "a",
+                                            expression=NumberNode(
+                                                0.0),
+                                        )
+                                    ],
+                                ),
+                            ),
+                        ),
+                        block=None,
+                    ),
+                ),
+            ],
+        )
+        self.assertEqual(actual_ast_if_else_if_else,
+                         expected_ast_if_else_if_else)
+        
+        actual_ast_if_else_if = self.create_and_parse_input_file("""
+        if a < 0 {
+            a := 0
+        } 
+        else if a < 0 {
+            a := 0
+        }""")
+        expected_ast_if_else_if = StartNode(
+            functions=[],
+            statements=[
+
+                IfStatementNode(
+                    condition=BinaryExpressionNode(
+                        left="a",
+                        right=NumberNode(0.0),
+                        operator="<",
+                    ),
+                    block=BlockNode(
+                        statements_nodes=[
+                            AssignmentStatementNode(
+                                "a",
+                                expression=NumberNode(0.0),
+                            )
+                        ],
+                    ),
+                    else_node=ElseStatementNode(
+                        if_statement=IfStatementNode(
+                            condition=BinaryExpressionNode(
+
+                                left="a",
+                                right=NumberNode(0.0),
+                                operator="<",
+                            ),
+                            block=BlockNode(
+                                statements_nodes=[
+                                    AssignmentStatementNode(
+                                        "a",
+                                        expression=NumberNode(
+                                            0.0),
+                                    )
+                                ],
+                            ),
+                        ),
+
+                    ),
+                ),
+            ],
+        )
+        self.assertEqual(actual_ast_if_else_if, expected_ast_if_else_if)
+        
+        actual_ast_if_else = self.create_and_parse_input_file("""
+        if a < 0 {
+            a := 0
+        } 
+        else {
+            a := 0
+        }""")
+        expected_ast_if_else = StartNode(
+            functions=[],
+            statements=[
+
+                IfStatementNode(
+                    condition=BinaryExpressionNode(
+                        left="a",
+                        right=NumberNode(0.0),
+                        operator="<",
+                    ),
+                    block=BlockNode(
+                        statements_nodes=[
+                            AssignmentStatementNode(
+                                "a",
+                                expression=NumberNode(0.0),
+                            )
+                        ],
+                    ),
+                    else_node=ElseStatementNode(
+                        block=BlockNode(
+                            statements_nodes=[
+                                AssignmentStatementNode(
+
+                                    "a",
+                                    expression=NumberNode(0.0),
+                                )
+                            ],
+                        ),
+                    )
+                ),
+            ],
+        )
+        self.assertEqual(actual_ast_if_else, expected_ast_if_else)
+
+        actual_ast_if = self.create_and_parse_input_file("""
+        if a < 0 {
+            a := 0
+        }""")
+        expected_ast_if = StartNode(
+            functions=[],
+            statements=[
+                IfStatementNode(
+                    condition=BinaryExpressionNode(
+                        left="a",
+                        right=NumberNode(0.0),
+                        operator="<",
+                    ),
+                    block=BlockNode(
+                        statements_nodes=[
+                            AssignmentStatementNode(
+                                "a",
+                                expression=NumberNode(0.0),
+                            )
+                        ],
+                    ),
+                ),
+            ],
+        )
+        self.assertEqual(actual_ast_if, expected_ast_if)
+       
     def test_visitStartNode(self):
         # Call create_input_file with the input string for this test
-        ast = self.create_and_parse_input_file("""
+        actual_ast = self.create_and_parse_input_file("""
         num a
         foo() {
         }
@@ -59,7 +241,7 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
         expected_ast = StartNode(
             functions=[
                 FunctionNode(
-                    identifier="foo",
+                    "foo",
                     params=[
                     ],
                     block=BlockNode(
@@ -73,26 +255,18 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
                 )
             ]
         )
-        self.assertEqual(ast, expected_ast)
-
-    def test_visitStatementNode(self):
-        return
-        # Call create_input_file with the input string for this test
-        self.create_and_parse_input_file("your_input_string_here")
-
-        ast = self.parse(self.INPUT_FILE_NAME)
-        # Add assertions to test the generated abstract syntax tree after calling visitStatementNode
+        self.assertEqual(actual_ast, expected_ast)
 
     def test_list_subscript(self):
-        ast = self.create_and_parse_input_file("a := a[0][0]")
+        actual_ast = self.create_and_parse_input_file("a := a[0][0]")
         expected_ast = StartNode(
             functions=[],
             statements=[
                 AssignmentStatementNode(
-                    identifier="a",
+                    "a",
                     subscripts=None,
                     expression=ListSubscriptValueNode(
-                        identifier="a",
+                        "a",
                         subscripts=[
                             NumberNode(0),
                             NumberNode(0)
@@ -100,7 +274,7 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
                     )
                 )
             ])
-        self.assertEqual(ast, expected_ast)
+        self.assertEqual(actual_ast, expected_ast)
 
     @ classmethod
     def tearDownClass(cls):
