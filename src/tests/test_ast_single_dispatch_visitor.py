@@ -54,7 +54,7 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
 
     def test_visit_if_statement_node(self):
         """runs 4 different test cases. Case 1: if else if else. Case 2: if else if. Case 3: if else. Case 4: if"""
-        if_else_if_else_source_code = """
+        if_elseif_else_source_code = """
         if a < 0 {
             a := 0
         } 
@@ -64,7 +64,7 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
         else {
             a := 0
         }"""
-        expected_ast_if_else_if_else = StartNode(
+        expected_ast_if_elseif_else = StartNode(
             functions=[],
             statements=[
                 IfStatementNode(
@@ -114,7 +114,7 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
                 ),
             ],
         )
-        self._test_expected_ast(expected_ast_if_else_if_else, if_else_if_else_source_code, "if else if else")
+        self._test_expected_ast(expected_ast_if_elseif_else, if_elseif_else_source_code, "if elseif else")
         
         if_else_if_source_code = """
         if a < 0 {
