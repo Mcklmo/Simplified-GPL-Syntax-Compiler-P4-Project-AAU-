@@ -49,6 +49,7 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
         return ast
 
     def test_visit_if_statement_node(self):
+        """runs 4 different test cases. Case 1: if else if else. Case 2: if else if. Case 3: if else. Case 4: if"""
         actual_ast_if_else_if_else = self.create_and_parse_input_file("""
         if a < 0 {
             a := 0
@@ -110,8 +111,8 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
             ],
         )
         self.assertEqual(actual_ast_if_else_if_else,
-                         expected_ast_if_else_if_else)
-        
+                         expected_ast_if_else_if_else, "if else if else")
+
         actual_ast_if_else_if = self.create_and_parse_input_file("""
         if a < 0 {
             a := 0
@@ -160,8 +161,8 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
                 ),
             ],
         )
-        self.assertEqual(actual_ast_if_else_if, expected_ast_if_else_if)
-        
+        self.assertEqual(actual_ast_if_else_if, expected_ast_if_else_if, "if else if")
+
         actual_ast_if_else = self.create_and_parse_input_file("""
         if a < 0 {
             a := 0
@@ -201,7 +202,7 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
                 ),
             ],
         )
-        self.assertEqual(actual_ast_if_else, expected_ast_if_else)
+        self.assertEqual(actual_ast_if_else, expected_ast_if_else, "if else")
 
         actual_ast_if = self.create_and_parse_input_file("""
         if a < 0 {
@@ -227,8 +228,8 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
                 ),
             ],
         )
-        self.assertEqual(actual_ast_if, expected_ast_if)
-       
+        self.assertEqual(actual_ast_if, expected_ast_if, "if")
+
     def test_visitStartNode(self):
         # Call create_input_file with the input string for this test
         actual_ast = self.create_and_parse_input_file("""
