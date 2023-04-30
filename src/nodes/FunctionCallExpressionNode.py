@@ -7,6 +7,9 @@ class FunctionCallExpressionNode(ExpressionNode):
         self.identifier = identifier
         self.arguments = arguments
 
+        # From symboltabel
+        self.dcl_type = None
+
     def __eq__(self, other):
         return isinstance(other, FunctionCallExpressionNode) and self.identifier == other.identifier and self.arguments == other.arguments
     

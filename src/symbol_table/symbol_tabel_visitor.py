@@ -13,18 +13,12 @@ class SymbolTableVisitor(AbstractSymbolTableVisitor):
         
         for master_stmt in node.master_statement_nodes:
             if not master_stmt.statement_node is None:
-                if isinstance(master_stmt.statement_node, nodes.DeclarationStatementNode):
-                    pass
-                if isinstance(master_stmt.statement_node, nodes.AssignmentStatementNode):
-                    pass
-                if isinstance(master_stmt.statement_node, nodes.FunctionCallStatementNode):
-                    pass
-                if isinstance(master_stmt.statement_node, nodes.WhileStatementNode):
-                    pass
-                if isinstance(master_stmt.statement_node, nodes.IfStatementNode):
-                    pass
-                if isinstance(master_stmt.statement_node, nodes.ReturnStatementNode):
-                    pass
+                if isinstance(master_stmt.statement_node, nodes.DeclarationStatementNode): self.visitDeclarationStatementNode(master_stmt.statement_node)
+                if isinstance(master_stmt.statement_node, nodes.AssignmentStatementNode): self.visitAssignmentStatementNode(master_stmt.statement_node)
+                if isinstance(master_stmt.statement_node, nodes.FunctionCallStatementNode): self.visitFunctionCallStatementNode(master_stmt.statement_node)
+                if isinstance(master_stmt.statement_node, nodes.WhileStatementNode): self.visitWhileStatementNode(master_stmt.statement_node)
+                if isinstance(master_stmt.statement_node, nodes.IfStatementNode): self.visitIfStatementNode(master_stmt.statement_node)
+                if isinstance(master_stmt.statement_node, nodes.ReturnStatementNode): self.visitReturnStatementNode(master_stmt.statement_node)
 
 
             elif not master_stmt.function_node is None:
@@ -45,6 +39,14 @@ class SymbolTableVisitor(AbstractSymbolTableVisitor):
         self.visitAssignmentStatementNode(node.assignment)
     
     def visitAssignmentStatementNode(self, node: nodes.AssignmentStatementNode):
+        dcl_node = self.symbol_tabel.traverse(node.identifier)
+        if dcl_node is None:
+            # Error, not declared!
+            pass
+        
+        # Populate assignemnt node with dcl type for later typecheck
+        node.dcl_type = dcl_node.type
+
         if isinstance(node.subscripts, Iterable):
             for subscript_expr in node.subscripts:
                 self.visitGeneralExprNode(subscript_expr)
@@ -54,10 +56,40 @@ class SymbolTableVisitor(AbstractSymbolTableVisitor):
     def visitGeneralExprNode(self, node: Any):
         if isinstance(node, nodes.BinaryExpressionNode): self.visitBinaryExpressionNode(node)
         if isinstance(node, nodes.UnaryExpressionNode): self.visitUnaryExpressionNode(node)
-        if isinstance(node, nodes.ValueNode): self.visitValueNode(node)
         if isinstance(node, nodes.FunctionCallExpressionNode): self.visitFunctionCallExpressionNode(node)
+
+        # TODO: Fix id/var node in ast
+        self.visitGeneralValueNode(node)
     
+    def visitGeneralValueNode(self, node: Any):
+        # Includes; IdNode, ListSubscriptValueNode (....)
+        pass
+    
+    def visitBinaryExpressionNode(self, node: nodes.BinaryExpressionNode):
+        self.visitGeneralExprNode(node.left)
+        self.visitGeneralExprNode(node.right)
+    
+    def visitUnaryExpressionNode(self, node: nodes.UnaryExpressionNode):
+        self.visitGeneralExprNode(node)
+    
+
+    def visitFunctionCallExpressionNode(self, node: nodes.FunctionCallExpressionNode):
+        dcl_node = self.symbol_tabel.traverse(node.identifier)
+        if dcl_node is None:
+            # Error, not declared!
+            pass
+        
+        node.dcl_type = dcl_node._type
+
+        if isinstance(node.arguments, Iterable):
+            for param in node.arguments:
+                self.visitGeneralExprNode(param)
+        
+        self.visitGeneralExprNode(node.expression)
+
+
     def visitFunctionNode(self, node: nodes.FunctionNode):
+        """This is func dcl, just poor naming"""
         self.symbol_tabel.insert_in_open_scope(node.identifier, node)
         self.symbol_tabel.open_scope()
         # inject params as variables

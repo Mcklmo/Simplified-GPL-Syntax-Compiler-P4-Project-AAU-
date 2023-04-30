@@ -14,6 +14,9 @@ class AssignmentStatementNode(StatementNode):
         self.subscripts = subscripts
         self.expression = expression
 
+        # From symboltabel
+        self.dcl_type = None
+
   
     # Add __eq__ method
     def __eq__(self, other):
