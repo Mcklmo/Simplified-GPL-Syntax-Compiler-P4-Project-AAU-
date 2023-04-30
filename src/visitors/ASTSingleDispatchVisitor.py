@@ -127,27 +127,31 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
             # (  )
             return self.visit_expression_node(expression_ctxs[0])
 
-    def visit_val_node(self, cst_node: AlgoPractiseParser.ValContext):
+    def visit_val_node(self, cst_node: AlgoPractiseParser.ValContext): 
         identifier = cst_node.ID()
         if identifier:
             identifier = identifier.getText()
         list_subscript = cst_node.list_subscript()
         if list_subscript:
             return self.visit_list_subscript_value_node(identifier, list_subscript)
+        
         if identifier:
             return identifier
+        
         numval = cst_node.NUMVAL()
         if numval:
             return NumberNode(numval.getText())
         stringval = cst_node.STRINGVAL()
         if stringval:
             return StringNode(stringval)
+
         true = cst_node.TRUE()
-        if true:
-            return BooleanNode(true)
+        if  not true is None:
+            return BooleanNode(True)
         false = cst_node.FALSE()
-        if false:
-            return BooleanNode(false)
+        if not false is None:
+            return BooleanNode(False)
+        
         elmnt_list = cst_node.elmnt_list()
         if elmnt_list:
             return self.visit_element_list_node(elmnt_list)
