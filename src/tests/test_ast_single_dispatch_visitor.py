@@ -4,18 +4,18 @@ import unittest
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from _lexer.AlgoPractiseLexer import AlgoPractiseLexer
 from _parser.AlgoPractiseParser import AlgoPractiseParser
-from abstract_syntax.AssignmentStatementNode import AssignmentStatementNode
-from abstract_syntax.BinaryExpressionNode import BinaryExpressionNode
-from abstract_syntax.BlockNode import BlockNode
-from abstract_syntax.DeclarationStatementNode import DeclarationStatementNode
-from abstract_syntax.FunctionNode import FunctionNode
-from abstract_syntax.ListSubscriptValueNode import ListSubscriptValueNode
-from abstract_syntax.NumberNode import NumberNode
-from abstract_syntax.ParameterNode import ParameterNode
-from abstract_syntax.IfStatementNode import IfStatementNode
-from abstract_syntax.ElseStatementNode import ElseStatementNode
-from abstract_syntax.StartNode import StartNode
-from abstract_syntax.TypeNode import TypeNode
+from nodes.AssignmentStatementNode import AssignmentStatementNode
+from nodes.BinaryExpressionNode import BinaryExpressionNode
+from nodes.BlockNode import BlockNode
+from nodes.DeclarationStatementNode import DeclarationStatementNode
+from nodes.FunctionNode import FunctionNode
+from nodes.ListSubscriptValueNode import ListSubscriptValueNode
+from nodes.NumberNode import NumberNode
+from nodes.ParameterNode import ParameterNode
+from nodes.IfStatementNode import IfStatementNode
+from nodes.ElseStatementNode import ElseStatementNode
+from nodes.StartNode import StartNode
+from nodes.TypeNode import TypeNode
 from visitors.ASTSingleDispatchVisitor import ASTSingleDispatchVisitor
 
 

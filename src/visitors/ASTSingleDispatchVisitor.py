@@ -1,33 +1,33 @@
 from _parser.AlgoPractiseParser import AlgoPractiseParser
-from abstract_syntax.ElementListNode import ElementListNode
+from nodes.ElementListNode import ElementListNode
 
 from .SingleDispatchVisitor import SingleDispatchVisitor
-from abstract_syntax.StartNode import StartNode
-from abstract_syntax.AssignmentStatementNode import AssignmentStatementNode
-from abstract_syntax.BlockNode import BlockNode
-from abstract_syntax.DeclarationStatementNode import DeclarationStatementNode
-from abstract_syntax.ElseStatementNode import ElseStatementNode
-from abstract_syntax.FunctionCallStatementNode import FunctionCallStatementNode
-from abstract_syntax.FunctionNode import FunctionNode
-from abstract_syntax.IfStatementNode import IfStatementNode
-from abstract_syntax.ListSubscriptValueNode import ListSubscriptValueNode
-from abstract_syntax.ParameterNode import ParameterNode
-from abstract_syntax.WhileStatementNode import WhileStatementNode
-from abstract_syntax.TypeNode import TypeNode
+from nodes.StartNode import StartNode
+from nodes.AssignmentStatementNode import AssignmentStatementNode
+from nodes.BlockNode import BlockNode
+from nodes.DeclarationStatementNode import DeclarationStatementNode
+from nodes.ElseStatementNode import ElseStatementNode
+from nodes.FunctionCallStatementNode import FunctionCallStatementNode
+from nodes.FunctionNode import FunctionNode
+from nodes.IfStatementNode import IfStatementNode
+from nodes.ListSubscriptValueNode import ListSubscriptValueNode
+from nodes.ParameterNode import ParameterNode
+from nodes.WhileStatementNode import WhileStatementNode
+from nodes.TypeNode import TypeNode
 
-from abstract_syntax.FunctionCallExpressionNode import FunctionCallExpressionNode
-from abstract_syntax.ReturnStatementNode import ReturnStatementNode
-from abstract_syntax.UnaryExpressionNode import UnaryExpressionNode
-from abstract_syntax.BinaryExpressionNode import BinaryExpressionNode
-from abstract_syntax.BooleanNode import BooleanNode
-from abstract_syntax.NumberNode import NumberNode
-from abstract_syntax.StringNode import StringNode
+from nodes.FunctionCallExpressionNode import FunctionCallExpressionNode
+from nodes.ReturnStatementNode import ReturnStatementNode
+from nodes.UnaryExpressionNode import UnaryExpressionNode
+from nodes.BinaryExpressionNode import BinaryExpressionNode
+from nodes.BooleanNode import BooleanNode
+from nodes.NumberNode import NumberNode
+from nodes.StringNode import StringNode
 
 from antlr4 import ParserRuleContext
 
-from abstract_syntax.ExpressionNode import ExpressionNode
-from abstract_syntax.ValueNode import ValueNode
-from abstract_syntax.StatementNode import StatementNode
+from nodes.ExpressionNode import ExpressionNode
+from nodes.ValueNode import ValueNode
+from nodes.StatementNode import StatementNode
 
 
 def get_operator(cst_node: ParserRuleContext):

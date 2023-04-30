@@ -9,7 +9,7 @@ from antlr4 import FileStream, CommonTokenStream
 
 from abstract_syntax.Node import Node
 
-SOURCE_CODE_FILE_NAME = r"././input_stream/if_stmt_noerr.txt"
+SOURCE_CODE_FILE_NAME = r"././input_stream/complete_noerr.txt"
 
 
 def main(argv=None):
@@ -20,7 +20,7 @@ def main(argv=None):
     parse_tree_start_node = parser.start()
 
     single_dispatch_visitor = ASTSingleDispatchVisitor()
-    ast_root = single_dispatch_visitor.dispatch(parse_tree_start_node)
+    ast_root = single_dispatch_visitor.visit_start_node(parse_tree_start_node)
     print_ast(ast_root)
     
     # print_cst(parser, parse_tree_start_node)

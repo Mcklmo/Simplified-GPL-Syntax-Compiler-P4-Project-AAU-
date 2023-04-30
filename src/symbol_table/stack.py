@@ -1,22 +1,22 @@
-class StackNode:
-    def __init__(self, value):
-        self.value = value
+from typing import Any, Tuple
+
+class SymbolTabel:
+    def __init__(self):
+        self.content = dict()
         self.next = None
     
     def try_fetch_id(self, _id):
         # decide on table format
-        if self.value != "head":
-            return self.value.get(_id, None)
+        return self.content.get(_id, None)
     
- 
  
 class Stack:
     def __init__(self):
-        self.head = StackNode("head")
-        self.size = 0
+        self.head = SymbolTabel()
+        self.size = 1
 
     def __str__(self):
-        cur = self.head.next
+        cur = self.head
         out = ""
         while cur:
             out += str(cur.value) + "->"
@@ -32,31 +32,38 @@ class Stack:
     def peek(self):
         if self.isEmpty():
             raise Exception("Peeking from an empty stack")
-        return self.head.next.value
+        return self.head.value
+
+    def insert_in_open_scope(self, key, value) -> Tuple[bool, Any]:
+        if key in self.head.content:
+            return False, self.head.content[key]
+        self.head.content[key] = value
+        return True, value
 
     def traverse(self, _id):
         # This is head
         stack_node = self.peek()
         for i in range(self.getSize()-1):
-            stack_node = stack_node.next
             val = stack_node.try_fetch_id(_id)
             if not val is None:
-                return val     
+                return val  
+               
+            stack_node = stack_node.next
 
 
     # Push a value into the stack.
-    def open_scope(self, value):
-        node = StackNode(value)
-        node.next = self.head.next
-        self.head.next = node
+    def open_scope(self):
+        node = SymbolTabel()
+        node.next = self.head
+        self.head = node
         self.size += 1
  
     # Remove a value from the stack and return.
     def close_scope(self):
         if self.isEmpty():
             raise Exception("Popping from an empty stack")
-        remove = self.head.next
-        self.head.next = self.head.next.next
+        remove = self.head
+        self.head = self.head.next
         self.size -= 1
         return remove.value
  
