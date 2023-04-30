@@ -28,6 +28,7 @@ from antlr4 import ParserRuleContext
 from nodes.ExpressionNode import ExpressionNode
 from nodes.ValueNode import ValueNode
 from nodes.StatementNode import StatementNode
+from nodes.master_statement_node import MasterStatementNode
 
 
 def get_operator(cst_node: ParserRuleContext):
@@ -45,17 +46,21 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
 
     def visit_start_node(self, cst_node: AlgoPractiseParser.StartContext):
 
-        functions_ctxs = cst_node.func()
-        function_nodes = []
-        for function_ctx in functions_ctxs:
-            function_nodes.append(self.visit_function_node(function_ctx))
+        master_statement_cntxs = cst_node.master_statement()
 
-        statement_nodes = []
-        statements_ctxs = cst_node.stmt()
-        for statement_ctx in statements_ctxs:
-            statement_nodes.append(self.visit_statement_node(statement_ctx))
+        master_stmt_nodes = []
+        for master_statement_ctx in master_statement_cntxs:
+            master_stmt_nodes.append(self.visit_master_statement_node(master_statement_ctx))
 
-        return StartNode(function_nodes, statement_nodes)
+        return StartNode(master_stmt_nodes)
+    
+    def visit_master_statement_node(self, cst_ctx: AlgoPractiseParser.Master_statementContext):
+        return MasterStatementNode(
+            function_node=None if cst_ctx.func() is None else self.visit_function_node(cst_ctx.func()),
+            statement_node=None if cst_ctx.stmt() is None else self.visit_statement_node(cst_ctx.stmt())
+        )
+    
+
 
     def visit_statement_node(self, cst_node: AlgoPractiseParser.StmtContext):
         ast_node = None
@@ -126,7 +131,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         identifier = cst_node.ID()
         if identifier:
             identifier = identifier.getText()
-        list_subscript = cst_node.list_subscript(0)
+        list_subscript = cst_node.list_subscript()
         if list_subscript:
             return self.visit_list_subscript_value_node(identifier, list_subscript)
         if identifier:

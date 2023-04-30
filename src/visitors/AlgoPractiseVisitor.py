@@ -1,10 +1,15 @@
-# Generated from AlgoPractise.g4 by ANTLR 4.12.0
+# Generated from src\AlgoPractise.g4 by ANTLR 4.12.0
 from antlr4 import *
 from _parser.AlgoPractiseParser import AlgoPractiseParser
 
 # This class defines a complete generic visitor for a parse tree produced by AlgoPractiseParser.
 
 class AlgoPractiseVisitor(ParseTreeVisitor):
+
+    # Visit a parse tree produced by AlgoPractiseParser#master_statement.
+    def visitMaster_statement(self, ctx:AlgoPractiseParser.Master_statementContext):
+        return self.visitChildren(ctx)
+
 
     # Visit a parse tree produced by AlgoPractiseParser#start.
     def visitStart(self, ctx:AlgoPractiseParser.StartContext):

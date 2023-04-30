@@ -41,7 +41,9 @@ COMMENT: '/*' .*? '*/' -> skip; // multi-line comment
 fragment DIGIT: [0-9];
 fragment LETTER: [a-zA-Z];
 // Parser
-start: NEWLINE* (func NEWLINE+ | stmt NEWLINE+)* (func | stmt)? EOF;
+
+master_statement: func | stmt;
+start: NEWLINE* (master_statement NEWLINE+)* EOF;
 func: type func_decl | func_decl;
 func_decl: ID params block;
 type:

@@ -19,7 +19,7 @@ and check if the module names from `requirements.txt` are listed.
 
 # Create or update parser
 
-`antlr4 -Dlanguage=Python3 src\AlgoPractise.g4 -visitor -nolisteners`
+`antlr4 -Dlanguage=Python3 src\AlgoPractise.g4 -visitor -no-listener`
 
 [Remember to move `AlgoPractiseLexer.py` to `src/_lexer` and `AlgoPractiseParser.py` to `src/_parser`!]
 

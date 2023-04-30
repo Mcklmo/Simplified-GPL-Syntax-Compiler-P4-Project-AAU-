@@ -2,12 +2,10 @@ from antlr4 import *
 from _lexer.AlgoPractiseLexer import AlgoPractiseLexer
 from _parser.AlgoPractiseParser import AlgoPractiseParser
 from antlr4.tree.Trees import Trees
-from nodes import ASTNode
-from visitors.ASTvisitor import ASTvisitor
 from visitors.ASTSingleDispatchVisitor import ASTSingleDispatchVisitor
 from antlr4 import FileStream, CommonTokenStream
 
-from abstract_syntax.Node import Node
+from nodes.Node import Node
 
 SOURCE_CODE_FILE_NAME = r"././input_stream/complete_noerr.txt"
 

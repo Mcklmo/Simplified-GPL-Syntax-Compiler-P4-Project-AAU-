@@ -1,23 +1,16 @@
 from .Node import Node
-from .FunctionNode import FunctionNode
-from .StatementNode import StatementNode
+from .master_statement_node import MasterStatementNode
 from typing import List, Optional
 
 class StartNode(Node):
-    def __init__(self, functions: Optional[List[FunctionNode]], statements: Optional[List[StatementNode]] ) -> None:
-        super().__init__()
-        self.functions: List[FunctionNode] = functions
-        self.statements: List[StatementNode] = statements
+    def __init__(self, master_statement_nodes: Optional[List[MasterStatementNode]]=None ) -> None:
+        self.master_statement_nodes: List[MasterStatementNode] = master_statement_nodes
 
       
     def __eq__(self, other):
         _=0
-        funcs = self.functions == other.functions
-        statements = True  
-        for i in range(len(self.statements)):
-            if self.statements[i] != other.statements[i]:
-                statements = False
-        return isinstance(other, StartNode) and funcs and statements
+        master_statement_nodes = self.master_statement_nodes == other.master_statement_nodes
+        return isinstance(other, StartNode) and master_statement_nodes
     
     def __repr__(self):
-        return f"StartNode(functions={self.functions}, statements={self.statements})"
+        return f"StartNode(master_statement_nodes={self.master_statement_nodes})"
