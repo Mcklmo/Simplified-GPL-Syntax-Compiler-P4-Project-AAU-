@@ -23,18 +23,18 @@ DCL node in ast has non identifier!
 
 2.
 It is unclear how variables are handled in the ast. According to the gramma, a value can contain a ID, however no ID node exists. 
-In ast, when hitting a id, the cst node is returned as a part of our ast.
+In ast, when hitting an id, the cst node is returned as a part of our ast.
 
 Fixed issues:
 1. Added identifier to dcl node eved though it has assignment node.
 2. 
 
-Status quo: Implement visitGeneralValueNode when id issue has been fixed
+Status quo: Implement visitGeneralValueNode when id issue in ast has been fixed
 
 """
 
-#class SymbolTableVisitor(AbstractSymbolTableVisitor):
-class SymbolTableVisitor():
+#class SymbolTableVisitor():
+class SymbolTableVisitor(AbstractSymbolTableVisitor):
     def __init__(self) -> None:
         self.symbol_tabel = Stack()
     
