@@ -66,5 +66,9 @@ class Stack:
         self.head = self.head.next
         self.size -= 1
         return remove.value
+
+    @property
+    def current(self):
+        return self.head
  
     
