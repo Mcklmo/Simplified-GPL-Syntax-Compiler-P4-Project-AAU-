@@ -8,7 +8,8 @@ class BlockNode(Node):
         self.statements_nodes = statements_nodes
 
     def __eq__(self, other):
-        return isinstance(other, BlockNode) and self.statements_nodes == other.statements_nodes
+        statements_nodes = self.statements_nodes == other.statements_nodes
+        return isinstance(other, BlockNode) and statements_nodes
     
     def __repr__(self):
         return f"BlockNode(statements_nodes={self.statements_nodes})"
