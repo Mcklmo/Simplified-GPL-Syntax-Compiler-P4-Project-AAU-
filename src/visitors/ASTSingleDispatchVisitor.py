@@ -197,7 +197,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         # has assignment statement
         assignment_statement_node = self.visit_assignment_statement_node(
             cst_node.assign_stmt())
-        return DeclarationStatementNode(type_node, assignment=assignment_statement_node)
+        return DeclarationStatementNode(type_node, assignment=assignment_statement_node, identifier=assignment_statement_node.identifier)
     
     def visit_else_statement_node(self, cst_node: AlgoPractiseParser.Else_stmtContext):
         if_ctx = cst_node.if_stmt()

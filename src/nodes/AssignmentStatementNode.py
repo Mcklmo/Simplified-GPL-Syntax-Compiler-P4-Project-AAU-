@@ -1,5 +1,6 @@
 from .StatementNode import StatementNode
 from .ExpressionNode import ExpressionNode
+from .ListSubscriptValueNode import ListSubscriptValueNode
 
 from typing import List, Optional
 
@@ -8,7 +9,7 @@ class AssignmentStatementNode(StatementNode):
     """
     either subscripts or expression will be be set according to the grammar
 		"""
-    def __init__(self, identifier: str, subscripts: Optional[List[ExpressionNode]]=None, expression: Optional[ExpressionNode]=None) -> None:
+    def __init__(self, identifier: str, subscripts: Optional[ListSubscriptValueNode]=None, expression: Optional[ExpressionNode]=None) -> None:
         super().__init__()
         self.identifier = identifier
         self.subscripts = subscripts

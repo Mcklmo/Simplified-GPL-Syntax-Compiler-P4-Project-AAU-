@@ -4,12 +4,52 @@ from .abs_symbol_tabel_visitor import AbstractSymbolTableVisitor
 from collections.abc import Iterable
 from typing import Any
 
-class SymbolTableVisitor(AbstractSymbolTableVisitor):
+"""
+OBS: 
+
+These visitors should be implemented with the objective to verify that the input prigram contains no scope violations.
+While during that, it should populate out ast nodes with types, making typechecking possible afterwards.
+
+When entering a block, a new scope should be opened in the symbol table. Make sure to always close opend scopes in the SAME visitor it was opned in.
+
+ETC - We found an assignment node:
+1: use traverse tro find corrosponding dcl
+2: If no dcl exists, raise error (To be implemented)
+3: Populate the assignemt node with the type of the dcl.
+
+!!Current issue!!
+1.
+DCL node in ast has non identifier!
+
+2.
+It is unclear how variables are handled in the ast. According to the gramma, a value can contain a ID, however no ID node exists. 
+In ast, when hitting a id, the cst node is returned as a part of our ast.
+
+Fixed issues:
+1. Added identifier to dcl node eved though it has assignment node.
+2. 
+
+Status quo: Implement visitGeneralValueNode when id issue has been fixed
+
+"""
+
+#class SymbolTableVisitor(AbstractSymbolTableVisitor):
+class SymbolTableVisitor():
     def __init__(self) -> None:
         self.symbol_tabel = Stack()
+    
+    @staticmethod
+    def is_iterable(obj):
+        try:
+            iterator = iter(obj)
+        except TypeError:
+            # not iterable
+            return False
+        else:
+            # iterable
+            return True
 
     def startVisitor(self, node: nodes.StartNode):
-        self.symbol_tabel.open_scope()
         
         for master_stmt in node.master_statement_nodes:
             if not master_stmt.statement_node is None:
@@ -27,7 +67,6 @@ class SymbolTableVisitor(AbstractSymbolTableVisitor):
             else:
                 print("Stop coding, you are tired!")
         
-        self.symbol_tabel.close_scope()
     
     def visitDeclarationStatementNode(self, node: nodes.DeclarationStatementNode):
         if not self.symbol_tabel.current.try_fetch_id(node.identifier) is None:
@@ -42,13 +81,14 @@ class SymbolTableVisitor(AbstractSymbolTableVisitor):
         dcl_node = self.symbol_tabel.traverse(node.identifier)
         if dcl_node is None:
             # Error, not declared!
+            raise Exception()
             pass
         
         # Populate assignemnt node with dcl type for later typecheck
         node.dcl_type = dcl_node.type
 
-        if isinstance(node.subscripts, Iterable):
-            for subscript_expr in node.subscripts:
+        if self.is_iterable(node.subscripts.subscripts):
+            for subscript_expr in node.subscripts.subscripts:
                 self.visitGeneralExprNode(subscript_expr)
         
         self.visitGeneralExprNode(node.expression)
@@ -81,7 +121,7 @@ class SymbolTableVisitor(AbstractSymbolTableVisitor):
         
         node.dcl_type = dcl_node._type
 
-        if isinstance(node.arguments, Iterable):
+        if self.is_iterable(node.arguments):
             for param in node.arguments:
                 self.visitGeneralExprNode(param)
         
