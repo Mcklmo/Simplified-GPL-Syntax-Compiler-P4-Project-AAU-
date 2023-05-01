@@ -52,10 +52,11 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         for master_statement_ctx in master_statement_cntxs:
             master_stmt_nodes.append(self.visit_master_statement_node(master_statement_ctx))
 
-        return StartNode(master_stmt_nodes)
+        return StartNode(cst_node.start.line, master_stmt_nodes)
     
     def visit_master_statement_node(self, cst_ctx: AlgoPractiseParser.Master_statementContext):
         return MasterStatementNode(
+            cst_ctx.start.line,
             function_node=None if cst_ctx.func() is None else self.visit_function_node(cst_ctx.func()),
             statement_node=None if cst_ctx.stmt() is None else self.visit_statement_node(cst_ctx.stmt())
         )
@@ -78,10 +79,10 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         elif cst_node.cntrol():
             ast_node = self.visit_control_statement_node(cst_node.cntrol())
         elif cst_node.RETURN() and cst_node.expr():
-            ast_node = self.visit_return_statement_node(cst_node.expr())
+            ast_node = self.visit_return_statement_node(expression_ctx=cst_node.expr())
         else:
             # return void
-            ast_node = self.visit_return_statement_node(None)
+            ast_node = self.visit_return_statement_node(line=cst_node.start.line)
 
         return ast_node
 
@@ -101,7 +102,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         if list_subscript_ctx:
             list_subscript = self.visit_list_subscript_value_node(identifier,
                                                                   list_subscript_ctx)
-        return AssignmentStatementNode(identifier, list_subscript, expression)
+        return AssignmentStatementNode(cst_node.start.line, identifier, list_subscript, expression)
 
     def visit_expression_node(self, cst_node: AlgoPractiseParser.ExprContext):
         expression_ctxs = cst_node.expr()
@@ -109,7 +110,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         if negation:
             expr = self.visit_expression_node(expression_ctxs[0])
             operator = negation.getText()
-            return UnaryExpressionNode(expr, operator)
+            return UnaryExpressionNode(cst_node.start.line, expr, operator)
 
         val = cst_node.val()
         if val:
@@ -118,6 +119,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         if expression_ctxs is not None and len(expression_ctxs) == 2:
             # Binary
             return BinaryExpressionNode(
+                cst_node.start.line,
                 left=self.visit_expression_node(expression_ctxs[0]),
                 right=self.visit_expression_node(expression_ctxs[1]),
                 operator=get_operator(cst_node).getText()
@@ -138,16 +140,16 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
             return identifier
         numval = cst_node.NUMVAL()
         if numval:
-            return NumberNode(numval.getText())
+            return NumberNode(cst_node.start.line, numval.getText())
         stringval = cst_node.STRINGVAL()
         if stringval:
-            return StringNode(stringval)
+            return StringNode(cst_node.start.line, stringval)
         true = cst_node.TRUE()
         if true:
-            return BooleanNode(true)
+            return BooleanNode(cst_node.start.line, true)
         false = cst_node.FALSE()
         if false:
-            return BooleanNode(false)
+            return BooleanNode(cst_node.start.line, false)
         elmnt_list = cst_node.elmnt_list()
         if elmnt_list:
             return self.visit_element_list_node(elmnt_list)
@@ -161,51 +163,51 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         elementList = []
         for element in cst_node.expr():
             elementList.append(self.visit_expression_node(element))
-        return ElementListNode(elementList)
+        return ElementListNode(elementList, cst_node.start.line)
 
     def visit_function_call_expression_node(self, cst_node: AlgoPractiseParser.Func_callContext):
         identifier = cst_node.ID().getText()
         arguments = self.visit_element_list_node(cst_node.elmnt_list())
 
-        return FunctionCallExpressionNode(identifier, arguments)
+        return FunctionCallExpressionNode(cst_node.start.line, identifier, arguments)
 
     def visit_list_subscript_value_node(self, identifier, cst_node: AlgoPractiseParser.List_subscriptContext):
         subscripts = []
         for subscript in cst_node.expr():
             subscripts.append(self.visit_expression_node(subscript))
-        return ListSubscriptValueNode(identifier, subscripts)
+        return ListSubscriptValueNode(cst_node.start.line, identifier, subscripts)
 
     def visit_block_node(self, cst_node: AlgoPractiseParser.BlockContext):
         statements = []
         if cst_node.stmt():
             for statement in cst_node.stmt():
                 statements.append(self.visit_statement_node(statement))
-        return BlockNode(statements)
+        return BlockNode(cst_node.start.line, statements)
 
     def visit_while_statement_node(self, cst_node: AlgoPractiseParser.While_stmtContext):
-        return WhileStatementNode(self.visit_expression_node(cst_node.expr()), self.visit_block_node(cst_node.block()))
+        return WhileStatementNode(cst_node.start.line, self.visit_expression_node(cst_node.expr()), self.visit_block_node(cst_node.block()))
 
     def visit_declaration_statement_node(self, cst_node: AlgoPractiseParser.DclContext):
         type_node = self.visit_type_node(cst_node.type_())
         if cst_node.ID():
             identifier = cst_node.ID().getText()
-            return DeclarationStatementNode(type_node, identifier=identifier)
+            return DeclarationStatementNode(type_node, cst_node.start.line ,identifier=identifier)
         # has assignment statement
         assignment_statement_node = self.visit_assignment_statement_node(
             cst_node.assign_stmt())
-        return DeclarationStatementNode(type_node, assignment=assignment_statement_node)
+        return DeclarationStatementNode(type_node, cst_node.start.line, assignment=assignment_statement_node)
     
     def visit_else_statement_node(self, cst_node: AlgoPractiseParser.Else_stmtContext):
         if_ctx = cst_node.if_stmt()
         if if_ctx:
-            return ElseStatementNode(if_statement=self.visit_if_statement_node(if_ctx))
-        return (ElseStatementNode(block=self.visit_block_node(cst_node.block())))
+            return ElseStatementNode(cst_node.start.line, if_statement=self.visit_if_statement_node(if_ctx))
+        return (ElseStatementNode(cst_node.start.line, block=self.visit_block_node(cst_node.block())))
 
     def visit_if_statement_node(self, cst_node: AlgoPractiseParser.If_stmtContext):
         if cst_node.else_stmt():
-            return IfStatementNode(self.visit_expression_node(cst_node.expr()), self.visit_block_node(cst_node.block()),  self.visit_else_statement_node(cst_node.else_stmt()))
+            return IfStatementNode(cst_node.start.line, self.visit_expression_node(cst_node.expr()), self.visit_block_node(cst_node.block()),  self.visit_else_statement_node(cst_node.else_stmt()))
         else:
-            return IfStatementNode(self.visit_expression_node(cst_node.expr()), self.visit_block_node(cst_node.block()))
+            return IfStatementNode(cst_node.start.line, self.visit_expression_node(cst_node.expr()), self.visit_block_node(cst_node.block()))
 
     def visit_function_node(self, cst_node: AlgoPractiseParser.FuncContext):
         func_dcl_ctx = cst_node.func_decl()
@@ -217,20 +219,20 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         type_ctx = cst_node.type_()
         if type_ctx:
             type_node = self.visit_type_node(type_ctx)
-            return FunctionNode(identifier, block, param_nodes,  type_node)
+            return FunctionNode(cst_node.start.line, identifier, block, param_nodes, type_node)
         if param_nodes:
-            return FunctionNode(identifier, block, param_nodes)
-        return FunctionNode(identifier, block)
+            return FunctionNode(cst_node.start.line, identifier, block, param_nodes, None)
+        return FunctionNode(cst_node.start.line, identifier, block)
 
     def visit_function_call_statement_node(self, cst_node: AlgoPractiseParser.Func_callContext):
         identifier = cst_node.ID().getText()
         arguments = self.visit_element_list_node(cst_node.elmnt_list())
-        return FunctionCallStatementNode(identifier, arguments)
+        return FunctionCallStatementNode(cst_node.start.line, identifier, arguments)
 
     def visit_parameter_node(self, cst_node: AlgoPractiseParser.ParamContext):
         _type = self.visit_type_node(cst_node.type_())
         identifier = cst_node.ID().getText()
-        return ParameterNode(identifier, _type)
+        return ParameterNode(cst_node.start.line, identifier, _type)
 
     def visit_parameters_node(self, cst_node: AlgoPractiseParser.ParamsContext):
         param_lst_ctx = cst_node.param_lst()
@@ -242,14 +244,17 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
             param_nodes.append(self.visit_parameter_node(param_ctx))
         return param_nodes
 
-    def visit_return_statement_node(self, cst_node: AlgoPractiseParser.ExprContext = None):
+    def visit_return_statement_node(self, expression_ctx: AlgoPractiseParser.ExprContext = None, line=None):
         """visit_return_statement_node takes an optional expression context and returns a ReturnStatementNode"""
-        if cst_node:
-            return ReturnStatementNode(self.visit_expression_node(cst_node))
-        return ReturnStatementNode()
+        if expression_ctx:
+            return ReturnStatementNode(expression_ctx.start.line, self.visit_expression_node(expression_ctx))
+        if line:
+            return ReturnStatementNode(line)
+        raise Exception("visit_return_statement_node requires either an expression context or a line number")
 
     def visit_type_node(self, cst_node: AlgoPractiseParser.TypeContext):
         return TypeNode(
+            cst_node.start.line,
             type="bool" if cst_node.BOOL_TYPE() else "num" if cst_node.NUM_TYPE() else "string",
             dimensions=len(cst_node.L_BRACKET()
                            ) if not cst_node.L_BRACKET() is None else 0

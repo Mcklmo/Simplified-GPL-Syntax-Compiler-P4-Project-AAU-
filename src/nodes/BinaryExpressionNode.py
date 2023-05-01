@@ -1,8 +1,8 @@
 from .ExpressionNode import ExpressionNode
 
 class BinaryExpressionNode(ExpressionNode):
-    def __init__(self, left: ExpressionNode, right: ExpressionNode, operator: str) -> None:
-        super().__init__()
+    def __init__(self, line_number, left: ExpressionNode, right: ExpressionNode, operator: str) -> None:
+        super().__init__(line_number = line_number)
         self.left = left
         self.right = right
         self.operator = operator

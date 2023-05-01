@@ -1,8 +1,8 @@
 from .ConstantNode import ConstantNode
 
 class NumberNode(ConstantNode):
-    def __init__(self, value: float) -> None:
-        super().__init__()
+    def __init__(self, line_number, value: float) -> None:
+        super().__init__(line_number = line_number)
         self.value = float(value)
 
     def __eq__(self, other):

@@ -8,8 +8,8 @@ class AssignmentStatementNode(StatementNode):
     """
     either subscripts or expression will be be set according to the grammar
 		"""
-    def __init__(self, identifier: str, subscripts: Optional[List[ExpressionNode]]=None, expression: Optional[ExpressionNode]=None) -> None:
-        super().__init__()
+    def __init__(self, line_number, identifier: str, subscripts: Optional[List[ExpressionNode]]=None, expression: Optional[ExpressionNode]=None) -> None:
+        super().__init__(line_number=line_number)
         self.identifier = identifier
         self.subscripts = subscripts
         self.expression = expression

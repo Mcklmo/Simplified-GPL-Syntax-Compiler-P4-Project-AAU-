@@ -1,8 +1,8 @@
 from .ConstantNode import ConstantNode
 
 class StringNode(ConstantNode):
-    def __init__(self, value: str) -> None:
-        super().__init__()
+    def __init__(self, line_number, value: str) -> None:
+        super().__init__(line_number = line_number)
         self.value = value
 
     def __eq__(self, other):

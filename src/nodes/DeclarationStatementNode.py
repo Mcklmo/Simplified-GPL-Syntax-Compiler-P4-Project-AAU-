@@ -5,10 +5,10 @@ from typing import Optional
 
 class DeclarationStatementNode(StatementNode):
     """The declarations without identifiers have assignments with identifiers."""
-    def __init__(self, type: TypeNode, assignment: Optional[AssignmentStatementNode] =None,identifier:str=None):
+    def __init__(self, type: TypeNode, line_number, assignment: Optional[AssignmentStatementNode] =None,identifier:str=None):
         if not identifier and not assignment:
             raise Exception("DeclarationStatementNode must have either an identifier or an assignment")
-        super().__init__()
+        super().__init__(line_number = line_number)
         self.type = type
         self.assignment = assignment
         self.identifier = identifier

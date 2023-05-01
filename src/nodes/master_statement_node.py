@@ -4,7 +4,8 @@ from .StatementNode import StatementNode
 
 class MasterStatementNode(Node):
     """either a function decl or a statement"""
-    def __init__(self, function_node: FunctionNode=None, statement_node: StatementNode=None):
+    def __init__(self, line_number, function_node: FunctionNode=None, statement_node: StatementNode=None) -> None:
+        super().__init__(line_number = line_number)
         self.function_node = function_node
         self.statement_node = statement_node
 

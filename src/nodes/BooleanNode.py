@@ -1,8 +1,8 @@
 from .ConstantNode import ConstantNode
 
 class BooleanNode(ConstantNode):
-    def __init__(self, value: bool) -> None:
-        super().__init__()
+    def __init__(self, value: bool, line_number) -> None:
+        super().__init__(line_number = line_number)
         self.value = value
 
     def __eq__(self, other):

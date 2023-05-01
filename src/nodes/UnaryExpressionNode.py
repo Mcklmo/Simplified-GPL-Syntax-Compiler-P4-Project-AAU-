@@ -1,8 +1,8 @@
 from .ExpressionNode import ExpressionNode
 
 class UnaryExpressionNode(ExpressionNode):
-    def __init__(self, expression: ExpressionNode, operator: str) -> None:
-        super().__init__()
+    def __init__(self, line_number, expression: ExpressionNode, operator: str) -> None:
+        super().__init__(line_number = line_number)
         self.expression = expression
         self.operator = operator
 

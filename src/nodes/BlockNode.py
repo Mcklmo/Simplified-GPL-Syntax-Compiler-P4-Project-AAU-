@@ -3,8 +3,8 @@ from .StatementsNode import StatementsNode
 from typing import List
 
 class BlockNode(Node):
-    def __init__(self, statements_nodes: List[StatementsNode]=[]) -> None:
-        super().__init__()
+    def __init__(self, line_number, statements_nodes: List[StatementsNode]=[]) -> None:
+        super().__init__(line_number=line_number)
         self.statements_nodes = statements_nodes
 
     def __eq__(self, other):

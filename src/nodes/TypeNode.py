@@ -1,8 +1,8 @@
 from .Node import Node
 
 class TypeNode(Node):
-    def __init__(self, type: str, dimensions :int) -> None:
-        super().__init__()
+    def __init__(self, line_number, type: str, dimensions :int) -> None:
+        super().__init__(line_number = line_number)
         self.type = type
         self.dimensions = dimensions
 

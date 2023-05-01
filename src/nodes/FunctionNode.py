@@ -6,8 +6,8 @@ from .BlockNode import BlockNode
 from typing import List
 
 class FunctionNode(Node):
-    def __init__(self, identifier: str, block: BlockNode,params: List[ParameterNode] = [], _type:TypeNode=None) -> None:
-        super().__init__()
+    def __init__(self, line_number, identifier: str, block: BlockNode,params: List[ParameterNode] = [], _type:TypeNode=None) -> None:
+        super().__init__(line_number = line_number)
         self.identifier   = identifier
         self.params = params
         self.block   = block 
