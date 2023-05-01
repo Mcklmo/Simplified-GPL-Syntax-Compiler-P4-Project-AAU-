@@ -22,3 +22,4 @@ from .TypeNode import TypeNode
 from .UnaryExpressionNode import UnaryExpressionNode
 from .ValueNode import ValueNode
 from .WhileStatementNode import WhileStatementNode
+from .master_statement_node import MasterStatementNode

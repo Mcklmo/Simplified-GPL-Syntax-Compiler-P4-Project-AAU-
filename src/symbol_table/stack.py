@@ -16,10 +16,11 @@ class Stack:
         self.size = 1
 
     def __str__(self):
+        # TODO: Make pretty printer
         cur = self.head
         out = ""
         while cur:
-            out += str(cur.value) + "->"
+            out += str(cur.content) + "->"
             cur = cur.next
         return out[:-2]
 
@@ -32,7 +33,7 @@ class Stack:
     def peek(self):
         if self.isEmpty():
             raise Exception("Peeking from an empty stack")
-        return self.head.value
+        return self.head
 
     def insert_in_open_scope(self, key, value) -> Tuple[bool, Any]:
         if key in self.head.content:
@@ -43,7 +44,7 @@ class Stack:
     def traverse(self, _id):
         # This is head
         stack_node = self.peek()
-        for i in range(self.getSize()-1):
+        for i in range(self.getSize()):
             val = stack_node.try_fetch_id(_id)
             if not val is None:
                 return val  
@@ -65,6 +66,10 @@ class Stack:
         remove = self.head
         self.head = self.head.next
         self.size -= 1
-        return remove.value
+        return remove
+
+    @property
+    def current(self):
+        return self.head
  
     

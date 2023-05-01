@@ -1,5 +1,6 @@
 from .StatementNode import StatementNode
 from .ExpressionNode import ExpressionNode
+from .ListSubscriptValueNode import ListSubscriptValueNode
 
 from typing import List, Optional
 
@@ -13,6 +14,9 @@ class AssignmentStatementNode(StatementNode):
         self.identifier = identifier
         self.subscripts = subscripts
         self.expression = expression
+
+        # From symboltabel
+        self.dcl_type = None
 
   
     # Add __eq__ method

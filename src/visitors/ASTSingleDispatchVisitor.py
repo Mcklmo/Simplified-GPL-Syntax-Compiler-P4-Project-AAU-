@@ -129,15 +129,17 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
             # (  )
             return self.visit_expression_node(expression_ctxs[0])
 
-    def visit_val_node(self, cst_node: AlgoPractiseParser.ValContext):
+    def visit_val_node(self, cst_node: AlgoPractiseParser.ValContext): 
         identifier = cst_node.ID()
         if identifier:
             identifier = identifier.getText()
         list_subscript = cst_node.list_subscript()
         if list_subscript:
             return self.visit_list_subscript_value_node(identifier, list_subscript)
+        
         if identifier:
             return identifier
+        
         numval = cst_node.NUMVAL()
         if numval:
             return NumberNode(cst_node.start.line, numval.getText())
@@ -226,7 +228,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
 
     def visit_function_call_statement_node(self, cst_node: AlgoPractiseParser.Func_callContext):
         identifier = cst_node.ID().getText()
-        arguments = self.visit_element_list_node(cst_node.elmnt_list())
+        arguments = self.visit_element_list_node(cst_nodæe.elmnt_list())
         return FunctionCallStatementNode(cst_node.start.line, identifier, arguments)
 
     def visit_parameter_node(self, cst_node: AlgoPractiseParser.ParamContext):
