@@ -16,6 +16,7 @@ from nodes.IfStatementNode import IfStatementNode
 from nodes.ElseStatementNode import ElseStatementNode
 from nodes.StartNode import StartNode
 from nodes.TypeNode import TypeNode
+from nodes.master_statement_node import MasterStatementNode
 from visitors.ASTSingleDispatchVisitor import ASTSingleDispatchVisitor
 
 
@@ -65,54 +66,70 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
             a := 0
         }"""
         expected_ast_if_elseif_else = StartNode(
-            functions=[],
-            statements=[
-                IfStatementNode(
-                    condition=BinaryExpressionNode(
-                        left="a",
-                        right=NumberNode(0.0),
-                        operator="<",
-                    ),
-                    block=BlockNode(
-                        statements_nodes=[
-                            AssignmentStatementNode(
-                                "a",
-                                expression=NumberNode(0.0),
-                            )
-                        ],
-                    ),
-                    else_node=ElseStatementNode(
-                        if_statement=IfStatementNode(
-                            condition=BinaryExpressionNode(
-                                left="a",
-                                right=NumberNode(0.0),
-                                operator="<",
-                            ),
-                            block=BlockNode(
-                                statements_nodes=[
-                                    AssignmentStatementNode(
-                                        "a",
-                                        expression=NumberNode(
-                                            0.0),
-                                    )
-                                ],
-                            ),
-                            else_node=ElseStatementNode(
+            line_number=0,
+
+            master_statement_nodes=[
+                MasterStatementNode(
+                    line_number=1,
+                    statement_node =IfStatementNode(
+                        line_number=1,
+                        condition=BinaryExpressionNode(
+                            line_number=1,
+                            left="a",
+                            right=NumberNode(1,0.0),
+                            operator="<",
+                        ),
+                        block=BlockNode(
+                            line_number=2,
+                            statements_nodes=[
+                                AssignmentStatementNode(
+                                    2,
+                                    "a",
+                                    expression=NumberNode(2,0.0),
+                                )
+                            ],
+                        ),
+                        else_node=ElseStatementNode(
+                            line_number=4,
+                            if_statement=IfStatementNode(
+                                line_number=4,
+                                condition=BinaryExpressionNode(
+                                    line_number=4,
+                                    left="a",
+                                    right=NumberNode(4,0.0),
+                                    operator="<",
+                                ),
                                 block=BlockNode(
+                                    line_number=5,
                                     statements_nodes=[
                                         AssignmentStatementNode(
+                                            5,
                                             "a",
                                             expression=NumberNode(
-                                                0.0),
+                                                5,0.0),
                                         )
                                     ],
                                 ),
+                                else_node=ElseStatementNode(
+                                    line_number=7,
+                                    block=BlockNode(
+                                        line_number=8,
+                                        statements_nodes=[
+                                            AssignmentStatementNode(
+                                                8,
+                                                "a",
+                                                expression=NumberNode(
+                                                    8,0.0),
+                                            )
+                                        ],
+                                    ),
+                                ),
                             ),
+                            block=None,
                         ),
-                        block=None,
                     ),
                 ),
-            ],
+            ]
         )
         self._test_expected_ast(expected_ast_if_elseif_else, if_elseif_else_source_code, "if elseif else")
         
@@ -124,45 +141,54 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
             a := 0
         }"""
         expected_ast_if_else_if = StartNode(
-            functions=[],
-            statements=[
+            line_number=0,
 
-                IfStatementNode(
-                    condition=BinaryExpressionNode(
-                        left="a",
-                        right=NumberNode(0.0),
-                        operator="<",
-                    ),
-                    block=BlockNode(
-                        statements_nodes=[
-                            AssignmentStatementNode(
-                                "a",
-                                expression=NumberNode(0.0),
-                            )
-                        ],
-                    ),
-                    else_node=ElseStatementNode(
-                        if_statement=IfStatementNode(
-                            condition=BinaryExpressionNode(
-
-                                left="a",
-                                right=NumberNode(0.0),
-                                operator="<",
-                            ),
-                            block=BlockNode(
-                                statements_nodes=[
-                                    AssignmentStatementNode(
-                                        "a",
-                                        expression=NumberNode(
-                                            0.0),
-                                    )
-                                ],
+            master_statement_nodes=[
+                MasterStatementNode(
+                    1,
+                    statement_node = IfStatementNode(
+                        line_number=1,
+                        condition=BinaryExpressionNode(
+                            line_number=1,
+                            left="a",
+                            right=NumberNode(1,0.0),
+                            operator="<",
+                        ),
+                        block=BlockNode(
+                            line_number=2,
+                            statements_nodes=[
+                                AssignmentStatementNode(
+                                    2,
+                                    "a",
+                                    expression=NumberNode(2,0.0),
+                                )
+                            ],
+                        ),
+                        else_node=ElseStatementNode(
+                            line_number=4,
+                            if_statement=IfStatementNode(
+                                line_number=4,
+                                condition=BinaryExpressionNode(
+                                    line_number=4,
+                                    left="a",
+                                    right=NumberNode(4,0.0),
+                                    operator="<",
+                                ),
+                                block=BlockNode(
+                                    line_number=5,
+                                    statements_nodes=[
+                                        AssignmentStatementNode(
+                                            5,
+                                            "a",
+                                            expression=NumberNode(5,0.0),
+                                        )
+                                    ],
+                                ),
                             ),
                         ),
-
                     ),
                 ),
-            ],
+            ]
         )
         self._test_expected_ast(expected_ast_if_else_if, if_else_if_source_code, "if else if")
         
@@ -174,37 +200,46 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
             a := 0
         }"""
         expected_ast_if_else = StartNode(
-            functions=[],
-            statements=[
-
-                IfStatementNode(
-                    condition=BinaryExpressionNode(
-                        left="a",
-                        right=NumberNode(0.0),
-                        operator="<",
-                    ),
-                    block=BlockNode(
-                        statements_nodes=[
-                            AssignmentStatementNode(
-                                "a",
-                                expression=NumberNode(0.0),
-                            )
-                        ],
-                    ),
-                    else_node=ElseStatementNode(
+            line_number=0,
+            master_statement_nodes=[
+                MasterStatementNode(
+                    1,
+                    statement_node = IfStatementNode(
+                        line_number=1,
+                        condition=BinaryExpressionNode(
+                            line_number=1,
+                            left="a",
+                            right=NumberNode(1,0.0),
+                            operator="<",
+                        ),
                         block=BlockNode(
+                            line_number=2,
                             statements_nodes=[
                                 AssignmentStatementNode(
-
+                                    2,
                                     "a",
-                                    expression=NumberNode(0.0),
+                                    expression=NumberNode(2,0.0),
                                 )
                             ],
                         ),
-                    )
+                        else_node=ElseStatementNode(
+                            line_number=4,
+                            block=BlockNode(
+                                line_number=5,
+                                statements_nodes=[
+                                    AssignmentStatementNode(
+                                        5,
+                                        "a",
+                                        expression=NumberNode(5,0.0),
+                                    )
+                                ],
+                            ),
+                        )
+                    ),            
                 ),
-            ],
+            ] 
         )
+
         self._test_expected_ast(expected_ast_if_else, if_else_source_code, "if else")
 
         if_source_code = ("""
@@ -212,21 +247,28 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
             a := 0
         }""")
         expected_ast_if = StartNode(
-            functions=[],
-            statements=[
-                IfStatementNode(
-                    condition=BinaryExpressionNode(
-                        left="a",
-                        right=NumberNode(0.0),
-                        operator="<",
-                    ),
-                    block=BlockNode(
-                        statements_nodes=[
-                            AssignmentStatementNode(
-                                "a",
-                                expression=NumberNode(0.0),
-                            )
-                        ],
+            line_number=0,
+            master_statement_nodes=[
+                MasterStatementNode(
+                    1,
+                    statement_node = IfStatementNode(
+                        line_number=1,
+                        condition=BinaryExpressionNode(
+                            line_number=1,
+                            left="a",
+                            right=NumberNode(1, 0.0),
+                            operator="<",
+                        ),
+                        block=BlockNode(
+                            line_number=2,
+                            statements_nodes=[
+                                AssignmentStatementNode(
+                                    2,
+                                    "a",
+                                    expression=NumberNode(2, 0.0),
+                                )
+                            ],
+                        ),
                     ),
                 ),
             ],
@@ -241,21 +283,30 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
         }
         """
         expected_ast = StartNode(
-            functions=[
-                FunctionNode(
+            line_number=0,
+
+            master_statement_nodes=[
+                MasterStatementNode(
+                    1,
+                    statement_node = DeclarationStatementNode(
+                        TypeNode(1,"num", 0),
+                        1,
+                        identifier="a",
+                    )
+                ),
+
+                MasterStatementNode(
+                    2,
+                    function_node = FunctionNode(
+                    2,
                     "foo",
-                    params=[
-                    ],
+                    params=[],
                     block=BlockNode(
-                    ),
-                )
+                        3,
+                        ),
+                    )
+                ),
             ],
-            statements=[
-                DeclarationStatementNode(
-                    TypeNode("num", 0),
-                    identifier="a",
-                )
-            ]
         )
         self._test_expected_ast(expected_ast, source_code, "visitStartNode")
 
@@ -264,19 +315,23 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
         a := a[0][0]
         """
         expected_ast = StartNode(
-            functions=[],
-            statements=[
+            line_number=0,
+            master_statement_nodes=[
+                MasterStatementNode(1,statement_node=
                 AssignmentStatementNode(
+                    1,
                     "a",
                     subscripts=None,
                     expression=ListSubscriptValueNode(
+                        1,
                         "a",
                         subscripts=[
-                            NumberNode(0),
-                            NumberNode(0)
+                            NumberNode(1,0),
+                            NumberNode(1,0)
                         ]
                     )
                 )
+            )
             ])
         self._test_expected_ast(expected_ast, source_code, "test_list_subscript")
 
