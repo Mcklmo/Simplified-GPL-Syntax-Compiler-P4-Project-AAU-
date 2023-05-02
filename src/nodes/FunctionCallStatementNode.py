@@ -8,3 +8,6 @@ class FunctionCallStatementNode(StatementNode):
         super().__init__(line_number = line_number)
         self.identifier = identifier
         self.arguments = arguments
+
+        # From symboltabel
+        self.dcl_type = None

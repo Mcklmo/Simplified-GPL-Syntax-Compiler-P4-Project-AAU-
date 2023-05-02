@@ -95,7 +95,7 @@ class SymbolTableVisitor():
     def visitGeneralExprNode(self, node: Any):
         if isinstance(node, nodes.BinaryExpressionNode): self.visitBinaryExpressionNode(node)
         if isinstance(node, nodes.UnaryExpressionNode): self.visitUnaryExpressionNode(node)
-        if isinstance(node, nodes.FunctionCallExpressionNode): self.visitFunctionCallExpressionNode(node)
+        if isinstance(node, nodes.FunctionCallExpressionNode): self.visitFunctionCallExpressionAndStatementNode(node)
 
         self.visitGeneralValueNode(node)
     
@@ -104,7 +104,7 @@ class SymbolTableVisitor():
         if isinstance(node, nodes.StringNode): pass
         if isinstance(node, nodes.BooleanNode): pass
         if isinstance(node, nodes.IDNode): self.visitIDNode(node)
-        if isinstance(node, nodes.FunctionCallExpressionNode): self.visitFunctionCallExpressionNode(node)
+        if isinstance(node, nodes.FunctionCallExpressionNode): self.visitFunctionCallExpressionAndStatementNode(node)
         if isinstance(node, nodes.ElementListNode): 
             for expr in node.expressions:
                 self.visitGeneralExprNode(expr)
@@ -132,7 +132,7 @@ class SymbolTableVisitor():
         self.visitGeneralExprNode(node)
     
 
-    def visitFunctionCallExpressionNode(self, node: nodes.FunctionCallExpressionNode):
+    def visitFunctionCallExpressionAndStatementNode(self, node: Any): #FunctionCallExpOrStmt
         dcl_node = self.symbol_tabel.traverse(node.identifier.identifier)
         if dcl_node is None:
             # Error, not declared!
@@ -143,13 +143,12 @@ class SymbolTableVisitor():
         if self.is_iterable(node.arguments):
             for param in node.arguments:
                 self.visitGeneralExprNode(param)
-        
-        self.visitGeneralExprNode(node.expression)
 
 
     def visitFunctionNode(self, node: nodes.FunctionNode):
         """This is func dcl, just poor naming"""
         self.symbol_tabel.insert_in_open_scope(node.identifier.identifier, node)
+        
         self.symbol_tabel.open_scope()
         # inject params as variables
         for param in node.params:
@@ -157,4 +156,43 @@ class SymbolTableVisitor():
         # visit block
         self.visitBlockNode(node.block)
         self.symbol_tabel.close_scope()
+
+    def visitBlockNode(self, node: nodes.BlockNode):
+        # Inserting statements from block
+        for statement_node in node.statements_nodes:
+            if type(statement_node) is nodes.IfStatementNode:
+                self.visitIfStatementNode(statement_node)
+            elif type(statement_node) is nodes.WhileStatementNode:
+                self.visitWhileStatementNode(statement_node)
+            elif type(statement_node) is nodes.FunctionCallStatementNode: 
+                self.visitFunctionCallExpressionAndStatementNode(statement_node)
+            elif type(statement_node) is nodes.AssignmentStatementNode:
+                self.visitAssignmentStatementNode(statement_node)
+            elif type(statement_node) is nodes.ReturnStatementNode:
+                self.visitReturnStatementNode(statement_node)
+            elif type(statement_node) is nodes.DeclarationStatementNode:
+                self.visitDeclarationStatementNode(statement_node)
+
+    def visitIfStatementNode(self, node: nodes.IfStatementNode):
+        self.symbol_tabel.open_scope()
+        self.visitBlockNode(node.block)
+        self.symbol_tabel.close_scope()
         
+        if not node.else_node is None:
+            self.visitElseStatementNode(node.else_node)
+
+    def visitWhileStatementNode(self, node: nodes.WhileStatementNode):
+        self.symbol_tabel.open_scope()
+        self.visitBlockNode(node.block)
+        self.symbol_tabel.close_scope()
+
+    def visitElseStatementNode(self, node: nodes.ElseStatementNode):
+        if not node.if_statement is None:
+            self.visitIfStatementNode(node.if_statement)
+        else:
+            self.symbol_tabel.open_scope()
+            self.visitBlockNode(node.block)
+            self.symbol_tabel.close_scope()
+
+    def visitReturnStatementNode(self, node: nodes.ReturnStatementNode):
+        self.symbol_tabel.insert_in_open_scope(node.expression, node) # Don't know if this is correct!?!?!?
