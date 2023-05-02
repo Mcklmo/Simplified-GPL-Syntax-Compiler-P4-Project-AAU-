@@ -1,4 +1,4 @@
-# Generated from src\AlgoPractise.g4 by ANTLR 4.12.0
+# Generated from AlgoPractise.g4 by ANTLR 4.12.0
 from antlr4 import *
 from io import StringIO
 import sys

@@ -43,7 +43,7 @@ fragment LETTER: [a-zA-Z];
 // Parser
 
 master_statement: func | stmt;
-start: NEWLINE* (master_statement NEWLINE+)* EOF;
+start: NEWLINE* (master_statement NEWLINE+)* master_statement? EOF;
 func: type func_decl | func_decl;
 func_decl: ID params block;
 type:
