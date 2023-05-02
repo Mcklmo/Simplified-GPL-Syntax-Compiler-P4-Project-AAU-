@@ -18,18 +18,15 @@ ETC - We found an assignment node:
 3: Populate the assignemt node with the type of the dcl.
 
 !!Current issue!!
-1.
-DCL node in ast has non identifier!
-
-2.
-It is unclear how variables are handled in the ast. According to the gramma, a value can contain a ID, however no ID node exists. 
-In ast, when hitting an id, the cst node is returned as a part of our ast.
+The valueListSubscript node is redundant (right?)
 
 Fixed issues:
 1. Added identifier to dcl node eved though it has assignment node.
-2. 
 
-Status quo: Implement visitGeneralValueNode when id issue in ast has been fixed
+2.
+It is unclear how variables are handled in the ast. According to the gramma, a value can contain a ID, however no ID node exists. 
+In ast, when hitting an id, the cst node is returned as a part of our ast. - Emily
+
 
 """
 
