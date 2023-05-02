@@ -1,12 +1,13 @@
 from .Node import Node
 from .TypeNode import TypeNode
+from .IDNode import IDNode
 from .ParameterNode import ParameterNode
 from .BlockNode import BlockNode
 
 from typing import List
 
 class FunctionNode(Node):
-    def __init__(self, line_number, identifier: str, block: BlockNode,params: List[ParameterNode] = [], _type:TypeNode=None) -> None:
+    def __init__(self, line_number, identifier: IDNode, block: BlockNode,params: List[ParameterNode] = [], _type:TypeNode=None) -> None:
         super().__init__(line_number = line_number)
         self.identifier   = identifier
         self.params = params

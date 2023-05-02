@@ -1,9 +1,10 @@
 from .ValueNode import ValueNode
+from .IDNode import IDNode
 from .ExpressionNode import ExpressionNode
 from typing import List 
 
 class ListSubscriptValueNode(ValueNode):
-    def __init__(self, line_number, identifier: str, subscripts: List[ExpressionNode]) -> None:
+    def __init__(self, line_number, identifier: IDNode, subscripts: List[ExpressionNode]) -> None:
         super().__init__(line_number = line_number)
         self.identifier = identifier
         self.subscripts = subscripts

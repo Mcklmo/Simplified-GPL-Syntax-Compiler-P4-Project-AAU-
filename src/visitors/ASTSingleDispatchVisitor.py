@@ -14,6 +14,7 @@ from nodes.ListSubscriptValueNode import ListSubscriptValueNode
 from nodes.ParameterNode import ParameterNode
 from nodes.WhileStatementNode import WhileStatementNode
 from nodes.TypeNode import TypeNode
+from nodes.IDNode import IDNode
 
 from nodes.FunctionCallExpressionNode import FunctionCallExpressionNode
 from nodes.ReturnStatementNode import ReturnStatementNode
@@ -65,20 +66,20 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
 
     def visit_statement_node(self, cst_node: AlgoPractiseParser.StmtContext):
         ast_node = None
-        if cst_node.dcl():
+        if not cst_node.dcl() is None:
             ast_node = self.visit_declaration_statement_node(cst_node.dcl())
 
-        elif cst_node.assign_stmt():
+        elif not cst_node.assign_stmt() is None:
             ast_node = self.visit_assignment_statement_node(
                 cst_node.assign_stmt())
 
-        elif cst_node.func_call():
+        elif not cst_node.func_call() is None:
             ast_node = self.visit_function_call_statement_node(
                 cst_node.func_call())
 
-        elif cst_node.cntrol():
+        elif not cst_node.cntrol() is None:
             ast_node = self.visit_control_statement_node(cst_node.cntrol())
-        elif cst_node.RETURN() and cst_node.expr():
+        elif not cst_node.RETURN() and not cst_node.expr() is None:
             ast_node = self.visit_return_statement_node(expression_ctx=cst_node.expr())
         else:
             # return void
@@ -95,11 +96,11 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
             return self.visit_if_statement_node(if_statement_ctx)
 
     def visit_assignment_statement_node(self, cst_node: AlgoPractiseParser.Assign_stmtContext):
-        identifier = cst_node.ID().getText()
+        identifier = IDNode(cst_node.start.line, cst_node.ID().getText())
         expression = self.visit_expression_node(cst_node.expr())
         list_subscript_ctx = cst_node.list_subscript()
         list_subscript = None
-        if list_subscript_ctx:
+        if not list_subscript_ctx is None:
             list_subscript = self.visit_list_subscript_value_node(identifier,
                                                                   list_subscript_ctx)
         return AssignmentStatementNode(cst_node.start.line, identifier, list_subscript, expression)
@@ -107,13 +108,13 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
     def visit_expression_node(self, cst_node: AlgoPractiseParser.ExprContext):
         expression_ctxs = cst_node.expr()
         negation = cst_node.NEG()
-        if negation:
+        if not negation is None:
             expr = self.visit_expression_node(expression_ctxs[0])
             operator = negation.getText()
             return UnaryExpressionNode(cst_node.start.line, expr, operator)
 
         val = cst_node.val()
-        if val:
+        if not val is None:
             return self.visit_val_node(val)
 
         if expression_ctxs is not None and len(expression_ctxs) == 2:
@@ -131,32 +132,32 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
 
     def visit_val_node(self, cst_node: AlgoPractiseParser.ValContext): 
         identifier = cst_node.ID()
-        if identifier:
-            identifier = identifier.getText()
+        if not identifier is None:
+            identifier = IDNode(cst_node.start.line, identifier.getText())
         list_subscript = cst_node.list_subscript()
-        if list_subscript:
+        if not list_subscript is None:
             return self.visit_list_subscript_value_node(identifier, list_subscript)
         
-        if identifier:
-            return identifier
+        if not identifier is None:
+            return IDNode(cst_node.start.line, cst_node.ID().getText())
         
         numval = cst_node.NUMVAL()
-        if numval:
+        if not numval is None:
             return NumberNode(cst_node.start.line, numval.getText())
         stringval = cst_node.STRINGVAL()
-        if stringval:
+        if not stringval is None:
             return StringNode(cst_node.start.line, stringval)
         true = cst_node.TRUE()
-        if true:
+        if not true is None:
             return BooleanNode(cst_node.start.line, true)
         false = cst_node.FALSE()
-        if false:
+        if not false is None:
             return BooleanNode(cst_node.start.line, false)
         elmnt_list = cst_node.elmnt_list()
-        if elmnt_list:
+        if not elmnt_list is None:
             return self.visit_element_list_node(elmnt_list)
         func_call = cst_node.func_call()
-        if func_call:
+        if not func_call is None:
             return self.visit_function_call_expression_node(func_call)
         raise Exception(
             f"Unknown val node {cst_node.getText()} {cst_node.__class__} {cst_node.__dict__}")
@@ -168,9 +169,8 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         return ElementListNode(elementList, cst_node.start.line)
 
     def visit_function_call_expression_node(self, cst_node: AlgoPractiseParser.Func_callContext):
-        identifier = cst_node.ID().getText()
+        identifier = IDNode(cst_node.start.line, cst_node.ID().getText())
         arguments = self.visit_element_list_node(cst_node.elmnt_list())
-
         return FunctionCallExpressionNode(cst_node.start.line, identifier, arguments)
 
     def visit_list_subscript_value_node(self, identifier, cst_node: AlgoPractiseParser.List_subscriptContext):
@@ -181,7 +181,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
 
     def visit_block_node(self, cst_node: AlgoPractiseParser.BlockContext):
         statements = []
-        if cst_node.stmt():
+        if not cst_node.stmt() is None:
             for statement in cst_node.stmt():
                 statements.append(self.visit_statement_node(statement))
         return BlockNode(cst_node.start.line, statements)
@@ -191,8 +191,8 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
 
     def visit_declaration_statement_node(self, cst_node: AlgoPractiseParser.DclContext):
         type_node = self.visit_type_node(cst_node.type_())
-        if cst_node.ID():
-            identifier = cst_node.ID().getText()
+        if not cst_node.ID() is None:
+            identifier = IDNode(cst_node.start.line, cst_node.ID().getText())
             return DeclarationStatementNode(type_node, cst_node.start.line ,identifier=identifier)
         # has assignment statement
         assignment_statement_node = self.visit_assignment_statement_node(
@@ -201,7 +201,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
     
     def visit_else_statement_node(self, cst_node: AlgoPractiseParser.Else_stmtContext):
         if_ctx = cst_node.if_stmt()
-        if if_ctx:
+        if not if_ctx is None:
             return ElseStatementNode(cst_node.start.line, if_statement=self.visit_if_statement_node(if_ctx))
         return (ElseStatementNode(cst_node.start.line, block=self.visit_block_node(cst_node.block())))
 
@@ -213,27 +213,27 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
 
     def visit_function_node(self, cst_node: AlgoPractiseParser.FuncContext):
         func_dcl_ctx = cst_node.func_decl()
-        identifier = func_dcl_ctx.ID().getText()
+        identifier = IDNode(cst_node.start.line, func_dcl_ctx.ID().getText())
         block = self.visit_block_node(func_dcl_ctx.block())
         params_ctx = func_dcl_ctx.params()
-        if params_ctx:
+        if not params_ctx is None:
             param_nodes = self.visit_parameters_node(params_ctx)
         type_ctx = cst_node.type_()
-        if type_ctx:
+        if not type_ctx is None:
             type_node = self.visit_type_node(type_ctx)
             return FunctionNode(cst_node.start.line, identifier, block, param_nodes, type_node)
-        if param_nodes:
+        if not param_nodes is None:
             return FunctionNode(cst_node.start.line, identifier, block, param_nodes, None)
         return FunctionNode(cst_node.start.line, identifier, block)
 
     def visit_function_call_statement_node(self, cst_node: AlgoPractiseParser.Func_callContext):
-        identifier = cst_node.ID().getText()
+        identifier = IDNode(cst_node.start.line, cst_node.ID().getText())
         arguments = self.visit_element_list_node(cst_node.elmnt_list())
         return FunctionCallStatementNode(cst_node.start.line, identifier, arguments)
 
     def visit_parameter_node(self, cst_node: AlgoPractiseParser.ParamContext):
         _type = self.visit_type_node(cst_node.type_())
-        identifier = cst_node.ID().getText()
+        identifier = IDNode(cst_node.start.line, cst_node.ID().getText())
         return ParameterNode(cst_node.start.line, identifier, _type)
 
     def visit_parameters_node(self, cst_node: AlgoPractiseParser.ParamsContext):
@@ -248,9 +248,9 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
 
     def visit_return_statement_node(self, expression_ctx: AlgoPractiseParser.ExprContext = None, line=None):
         """visit_return_statement_node takes an optional expression context and returns a ReturnStatementNode"""
-        if expression_ctx:
+        if not expression_ctx is None:
             return ReturnStatementNode(expression_ctx.start.line, self.visit_expression_node(expression_ctx))
-        if line:
+        if not line is None:
             return ReturnStatementNode(line)
         raise Exception("visit_return_statement_node requires either an expression context or a line number")
 
