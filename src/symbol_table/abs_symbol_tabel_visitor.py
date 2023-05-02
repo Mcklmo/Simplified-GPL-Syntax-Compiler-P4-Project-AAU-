@@ -21,6 +21,10 @@ class AbstractSymbolTableVisitor(ABC):
         pass
     
     @abstractmethod
+    def visitIDNode(self, node: nodes.IDNode):
+        pass
+    
+    @abstractmethod
     def visitConstantNode(self, node: nodes.ConstantNode):
         pass
     
@@ -56,10 +60,7 @@ class AbstractSymbolTableVisitor(ABC):
     def visitIfStatementNode(self, node: nodes.IfStatementNode):
         pass
     
-    @abstractmethod
-    def visitListSubscriptValueNode(self, node: nodes.ListSubscriptValueNode):
-        pass
-    
+
     @abstractmethod
     def visitMasterStatementNode(self, node: nodes.MasterStatementNode):
         pass

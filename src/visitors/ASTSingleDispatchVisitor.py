@@ -134,7 +134,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         identifier = cst_node.ID()
         if not identifier is None:
             identifier = IDNode(cst_node.start.line, identifier.getText())
-        list_subscript = cst_node.list_subscript()
+        list_subscript = cst_node.list_subscript() 
         if not list_subscript is None:
             return self.visit_list_subscript_value_node(identifier, list_subscript)
         
@@ -193,11 +193,11 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         type_node = self.visit_type_node(cst_node.type_())
         if not cst_node.ID() is None:
             identifier = IDNode(cst_node.start.line, cst_node.ID().getText())
-            return DeclarationStatementNode(type_node, cst_node.start.line ,identifier=identifier)
+            return DeclarationStatementNode(type_node, cst_node.start.line, identifier=identifier)
         # has assignment statement
         assignment_statement_node = self.visit_assignment_statement_node(
             cst_node.assign_stmt())
-        return DeclarationStatementNode(type_node, cst_node.start.line, assignment=assignment_statement_node)
+        return DeclarationStatementNode(type_node, cst_node.start.line, assignment=assignment_statement_node, identifier=assignment_statement_node.identifier)
     
     def visit_else_statement_node(self, cst_node: AlgoPractiseParser.Else_stmtContext):
         if_ctx = cst_node.if_stmt()

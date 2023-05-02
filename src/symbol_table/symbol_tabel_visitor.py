@@ -33,8 +33,8 @@ Status quo: Implement visitGeneralValueNode when id issue in ast has been fixed
 
 """
 
-#class SymbolTableVisitor():
-class SymbolTableVisitor(AbstractSymbolTableVisitor):
+class SymbolTableVisitor():
+#class SymbolTableVisitor(AbstractSymbolTableVisitor):
     def __init__(self) -> None:
         self.symbol_tabel = Stack()
     
@@ -69,16 +69,16 @@ class SymbolTableVisitor(AbstractSymbolTableVisitor):
         
     
     def visitDeclarationStatementNode(self, node: nodes.DeclarationStatementNode):
-        if not self.symbol_tabel.current.try_fetch_id(node.identifier) is None:
+        if not self.symbol_tabel.current.try_fetch_id(node.identifier.identifier) is None:
             # Error, doubble declaration!
             # TODO: (Needs to pass linenumber to new nodes)
             pass
 
-        self.symbol_tabel.insert_in_open_scope(node.identifier, node)
+        self.symbol_tabel.insert_in_open_scope(node.identifier.identifier, node)
         self.visitAssignmentStatementNode(node.assignment)
     
     def visitAssignmentStatementNode(self, node: nodes.AssignmentStatementNode):
-        dcl_node = self.symbol_tabel.traverse(node.identifier)
+        dcl_node = self.symbol_tabel.traverse(node.identifier.identifier)
         if dcl_node is None:
             # Error, not declared!
             raise Exception()
@@ -87,7 +87,9 @@ class SymbolTableVisitor(AbstractSymbolTableVisitor):
         # Populate assignemnt node with dcl type for later typecheck
         node.dcl_type = dcl_node.type
 
-        if self.is_iterable(node.subscripts.subscripts):
+        # The subscript node is redundant. It should be a list (As it does not make sence to make an empty subscript node as default value for assignemnts without subscrips.)
+        # The none check i s just a workaround
+        if not node.subscripts is None and self.is_iterable(node.subscripts.subscripts):
             for subscript_expr in node.subscripts.subscripts:
                 self.visitGeneralExprNode(subscript_expr)
         
@@ -98,13 +100,33 @@ class SymbolTableVisitor(AbstractSymbolTableVisitor):
         if isinstance(node, nodes.UnaryExpressionNode): self.visitUnaryExpressionNode(node)
         if isinstance(node, nodes.FunctionCallExpressionNode): self.visitFunctionCallExpressionNode(node)
 
-        # TODO: Fix id/var node in ast
         self.visitGeneralValueNode(node)
     
     def visitGeneralValueNode(self, node: Any):
-        # Includes; IdNode, ListSubscriptValueNode (....)
-        pass
+        if isinstance(node, nodes.NumberNode): pass
+        if isinstance(node, nodes.StringNode): pass
+        if isinstance(node, nodes.BooleanNode): pass
+        if isinstance(node, nodes.IDNode): self.visitIDNode(node)
+        if isinstance(node, nodes.FunctionCallExpressionNode): self.visitFunctionCallExpressionNode(node)
+        if isinstance(node, nodes.ElementListNode): 
+            for expr in node.expressions:
+                self.visitGeneralExprNode(expr)
+
+        if isinstance(node, nodes.ListSubscriptValueNode): 
+            self.visitIDNode(node.identifier.identifier)
+            for sub_expr in node.subscripts:
+                self.visitGeneralExprNode(sub_expr)
+
+    def visitIDNode(self, node: nodes.IDNode):
+        dcl_node = self.symbol_tabel.traverse(node.identifier)
+        if dcl_node is None:
+            i = 0
+            # Err not declared!!
+            pass
     
+        else:
+            node.dcl_type = dcl_node.type
+
     def visitBinaryExpressionNode(self, node: nodes.BinaryExpressionNode):
         self.visitGeneralExprNode(node.left)
         self.visitGeneralExprNode(node.right)
@@ -114,7 +136,7 @@ class SymbolTableVisitor(AbstractSymbolTableVisitor):
     
 
     def visitFunctionCallExpressionNode(self, node: nodes.FunctionCallExpressionNode):
-        dcl_node = self.symbol_tabel.traverse(node.identifier)
+        dcl_node = self.symbol_tabel.traverse(node.identifier.identifier)
         if dcl_node is None:
             # Error, not declared!
             pass
@@ -130,11 +152,11 @@ class SymbolTableVisitor(AbstractSymbolTableVisitor):
 
     def visitFunctionNode(self, node: nodes.FunctionNode):
         """This is func dcl, just poor naming"""
-        self.symbol_tabel.insert_in_open_scope(node.identifier, node)
+        self.symbol_tabel.insert_in_open_scope(node.identifier.identifier, node)
         self.symbol_tabel.open_scope()
         # inject params as variables
         for param in node.params:
-            self.symbol_tabel.insert_in_open_scope(param.identifier, param)
+            self.symbol_tabel.insert_in_open_scope(param.identifier.identifier, param)
         # visit block
         self.visitBlockNode(node.block)
         self.symbol_tabel.close_scope()
