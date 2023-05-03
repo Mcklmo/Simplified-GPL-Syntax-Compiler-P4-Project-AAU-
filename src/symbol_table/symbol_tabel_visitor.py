@@ -30,8 +30,8 @@ In ast, when hitting an id, the cst node is returned as a part of our ast. - Emi
 
 """
 
-class SymbolTableVisitor():
-#class SymbolTableVisitor(AbstractSymbolTableVisitor):
+#class SymbolTableVisitor():
+class SymbolTableVisitor(AbstractSymbolTableVisitor):
     def __init__(self) -> None:
         self.symbol_tabel = Stack()
     
@@ -195,4 +195,4 @@ class SymbolTableVisitor():
             self.symbol_tabel.close_scope()
 
     def visitReturnStatementNode(self, node: nodes.ReturnStatementNode):
-        self.symbol_tabel.insert_in_open_scope(node.expression, node) # Don't know if this is correct!?!?!?
+        self.visitGeneralExprNode(node.expression)
