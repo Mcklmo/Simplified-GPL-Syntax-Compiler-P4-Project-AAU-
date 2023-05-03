@@ -77,6 +77,7 @@ class SymbolTableVisitor(SymbolTableUtils):
             # Error, not declared!
             self.regsiter_err(f"var {node.identifier.identifier} was never declared!", node.line_number)
             return
+        
         # Populate assignemnt node with dcl type for later typecheck
         node.dcl_type = dcl_node.type
 
@@ -156,7 +157,8 @@ class SymbolTableVisitor(SymbolTableUtils):
         # inject params as variables
         for param in node.params:
             self.symbol_tabel.insert_in_open_scope(
-                param.identifier.identifier, param)
+                param.identifier.identifier, nodes.DeclarationStatementNode(type=param._type, line_number=param.line_number, identifier=param.identifier))
+            
         # visit block
         self.visitBlockNode(node.block)
         self.symbol_tabel.close_scope()

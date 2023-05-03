@@ -8,7 +8,7 @@ from antlr4 import FileStream, CommonTokenStream
 from nodes.Node import Node
 from symbol_table.symbol_tabel_visitor import SymbolTableVisitor
 
-SOURCE_CODE_FILE_NAME = r"././input_stream/complete_noerr.txt"
+SOURCE_CODE_FILE_NAME = r"././input_stream/symbol_no_err.txt"
 
 
 def main(argv=None):

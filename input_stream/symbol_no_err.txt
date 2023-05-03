@@ -1,0 +1,20 @@
+num a;
+
+bool b(num a, num b) {
+    a := 5
+    return 5
+}
+
+bool c() {
+    a := 5
+    return true
+}
+
+bool d() {
+    num a := 5
+    return true
+}
+
+a := 5
+
+b(a, 5)
