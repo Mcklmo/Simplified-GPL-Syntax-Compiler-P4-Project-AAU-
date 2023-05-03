@@ -8,7 +8,7 @@ from antlr4 import FileStream, CommonTokenStream
 from nodes.Node import Node
 from symbol_table.symbol_tabel_visitor import SymbolTableVisitor
 
-SOURCE_CODE_FILE_NAME = r"././input_stream/test_sym.txt"
+SOURCE_CODE_FILE_NAME = r"././input_stream/complete_noerr.txt"
 
 
 def main(argv=None):
@@ -23,7 +23,7 @@ def main(argv=None):
     print_ast(ast_root)
 
     symtbl = SymbolTableVisitor()
-    symtbl.startVisitor(ast_root)
+    symtbl.do_visit(ast_root)
     
     # print_cst(parser, parse_tree_start_node)
     
