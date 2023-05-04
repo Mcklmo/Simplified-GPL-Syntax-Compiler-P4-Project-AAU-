@@ -1,6 +1,6 @@
-from .ConstantNode import ConstantNode
+from .ConstantNode import ConstantValueNode
 
-class NumberNode(ConstantNode):
+class NumberNode(ConstantValueNode):
     def __init__(self, line_number, value: float) -> None:
         super().__init__(line_number = line_number)
         self.value = float(value)

@@ -1,6 +1,6 @@
-from .ConstantNode import ConstantNode
+from .ConstantNode import ConstantValueNode
 
-class StringNode(ConstantNode):
+class StringNode(ConstantValueNode):
     def __init__(self, line_number, value: str) -> None:
         super().__init__(line_number = line_number)
         self.value = value

@@ -1,4 +1,5 @@
 num a;
+a := a + 5
 
 bool b(num a, num b) {
     a := 5
@@ -15,6 +16,5 @@ bool d() {
     return true
 }
 
-a := 5
 
 b(a, 5)

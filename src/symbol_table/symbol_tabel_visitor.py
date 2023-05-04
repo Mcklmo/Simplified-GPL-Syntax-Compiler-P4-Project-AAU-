@@ -132,7 +132,7 @@ class SymbolTableVisitor(SymbolTableUtils):
         self.visitGeneralExprNode(node.right)
 
     def visitUnaryExpressionNode(self, node: nodes.UnaryExpressionNode):
-        self.visitGeneralExprNode(node)
+        self.visitGeneralExprNode(node.expression)
 
     # FunctionCallExpOrStmt
     def visitFunctionCallExpressionAndStatementNode(self, node: Any):

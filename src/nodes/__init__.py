@@ -2,7 +2,7 @@ from .AssignmentStatementNode import AssignmentStatementNode
 from .BinaryExpressionNode import BinaryExpressionNode
 from .BlockNode import BlockNode
 from .BooleanNode import BooleanNode
-from .ConstantNode import ConstantNode
+from .ConstantNode import ConstantValueNode
 from .ControlStatementNode import ControlStatementNode
 from .DeclarationStatementNode import DeclarationStatementNode
 from .ElementListNode import ElementListNode

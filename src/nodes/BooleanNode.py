@@ -1,6 +1,6 @@
-from .ConstantNode import ConstantNode
+from .ConstantNode import ConstantValueNode
 
-class BooleanNode(ConstantNode):
+class BooleanNode(ConstantValueNode):
     def __init__(self, value: bool, line_number) -> None:
         super().__init__(line_number = line_number)
         self.value = value
