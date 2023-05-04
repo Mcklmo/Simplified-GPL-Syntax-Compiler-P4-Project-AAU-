@@ -1,0 +1,5 @@
+bool a := true
+bool b
+b := !a
+
+
