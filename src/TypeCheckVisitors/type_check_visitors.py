@@ -9,21 +9,18 @@ STRING_TYPE = "string"
 NUM_TYPE = "num"
 BOOL_TYPE = "bool"
 
+
 class ASTTypeChecker(TypeCheckUtils):
     def __init__(self) -> None:
         super().__init__()
-    
-    def do_visit(self, start_node:nodes.StartNode):
+
+    def do_visit(self, start_node: nodes.StartNode):
+        """returns produced errors or None"""
         self.visit_start_node(start_node)
 
         if len(self.errors) == 0:
-            return
-        
-        for err in self.errors:
-            print(err)
-        
-        exit(-1)
-
+            return []
+        return self.errors
 
     def visit_start_node(self, node: nodes.StartNode):
         for master_stmt in node.master_statement_nodes:
@@ -52,11 +49,11 @@ class ASTTypeChecker(TypeCheckUtils):
             if not master_stmt.function_node is None:
                 self.visit_function_declaration(master_stmt.function_node)
 
-
     def visit_expression(self, expr):
-        """"returns the type of the expression as a (str,num,bool)"""
+        """"returns the type of the expression as a (str,num,bool). May return a list of typenodes in case of
+        ElementListNode."""
         if isinstance(expr, nodes.ValueNode):
-            return self.visit_value_node(expr) 
+            return self.visit_value_node(expr)
         if isinstance(expr, nodes.FunctionCallExpressionNode):
             return self.visit_function_call(expr)
         if isinstance(expr, nodes.UnaryExpressionNode):
@@ -73,23 +70,23 @@ class ASTTypeChecker(TypeCheckUtils):
             if isinstance(statement, nodes.StatementsNode):
                 self.visit_statement(statement)
             if isinstance(statement, nodes.FunctionCallExpressionNode):
-                self.visit_expression(statement) 
+                self.visit_expression(statement)
 
     def visit_control_statement(self, node: nodes.ControlStatementNode):
         if isinstance(node, nodes.WhileStatementNode) or isinstance(node, nodes.IfStatementNode):
             expr_type = self.visit_expression(node.condition)
             # See note 1
             if not expr_type is None and expr_type.type != BOOL_TYPE:
-                self.register_err(f"Condition in if-statement on line number: {node.line_number}, expected boolean value")
+                self.register_err(
+                    f"Condition in if-statement on line number: {node.line_number}, expected boolean value")
 
             self.visit_block_node(node.block)
 
         if isinstance(node, nodes.ElseStatementNode):
             if not node.if_statement is None:
-                self.visit_control_statement(node.if_statement)     
+                self.visit_control_statement(node.if_statement)
         else:
             self.visit_block_node(node.block)
-
 
     def visit_statement(self, stmt):
         if isinstance(stmt, nodes.AssignmentStatementNode):
@@ -98,9 +95,9 @@ class ASTTypeChecker(TypeCheckUtils):
             return self.visit_return(stmt)
         if isinstance(stmt, nodes.DeclarationStatementNode):
             return self.visit_declaration(stmt)
-        
-        self.register_err(f"Invalid statement node type: {stmt.type}.", stmt.line_number)
 
+        self.register_err(
+            f"Invalid statement node type: {stmt.type}.", stmt.line_number)
 
     def visit_value_node(self, node):
         """handles ConstantValueNode, IDNode and ListSubscriptValueNode.
@@ -112,21 +109,16 @@ class ASTTypeChecker(TypeCheckUtils):
         if isinstance(node, nodes.ListSubscriptValueNode):
             return node.identifier.dcl_type
 
-    
     def visit_element_list_node(self, node: nodes.ElementListNode):
+        """returns a list of typenodes in correct sequence."""
+        type_nodes = []
         for expr in node.expressions:
-            expr_type = self.visit_expression(expr)
-            if expr_type is None: continue
+            type_nodes.append(self.visit_expression(expr))
 
-            if not expr_type == node.identifier.dcl_type:
-                self.register_err(f"Type {expr_type.type} in list {node.identifier.identifier} does not match declaration type {node.identifier.dcl_type}!", node.line_number)
-        
-        return node.identifier.dcl_type
-    
+        return type_nodes
 
-    def visit_id_node(self,node:nodes.IDNode): 
+    def visit_id_node(self, node: nodes.IDNode):
         return node.dcl_type.type
-    
 
     def visit_constant_node(self, node):
         if isinstance(node, nodes.StringNode):
@@ -136,126 +128,201 @@ class ASTTypeChecker(TypeCheckUtils):
         if isinstance(node, nodes.BooleanNode):
             return nodes.TypeNode(node.line_number, BOOL_TYPE, 0)
 
-
-    def visit_function_call(self, node: nodes.FunctionCallExpressionNode): 
+    def visit_function_call(self, node: nodes.FunctionCallExpressionNode):
         function_return_type = node.dcl_type
 
         if len(node.arguments) != len(node.dcl_node.params):
-            self.register_err(f"Function {node.identifier.identifier} received {len(node.arguments)} arguments, expected {len(node.dcl_node.params)}!", node.line_number)
+            self.register_err(
+                f"Function {node.identifier.identifier} received {len(node.arguments)} arguments, expected {len(node.dcl_node.params)}!", node.line_number)
             return function_return_type
-        
+
         for i, parameters in enumerate(zip(node.arguments, node.dcl_node.params)):
-            actual_parameter_type, formal_parameter_type = self.visit_expression(parameters[0]), parameters[1]._type 
+            actual_parameter_type, formal_parameter_type = self.visit_expression(
+                parameters[0]), parameters[1]._type
             # See note 1
             if not None in (actual_parameter_type, formal_parameter_type) and actual_parameter_type != formal_parameter_type:
-                self.register_err(f'Parameter {i+1} in function call "{node.identifier}" expected {formal_parameter_type.type}, got {actual_parameter_type.type}!', node.line_number)
-                    
-        return function_return_type       
+                self.register_err(
+                    f'Parameter {i+1} in function call "{node.identifier}" expected {formal_parameter_type.type}, got {actual_parameter_type.type}!', node.line_number)
 
+        return function_return_type
 
     def visit_unary_expression(self, node: nodes.UnaryExpressionNode):
         expr_type_node = self.visit_expression(node.expression)
         # See note 1
         if not expr_type_node is None and expr_type_node.type != BOOL_TYPE and node.operator != "!":
-            self.register_err(f"Expected bool with '!' operator, got {expr_type_node.type}.", node.line_number)
-        
+            self.register_err(
+                f"Expected bool with '!' operator, got {expr_type_node.type}.", node.line_number)
+
         return nodes.TypeNode(node.line_number, BOOL_TYPE, 0)
-        
 
     def visit_binary_expression(self, node: nodes.BinaryExpressionNode):
-        left_expr = self.visit_expression(node.left)
-        right_expr = self.visit_expression(node.right)
-
+        left_expr_type_node = self.visit_expression(node.left)
+        right_expr_type_node = self.visit_expression(node.right)
         # See note 1
-        if None in (left_expr, right_expr): return
+        if None in (left_expr_type_node, right_expr_type_node):
+            return
 
-        if left_expr == right_expr:
+        if left_expr_type_node == right_expr_type_node:
 
-            if left_expr.type == NUM_TYPE:
+            if left_expr_type_node.type == NUM_TYPE:
                 if node.operator in ["+", "-", "*", "/"]:
                     return nodes.TypeNode(node.line_number, NUM_TYPE, 0)
-                elif  node.operator in ["==", "!=", "<", ">", "<=", ">="]:
+                elif node.operator in ["==", "!=", "<", ">", "<=", ">="]:
                     return nodes.TypeNode(node.line_number, BOOL_TYPE, 0)
                 else:
-                    self.register_err("Invalid operator for num type.", node.line_number)
-                
-            elif left_expr.type == STRING_TYPE:
-                    if  node.operator in ["+"]:
-                        return nodes.TypeNode(node.line_number, STRING_TYPE, 0)
-                    else: 
-                        self.register_err("Invalid operator for string type.", node.line_number)
-                    
-            elif left_expr.type == BOOL_TYPE:
-                if  node.operator in ["&&", "||", "==", "!="]:
+                    self.register_err(
+                        "Invalid operator for num type.", node.line_number)
+
+            elif left_expr_type_node.type == STRING_TYPE:
+                if node.operator in ["+"]:
+                    return nodes.TypeNode(node.line_number, STRING_TYPE, 0)
+                else:
+                    self.register_err(
+                        "Invalid operator for string type.", node.line_number)
+
+            elif left_expr_type_node.type == BOOL_TYPE:
+                if node.operator in ["&&", "||", "==", "!="]:
                     return nodes.TypeNode(node.line_number, BOOL_TYPE, 0)
                 else:
-                    self.register_err("Invalid operator for bool type.", node.line_number)
+                    self.register_err(
+                        "Invalid operator for bool type.", node.line_number)
 
         else:
-            self.register_err(f"Type mismatch, {left_expr.type} and {right_expr.type}. Expected {left_expr.type}.", node.line_number)
-                 
+            self.register_err(
+                f"Binary type mismatch, {left_expr_type_node.type} and {right_expr_type_node.type}. Expected {left_expr_type_node.type}.", node.line_number)
+
     def visit_assignment(self, node: nodes.AssignmentStatementNode):
         lhs_type_node = self.visit_value_node(node.identifier)
-        
-        if lhs_type_node is None: return # See note 1
+
+        if lhs_type_node is None:
+            return  # See note 1
 
         if not node.expression is None:
             rhs_type_node = self.visit_expression(node.expression)
             if rhs_type_node is None:
-                return lhs_type_node # See note 1
+                return lhs_type_node  # See note 1
 
-            if rhs_type_node != lhs_type_node:
-                self.register_err(f"Type mismatch, {lhs_type_node.type} and {rhs_type_node.type}. Expected {lhs_type_node.type}.", node.line_number)
-        
+            # if rhs is a list, it stems from an element list node, which we try to assign to a variable.
+            if type(rhs_type_node) == list:
+                if not node.subscripts is None:
+                    self.register_err("cannot assign list to list", node.line_number)
+                    return lhs_type_node
+                type_correct = self.register_element_list_type_mismatch(
+                    rhs_type_node, lhs_type_node, node.line_number)
+                if not type_correct:
+                    return lhs_type_node
+                actual_dimensions_of_element_list_node = self.get_list_depth(
+                    rhs_type_node, node.line_number)
+                if actual_dimensions_of_element_list_node != lhs_type_node.dimensions:
+                    self.register_err(
+                        f"List on right hand side of assignment, depth mismatch, {actual_dimensions_of_element_list_node} and {lhs_type_node.dimensions}. Expected dimensions: {lhs_type_node.dimensions}.", node.line_number)
+                return lhs_type_node
+
+            if rhs_type_node.type != lhs_type_node.type:
+                self.register_err(
+                    f"Assignment type mismatch, {lhs_type_node.type} and {rhs_type_node.type}. Expected {lhs_type_node.type}.", node.line_number)
+
         if not node.subscripts is None:
-            self.visit_list_subscript(node.subscripts)
-            #TODO
-            expr_type = self.visit_expression(node.expression)
+            # TODO
+            expr_type_node = self.visit_expression(node.expression)
+            if node.identifier.dcl_type.type != expr_type_node.type:
+                self.register_err(
+                    f"Assignment type mismatch, {lhs_type_node.type} and {rhs_type_node.type}. Expected {lhs_type_node.type}.", node.line_number)
+            actual_dimensions = self.visit_list_subscript(node.subscripts)
+            if actual_dimensions != node.identifier.dcl_type.dimensions:
+                self.register_err(f"list subscript mismatch on left hand side of assignment. Got {actual_dimensions}, expected {node.identifier.dcl_type.dimensions}",node.line_number)
 
         return lhs_type_node
-        
-        
+
+    def register_element_list_type_mismatch(self, element_list_nodes, expected_type_node: nodes.TypeNode, line_number):
+        """calls itself recursively to return whether or not all elements in element_list_nodes are of type expected_type_node.
+        Returns True if the type is ok, False otherwise.
+        """
+        # base case
+        # todo, iterate from other side, because we dont catch the error if the first element is a list
+        base_case = False
+        for element in element_list_nodes:
+            if type(element) != list:
+                base_case = True
+            if base_case and type(element) == list:
+                self.register_err("List depth mismatch", line_number)
+                return False
+
+        if base_case:
+
+            for primitive_type_node in element_list_nodes:
+                if primitive_type_node.type != expected_type_node.type:
+                    self.register_err(
+                        f"Element list type mismatch, {primitive_type_node.type} and {expected_type_node.type}. Expected {expected_type_node.type}.", line_number)
+                    return False
+            return True
+        else:
+            correct_types = [self.register_element_list_type_mismatch(
+                element, expected_type_node, line_number) for element in element_list_nodes]
+            return all(correct_types)
+
+    def get_list_depth(self, _list, line_number):
+        if type(_list) != list:
+            return 0
+        if len(_list) == 0: 
+            return 1
+
+        depths = [self.get_list_depth(item, line_number) for item in _list]
+
+        if len(set(depths)) > 1:
+            self.register_err(
+                f"Inconsistent nested depth among list elements", line_number)
+
+        return 1 + depths[0]
+
     def visit_return(self, node: nodes.ReturnStatementNode):
         if not node.expected_return_type is None:
             return self.visit_expression(node.expression)
-        # default return is none        
-
+        # default return is none
 
     def visit_declaration(self, node: nodes.DeclarationStatementNode):
         if not node.assignment is None:
             assign_type_node = self.visit_assignment(node.assignment)
-            if assign_type_node is None: return # see node 1
+            if assign_type_node is None:
+                return  # see node 1
 
             dcl_type = self.visit_value_node(node.identifier)
 
             if dcl_type != assign_type_node:
-                self.register_err(f"Type mismatch, {assign_type_node.type} and {dcl_type.type}. Expected {assign_type_node.type}.", node.line_number)
-    
-    
+                self.register_err(
+                    f"Declaration type mismatch, {assign_type_node.type} and {dcl_type.type}. Expected {assign_type_node.type}.", node.line_number)
+
     def visit_function_declaration(self, node: nodes.FunctionNode):
         func_return_node = node._type
-        
+
         # This might crash if default for statements_nodes is None?
         for stmt_node in node.block.statements_nodes:
             if isinstance(stmt_node, nodes.ReturnStatementNode):
                 actual_return_type_node = self.visit_return(stmt_node)
                 if func_return_node is None and not actual_return_type_node is None:
                     # Raise Error as the return type should be None
-                    self.register_err(f"Expected return: void, found return type: {actual_return_type_node.type}", node.line_number)
-                    
+                    self.register_err(
+                        f"Expected return: void, found return type: {actual_return_type_node.type}", node.line_number)
+
                 if not func_return_node is None and func_return_node != actual_return_type_node and not actual_return_type_node is None:
                     # Raise Error as the expected return type dosent match the type of the return stmt
-                    self.register_err(f"Expected return: {func_return_node.type}, found return type: {actual_return_type_node.type}", node.line_number)
-             
-                
+                    self.register_err(
+                        f"Expected return: {func_return_node.type}, found return type: {actual_return_type_node.type}", node.line_number)
+
     def visit_list_subscript(self, node: nodes.ListSubscriptValueNode):
-        if node.identifier.dcl_dimensions < len(node.subscripts):
-            self.register_err(f"Unable to subscript at depth {len(node.subscripts)} of identifier {node.identifier.identifier} with depth {node.identifier.dcl_dimensions}!", node.line_number)
-        
-        for subscripts in node.subscripts:
-            expr_type_node = self.visit_expression(subscripts)
-            if expr_type_node is None: break # See note 1
-            
+        """iterates through expressions in list subscript node and registers an error if any of them is no num type.
+        Also asserts dimensions.
+        Returns the number of subscripts."""
+        if node.identifier.dcl_type.dimensions < len(node.subscripts):
+            self.register_err(
+                f"Unable to subscript at depth {len(node.subscripts)} of identifier {node.identifier.identifier} with depth {node.identifier.dcl_dimensions}!", node.line_number)
+
+        for expr_node in node.subscripts:
+            expr_type_node = self.visit_expression(expr_node)
+            if expr_type_node is None:
+                break  # See note 1
 
             if expr_type_node.type != NUM_TYPE:
-                    self.register_err(f"Expression {expr_type_node} not of Num Type.", node.line_number)
+                self.register_err(
+                    f"Expression {expr_type_node} not of Num Type.", node.line_number)
+        return len(node.subscripts)

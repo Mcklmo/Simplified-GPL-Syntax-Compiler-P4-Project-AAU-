@@ -36,12 +36,8 @@ class SymbolTableVisitor(SymbolTableUtils):
         self.visitStartNode(start_node)
 
         if len(self.errors) == 0:
-            return
-        
-        for err in self.errors:
-            print(err)
-        
-        exit(-1)
+            return []
+        return self.errors
 
     def visitStartNode(self, node: nodes.StartNode):
         for master_stmt in node.master_statement_nodes:
@@ -113,12 +109,11 @@ class SymbolTableVisitor(SymbolTableUtils):
 
     def visitGeneralValueNode(self, node: Any):
         if isinstance(node, nodes.NumberNode):
-            
-            pass
+            node.type_node = nodes.TypeNode(node.line_number,"num",0)
         if isinstance(node, nodes.StringNode):
-            pass
+            node.type_node = nodes.TypeNode(node.line_number,"string",0)
         if isinstance(node, nodes.BooleanNode):
-            pass
+            node.type_node = nodes.TypeNode(node.line_number,"bool",0)
         if isinstance(node, nodes.IDNode):
             self.visitIDNode(node)
         if isinstance(node, nodes.FunctionCallExpressionNode):

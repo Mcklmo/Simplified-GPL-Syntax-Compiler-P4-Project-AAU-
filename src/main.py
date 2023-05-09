@@ -9,7 +9,7 @@ from nodes.Node import Node
 from symbol_table.symbol_tabel_visitor import SymbolTableVisitor
 from TypeCheckVisitors.type_check_visitors import ASTTypeChecker
 
-SOURCE_CODE_FILE_NAME = r"././input_stream/malthe_test.txt"
+SOURCE_CODE_FILE_NAME = r"././input_stream/malthe_test_err.txt"
 
 
 def main(argv=None):
@@ -23,11 +23,17 @@ def main(argv=None):
     ast_root = single_dispatch_visitor.visit_start_node(parse_tree_start_node)
 
     symtbl = SymbolTableVisitor()
-    symtbl.do_visit(ast_root)
+    symbol_table_errors = symtbl.do_visit(ast_root)
 
     type_check = ASTTypeChecker()
-    type_check.do_visit(ast_root)
-    print_ast(ast_root)
+    type_check_errors = type_check.do_visit(ast_root)
+    if type_check_errors or symbol_table_errors:
+        for error in symbol_table_errors:
+            print(error)
+        for error in type_check_errors:
+            print(error)
+    else:
+        print_ast(ast_root)
     
     # print_cst(parser, parse_tree_start_node)
     
