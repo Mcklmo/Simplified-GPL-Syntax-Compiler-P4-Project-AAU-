@@ -1,0 +1,4 @@
+num func(){
+    string a := "2"
+    return a
+}

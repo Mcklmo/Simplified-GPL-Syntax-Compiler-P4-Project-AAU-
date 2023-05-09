@@ -7,9 +7,14 @@ class TypeNode(Node):
         self.dimensions = dimensions
 
     def __eq__(self, other):
+        if not isinstance(other, TypeNode): return False
+
         _type = self.type == other.type
         dimensions = self.dimensions == other.dimensions
-        return isinstance(other, TypeNode) and _type and dimensions
+        return _type and dimensions
     
     def __repr__(self):
         return f"TypeNode(type={self.type}, dimensions={self.dimensions})"
+    
+    def __str__(self):
+        return self.__repr__()

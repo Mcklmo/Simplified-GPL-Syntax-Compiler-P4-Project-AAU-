@@ -63,7 +63,6 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         )
     
 
-
     def visit_statement_node(self, cst_node: AlgoPractiseParser.StmtContext):
         ast_node = None
         if not cst_node.dcl() is None:
@@ -79,7 +78,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
 
         elif not cst_node.cntrol() is None:
             ast_node = self.visit_control_statement_node(cst_node.cntrol())
-        elif not cst_node.RETURN() and not cst_node.expr() is None:
+        elif not cst_node.RETURN() is None and not cst_node.expr() is None:
             ast_node = self.visit_return_statement_node(expression_ctx=cst_node.expr())
         else:
             # return void
@@ -101,8 +100,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         list_subscript_ctx = cst_node.list_subscript()
         list_subscript = None
         if not list_subscript_ctx is None:
-            list_subscript = self.visit_list_subscript_value_node(identifier,
-                                                                  list_subscript_ctx)
+            list_subscript = self.visit_list_subscript_value_node(identifier, list_subscript_ctx)
         return AssignmentStatementNode(cst_node.start.line, identifier, list_subscript, expression)
 
     def visit_expression_node(self, cst_node: AlgoPractiseParser.ExprContext):
@@ -171,7 +169,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
     def visit_function_call_expression_node(self, cst_node: AlgoPractiseParser.Func_callContext):
         identifier = IDNode(cst_node.start.line, cst_node.ID().getText())
         arguments = self.visit_element_list_node(cst_node.elmnt_list())
-        return FunctionCallExpressionNode(cst_node.start.line, identifier, arguments)
+        return FunctionCallExpressionNode(cst_node.start.line, identifier, arguments.expressions)
 
     def visit_list_subscript_value_node(self, identifier, cst_node: AlgoPractiseParser.List_subscriptContext):
         subscripts = []
@@ -192,7 +190,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
     def visit_declaration_statement_node(self, cst_node: AlgoPractiseParser.DclContext):
         type_node = self.visit_type_node(cst_node.type_())
         if not cst_node.ID() is None:
-            identifier = IDNode(cst_node.start.line, cst_node.ID().getText())
+            identifier = IDNode(cst_node.start.line, cst_node.ID().getText(), type_node)
             return DeclarationStatementNode(type_node, cst_node.start.line, identifier=identifier)
         # has assignment statement
         assignment_statement_node = self.visit_assignment_statement_node(
@@ -229,7 +227,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
     def visit_function_call_statement_node(self, cst_node: AlgoPractiseParser.Func_callContext):
         identifier = IDNode(cst_node.start.line, cst_node.ID().getText())
         arguments = self.visit_element_list_node(cst_node.elmnt_list())
-        return FunctionCallStatementNode(cst_node.start.line, identifier, arguments)
+        return FunctionCallStatementNode(cst_node.start.line, identifier, arguments.expressions)
 
     def visit_parameter_node(self, cst_node: AlgoPractiseParser.ParamContext):
         _type = self.visit_type_node(cst_node.type_())

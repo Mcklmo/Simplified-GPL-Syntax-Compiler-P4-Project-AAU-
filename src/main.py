@@ -7,8 +7,9 @@ from antlr4 import FileStream, CommonTokenStream
 
 from nodes.Node import Node
 from symbol_table.symbol_tabel_visitor import SymbolTableVisitor
+from TypeCheckVisitors.type_check_visitors import ASTTypeChecker
 
-SOURCE_CODE_FILE_NAME = r"././input_stream/type_check_neg.txt"
+SOURCE_CODE_FILE_NAME = r"././input_stream/malthe_test.txt"
 
 
 def main(argv=None):
@@ -20,10 +21,13 @@ def main(argv=None):
 
     single_dispatch_visitor = ASTSingleDispatchVisitor()
     ast_root = single_dispatch_visitor.visit_start_node(parse_tree_start_node)
-    print_ast(ast_root)
 
     symtbl = SymbolTableVisitor()
     symtbl.do_visit(ast_root)
+
+    type_check = ASTTypeChecker()
+    type_check.do_visit(ast_root)
+    print_ast(ast_root)
     
     # print_cst(parser, parse_tree_start_node)
     

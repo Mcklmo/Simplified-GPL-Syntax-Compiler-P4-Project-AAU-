@@ -1,6 +1,8 @@
-if a < b {
-    a := b
+num a := 2
+
+if !a == 2 {
+    a := false
 } 
 else {
-    b := a
+    a := true
 }

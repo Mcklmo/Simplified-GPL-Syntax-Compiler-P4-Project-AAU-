@@ -1,0 +1,15 @@
+num a := 2
+num b := 3
+
+a := b
+
+num func(num a){ 
+    return a
+}
+
+b := func(num a)
+
+list[] arr := {1,2,3}
+
+a := arr[0]
+

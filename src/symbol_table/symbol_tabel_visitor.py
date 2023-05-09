@@ -16,6 +16,15 @@ ETC - We found an assignment node:
 3: Populate the assignemt node with the type of the dcl.
 
 
+todo 5.5.23:
+- tilføj expected_return_type til ReturnStatementNode
+- tilføj felt til symbol table klasse der holder typen af en funktion
+- når en func decl findes, settes feltet i klassen. 
+- når en ny blok åbnes, sætter vi feltet til den nuværende. sådan er der altid den aktuelle retur type i det åbne scope indenfor
+  en functions deklarations block.
+- når der mødes et retur statement henter vi typen fra klassen g tilføjer den til return noden
+
+
 """
 
 
@@ -80,6 +89,9 @@ class SymbolTableVisitor(SymbolTableUtils):
         
         # Populate assignemnt node with dcl type for later typecheck
         node.dcl_type = dcl_node.type
+        # also populate IDNode with same thing
+        node.identifier.dcl_type = dcl_node.type
+
 
         # The subscript node is redundant. It should be a list (As it does not make sence to make an empty subscript node as default value for assignemnts without subscrips.)
         # The none check i s just a workaround
@@ -101,6 +113,7 @@ class SymbolTableVisitor(SymbolTableUtils):
 
     def visitGeneralValueNode(self, node: Any):
         if isinstance(node, nodes.NumberNode):
+            
             pass
         if isinstance(node, nodes.StringNode):
             pass
@@ -115,17 +128,22 @@ class SymbolTableVisitor(SymbolTableUtils):
                 self.visitGeneralExprNode(expr)
 
         if isinstance(node, nodes.ListSubscriptValueNode):
-            self.visitIDNode(node.identifier)
-            for sub_expr in node.subscripts:
-                self.visitGeneralExprNode(sub_expr)
+            self.visitListSubscript(node)
+    
+    def visitListSubscript(self, node:nodes.ListSubscriptValueNode):
+        self.visitIDNode(node.identifier)
+        for sub_expr in node.subscripts:
+            self.visitGeneralExprNode(sub_expr)
+
 
     def visitIDNode(self, node: nodes.IDNode):
         dcl_node = self.symbol_tabel.traverse(node.identifier)
         if dcl_node is None:
-            self.regsiter_err(f"var {node.identifier.identifier} was never declared!", node.line_number)
+            self.regsiter_err(f"var {node.identifier} was never declared!", node.line_number)
 
         else:
             node.dcl_type = dcl_node.type
+            node.dcl_dimensions = dcl_node.type.dimensions
 
     def visitBinaryExpressionNode(self, node: nodes.BinaryExpressionNode):
         self.visitGeneralExprNode(node.left)
@@ -142,6 +160,7 @@ class SymbolTableVisitor(SymbolTableUtils):
             # Error, not declared!
             return     
 
+        node.dcl_node = dcl_node
         node.dcl_type = dcl_node._type
 
         if self.is_iterable(node.arguments):
@@ -158,7 +177,9 @@ class SymbolTableVisitor(SymbolTableUtils):
         for param in node.params:
             self.symbol_tabel.insert_in_open_scope(
                 param.identifier.identifier, nodes.DeclarationStatementNode(type=param._type, line_number=param.line_number, identifier=param.identifier))
-            
+        
+        # set expected return type
+        self.symbol_tabel.current.expected_return_type = node._type
         # visit block
         self.visitBlockNode(node.block)
         self.symbol_tabel.close_scope()
@@ -181,7 +202,9 @@ class SymbolTableVisitor(SymbolTableUtils):
                 self.visitDeclarationStatementNode(statement_node)
 
     def visitIfStatementNode(self, node: nodes.IfStatementNode):
+        expected_return_type = self.symbol_tabel.current.expected_return_type
         self.symbol_tabel.open_scope()
+        self.symbol_tabel.current.expected_return_type = expected_return_type
         self.visitBlockNode(node.block)
         self.symbol_tabel.close_scope()
 
@@ -189,7 +212,11 @@ class SymbolTableVisitor(SymbolTableUtils):
             self.visitElseStatementNode(node.else_node)
 
     def visitWhileStatementNode(self, node: nodes.WhileStatementNode):
+        expected_return_type = self.symbol_tabel.current.expected_return_type
+
         self.symbol_tabel.open_scope()
+        self.symbol_tabel.current.expected_return_type = expected_return_type
+
         self.visitBlockNode(node.block)
         self.symbol_tabel.close_scope()
 
@@ -197,9 +224,14 @@ class SymbolTableVisitor(SymbolTableUtils):
         if not node.if_statement is None:
             self.visitIfStatementNode(node.if_statement)
         else:
+            expected_return_type = self.symbol_tabel.current.expected_return_type
+
             self.symbol_tabel.open_scope()
+            self.symbol_tabel.current.expected_return_type = expected_return_type
+
             self.visitBlockNode(node.block)
             self.symbol_tabel.close_scope()
 
     def visitReturnStatementNode(self, node: nodes.ReturnStatementNode):
+        node.expected_return_type = self.symbol_tabel.current.expected_return_type
         self.visitGeneralExprNode(node.expression)

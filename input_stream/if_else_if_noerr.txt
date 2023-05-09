@@ -1,6 +1,12 @@
-if a < b {
+num a := 2
+num b := 1
+
+string c := "h"
+string d := "i"
+
+if a <  b {
     a := b
 }
-else if a < b{
-    b := a
+else if a > b{
+    c := c + d
 }

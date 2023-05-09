@@ -1,0 +1,7 @@
+string a := 1
+
+num func(num a){
+    return a
+}
+
+c := func(a)

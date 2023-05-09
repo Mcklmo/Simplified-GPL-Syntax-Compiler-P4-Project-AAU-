@@ -1,0 +1,6 @@
+num a := 1
+string b := "hello world"
+
+a := b
+
+

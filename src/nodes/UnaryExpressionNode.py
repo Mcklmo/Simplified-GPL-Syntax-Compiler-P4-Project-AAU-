@@ -1,8 +1,7 @@
-from .ExpressionNode import ExpressionNode
-
-class UnaryExpressionNode(ExpressionNode):
-    def __init__(self, line_number, expression: ExpressionNode, operator: str) -> None:
-        super().__init__(line_number = line_number)
+import nodes
+class UnaryExpressionNode(nodes.ExpressionNode):
+    def __init__(self, line_number, expression: nodes.ExpressionNode, operator: str,type_node=None) -> None:
+        super().__init__(line_number = line_number,type_node=type_node)
         self.expression = expression
         self.operator = operator
 

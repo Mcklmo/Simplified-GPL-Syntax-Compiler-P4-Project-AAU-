@@ -1,9 +1,12 @@
 from typing import Any, Tuple
+import nodes
 
 class SymbolTabel:
-    def __init__(self):
+    def __init__(self,expected_return_type:nodes.TypeNode=None):
         self.content = dict()
         self.next = None
+        self.expected_return_type = expected_return_type
+
     
     def try_fetch_id(self, _id):
         # decide on table format

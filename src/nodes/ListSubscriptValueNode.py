@@ -9,6 +9,9 @@ class ListSubscriptValueNode(ValueNode):
         self.identifier = identifier
         self.subscripts = subscripts
 
+
+        
+
     def __eq__(self, other):
         instance = isinstance(other, ListSubscriptValueNode)
         identifier = self.identifier == other.identifier
