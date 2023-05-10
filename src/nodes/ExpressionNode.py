@@ -1,7 +1,5 @@
-from nodes import Node 
-from nodes import TypeNode
+from nodes.Node import Node 
 
 class ExpressionNode(Node):
-    def __init__(self, line_number,type_node:TypeNode=None) -> None:
+    def __init__(self, line_number) -> None:
         super().__init__(line_number = line_number)
-        self.type_node = type_node

@@ -8,3 +8,4 @@ class ElementListNode(Node):
         super().__init__(line_number = line_number)
         self.expressions = expressions
         self.identifier = identifier
+
