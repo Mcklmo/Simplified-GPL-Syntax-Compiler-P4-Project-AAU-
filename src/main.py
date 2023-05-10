@@ -8,6 +8,7 @@ from antlr4 import FileStream, CommonTokenStream
 from nodes.Node import Node
 from symbol_table.symbol_tabel_visitor import SymbolTableVisitor
 from TypeCheckVisitors.type_check_visitors import ASTTypeChecker
+from code_generation.code_gen_visitors import CodeGeneratorASTVisitor
 
 SOURCE_CODE_FILE_NAME = r"././input_stream/malthe_test_err.txt"
 
@@ -35,6 +36,8 @@ def main(argv=None):
     else:
         print_ast(ast_root)
     
+    code_gen = CodeGeneratorASTVisitor()
+    code_gen.do_visit(ast_root)
     # print_cst(parser, parse_tree_start_node)
     
     # listener = AlgoPractiseListener()
