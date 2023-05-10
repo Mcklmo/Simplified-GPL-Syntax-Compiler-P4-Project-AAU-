@@ -50,8 +50,7 @@ class ASTTypeChecker(TypeCheckUtils):
                 self.visit_function_declaration(master_stmt.function_node)
 
     def visit_expression(self, expr):
-        """"returns the type of the expression as a (str,num,bool). May return a list of typenodes in case of
-        ElementListNode."""
+        """"returns a typenode."""
         if isinstance(expr, nodes.ValueNode):
             return self.visit_value_node(expr)
         if isinstance(expr, nodes.FunctionCallExpressionNode):
@@ -110,12 +109,70 @@ class ASTTypeChecker(TypeCheckUtils):
             return node.identifier.dcl_type
 
     def visit_element_list_node(self, node: nodes.ElementListNode):
-        """returns a list of typenodes in correct sequence."""
-        type_nodes = []
-        for expr in node.expressions:
-            type_nodes.append(self.visit_expression(expr))
+        """returns a type node containing the number of dimensions and the type of the elements in the list.
+        Returns None and registers errors if the dimensions are inconsistent or the elements are of different types."""
+        
+        type_node= self.get_type_node_from_element_list(node, nodes.TypeNode(node.line_number,"list",1))
+        return type_node
+    
+    def get_type_node_from_element_list(self,node:nodes.ElementListNode,type_node:nodes.TypeNode):
+        """
+        Traverse the element list node and return a type node containing the number of dimensions and 
+        the type of the elements in the list. Calls itself recursively, ensuring that all element types 
+        are the same before making a recursive call. 
 
-        return type_nodes
+        Returns None and registers errors if the dimensions are inconsistent or the elements are of different types.
+
+        Args:
+            node (nodes.ElementListNode): The element list node being checked.
+            type_node (nodes.TypeNode): The type node to compare and update.
+
+        Returns:
+            nodes.TypeNode: Updated type node with dimension and type information, or None if error encountered.
+        """
+        if type_node == None or self.is_primitive(type_node):
+            return type_node
+        
+        type_nodes_from_list = []
+        
+        type_of_elements = None 
+        for i in node.expressions:
+            # check type correctness
+            if isinstance(i, nodes.ElementListNode):
+                type_nodes_from_list.append(self.get_type_node_from_element_list(i,nodes.TypeNode(node.line_number,"list",type_node.dimensions+1)))
+                temp_type_of_elements = nodes.TypeNode(node.line_number,"list",1)
+            elif isinstance(i, nodes.ExpressionNode):
+                temp_type_of_elements = self.visit_expression(i)
+
+            if not type_of_elements is None and type_of_elements.type != temp_type_of_elements.type:
+                self.register_err(f"Element list type mismatch {temp_type_of_elements.type} and {type_of_elements.type}",node.line_number)
+                return None
+            type_of_elements = temp_type_of_elements
+        
+        if len(type_nodes_from_list) == 0:
+            return nodes.TypeNode(node.line_number,type_of_elements.type,type_node.dimensions)
+        
+        # check dimension correctness
+        dimensions_set = set([i.dimensions for i in type_nodes_from_list])
+        return_none = False
+        if len(dimensions_set) > 1:
+            self.register_err(f"Element list dimensions mismatch, have {dimensions_set}",node.line_number)
+            return_none = True
+            
+        # check type correctness
+        types_set = set([i.type for i in type_nodes_from_list])
+
+        if len(types_set) > 1:
+            self.register_err(f"Element list type mismatch, have {types_set}",node.line_number)
+            return_none = True
+
+        if return_none:
+            return None
+
+        return nodes.TypeNode(node.line_number,list(types_set)[0],list(dimensions_set)[0])
+    
+    def is_primitive(self, type_node:nodes.TypeNode):
+        return type_node.type == NUM_TYPE or type_node.type == BOOL_TYPE or type_node.type == STRING_TYPE
 
     def visit_id_node(self, node: nodes.IDNode):
         return node.dcl_type.type
@@ -192,48 +249,26 @@ class ASTTypeChecker(TypeCheckUtils):
                 f"Binary type mismatch, {left_expr_type_node.type} and {right_expr_type_node.type}. Expected {left_expr_type_node.type}.", node.line_number)
 
     def visit_assignment(self, node: nodes.AssignmentStatementNode):
+       
         lhs_type_node = self.visit_value_node(node.identifier)
-
-        if lhs_type_node is None:
-            return  # See note 1
+        
+        if lhs_type_node is None: return # See note 1
 
         if not node.expression is None:
             rhs_type_node = self.visit_expression(node.expression)
             if rhs_type_node is None:
-                return lhs_type_node  # See note 1
+                return lhs_type_node # See note 1
 
-            # if rhs is a list, it stems from an element list node, which we try to assign to a variable.
-            if type(rhs_type_node) == list:
-                if not node.subscripts is None:
-                    self.register_err("cannot assign list to list", node.line_number)
-                    return lhs_type_node
-                type_correct = self.register_element_list_type_mismatch(
-                    rhs_type_node, lhs_type_node, node.line_number)
-                if not type_correct:
-                    return lhs_type_node
-                actual_dimensions_of_element_list_node = self.get_list_depth(
-                    rhs_type_node, node.line_number)
-                if actual_dimensions_of_element_list_node != lhs_type_node.dimensions:
-                    self.register_err(
-                        f"List on right hand side of assignment, depth mismatch, {actual_dimensions_of_element_list_node} and {lhs_type_node.dimensions}. Expected dimensions: {lhs_type_node.dimensions}.", node.line_number)
-                return lhs_type_node
-
-            if rhs_type_node.type != lhs_type_node.type:
-                self.register_err(
-                    f"Assignment type mismatch, {lhs_type_node.type} and {rhs_type_node.type}. Expected {lhs_type_node.type}.", node.line_number)
-
+            if rhs_type_node != lhs_type_node:
+                self.register_err(f"Type mismatch: have:{rhs_type_node}. Expected {lhs_type_node}.", node.line_number)
+        
         if not node.subscripts is None:
-            # TODO
-            expr_type_node = self.visit_expression(node.expression)
-            if node.identifier.dcl_type.type != expr_type_node.type:
-                self.register_err(
-                    f"Assignment type mismatch, {lhs_type_node.type} and {rhs_type_node.type}. Expected {lhs_type_node.type}.", node.line_number)
-            actual_dimensions = self.visit_list_subscript(node.subscripts)
-            if actual_dimensions != node.identifier.dcl_type.dimensions:
-                self.register_err(f"list subscript mismatch on left hand side of assignment. Got {actual_dimensions}, expected {node.identifier.dcl_type.dimensions}",node.line_number)
+            self.visit_list_subscript(node.subscripts)
+            #TODO
+            expr_type = self.visit_expression(node.expression)
 
         return lhs_type_node
-
+        
     def register_element_list_type_mismatch(self, element_list_nodes, expected_type_node: nodes.TypeNode, line_number):
         """calls itself recursively to return whether or not all elements in element_list_nodes are of type expected_type_node.
         Returns True if the type is ok, False otherwise.
@@ -299,6 +334,7 @@ class ASTTypeChecker(TypeCheckUtils):
         for stmt_node in node.block.statements_nodes:
             if isinstance(stmt_node, nodes.ReturnStatementNode):
                 actual_return_type_node = self.visit_return(stmt_node)
+                
                 if func_return_node is None and not actual_return_type_node is None:
                     # Raise Error as the return type should be None
                     self.register_err(
@@ -308,6 +344,9 @@ class ASTTypeChecker(TypeCheckUtils):
                     # Raise Error as the expected return type dosent match the type of the return stmt
                     self.register_err(
                         f"Expected return: {func_return_node.type}, found return type: {actual_return_type_node.type}", node.line_number)
+
+    def typecheck_element_list(self):
+        pass
 
     def visit_list_subscript(self, node: nodes.ListSubscriptValueNode):
         """iterates through expressions in list subscript node and registers an error if any of them is no num type.
