@@ -2,7 +2,7 @@ from TypeCheckVisitors.type_check_visitors import NUM_TYPE, STRING_TYPE, BOOL_TY
 import nodes
 
 class CodeGenerator():
-    map_type = lambda type_str: {NUM_TYPE: "doubble", STRING_TYPE: "str", BOOL_TYPE:"bool"}[type_str]
+    map_type = lambda _, type_str: {NUM_TYPE: "double", STRING_TYPE: "str", BOOL_TYPE:"bool"}[type_str]
 
     def __init__(self):
         self.out = "class Program() {\n"
@@ -15,11 +15,13 @@ class CodeGenerator():
         
         print("Enjoy!")
 
-    def write_line(self, str):
-        self.out += "\t"*self.current_indent+"\n"
+    def write_line(self, _str):
+        self.out += "\t"*self.current_indent+_str+"\n"
 
     def geenrate_type(self, type:nodes.TypeNode):
-        return self.map_type(type.type)+"[]"*type.dimensions
+        if type.dimensions != 0:
+            return f"List<{self.geenrate_type(nodes.TypeNode(type.line_number, type=type.type, dimensions=type.dimensions-1))}>"
+        return self.map_type(type.type)
 
     def generate_function_call(self, node: nodes.FunctionCallExpressionNode): 
         return {node.identifier.identifier}+"("+",".join([self.generate_expression(expr) for expr in node.arguments])+")"
@@ -27,7 +29,7 @@ class CodeGenerator():
     def generate_element_list_type(self, node: nodes.ElementListNode): 
         return "{"+",".join([self.generate_expression(expr) for expr in node.expressions])+"}"
 
-    def generate_list_subscript_val(self, node: nodes.ListSubscriptVal):
+    def generate_list_subscript_val(self, node: nodes.ListSubscriptValueNode):
         return f"{node.identifier}"+"".join([f"[{self.generate_expression(expr)}]" for expr in node.subscripts])
     
     def generate_expression(self, node):
@@ -42,7 +44,6 @@ class CodeGenerator():
 
     def generate_unary_expression(self, node):
         return f"{node.operator}{self.generate_expression(node.expression)}"
-
     
     def generate_value_node(self, node):
         if isinstance(node, nodes.NumberNode): return str(node.value)
