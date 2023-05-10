@@ -24,10 +24,10 @@ class CodeGenerator():
         return self.map_type(type.type)
 
     def generate_function_call(self, node: nodes.FunctionCallExpressionNode): 
-        return {node.identifier.identifier}+"("+",".join([self.generate_expression(expr) for expr in node.arguments])+")"
+        return node.identifier.identifier+"("+",".join([self.generate_expression(expr) for expr in node.arguments])+")"
 
     def generate_element_list_type(self, node: nodes.ElementListNode): 
-        return "{"+",".join([self.generate_expression(expr) for expr in node.expressions])+"}"
+        return f"new List<{self.map_type(node.type.type)}>"+"{"+",".join([self.generate_expression(expr) for expr in node.expressions])+"}()"
 
     def generate_list_subscript_val(self, node: nodes.ListSubscriptValueNode):
         return f"{node.identifier}"+"".join([f"[{self.generate_expression(expr)}]" for expr in node.subscripts])

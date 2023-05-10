@@ -113,6 +113,7 @@ class ASTTypeChecker(TypeCheckUtils):
         Returns None and registers errors if the dimensions are inconsistent or the elements are of different types."""
         
         type_node= self.get_type_node_from_element_list(node, nodes.TypeNode(node.line_number,"list",1))
+        node.type = type_node
         return type_node
     
     def get_type_node_from_element_list(self,node:nodes.ElementListNode,type_node:nodes.TypeNode):
@@ -139,8 +140,10 @@ class ASTTypeChecker(TypeCheckUtils):
         for i in node.expressions:
             # check type correctness
             if isinstance(i, nodes.ElementListNode):
-                type_nodes_from_list.append(self.get_type_node_from_element_list(i,nodes.TypeNode(node.line_number,"list",type_node.dimensions+1)))
+                _ = self.get_type_node_from_element_list(i,nodes.TypeNode(node.line_number,"list",type_node.dimensions+1))
+                type_nodes_from_list.append(_)
                 temp_type_of_elements = nodes.TypeNode(node.line_number,"list",1)
+                i.type = _
             elif isinstance(i, nodes.ExpressionNode):
                 temp_type_of_elements = self.visit_expression(i)
 
