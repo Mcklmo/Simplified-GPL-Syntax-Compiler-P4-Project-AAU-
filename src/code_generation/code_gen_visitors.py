@@ -1,6 +1,7 @@
 import nodes
 from .code_generator import CodeGenerator
 
+# todo: fix dimensions of c# list generators (new list<list<...<<double>) in element list code generation. see current output and try to compile to c# for more info
 
 class CodeGeneratorASTVisitor(CodeGenerator):
     def __init__(self):
@@ -34,7 +35,7 @@ class CodeGeneratorASTVisitor(CodeGenerator):
 
 
     def visit_dcl(self, node:nodes.DeclarationStatementNode):
-        base_str = f"{self.generate_type(node.type)} {node.identifier.identifier}"
+        base_str = f"static {self.generate_type(node.type)} {node.identifier.identifier}"
         if node.assignment is None: self.write_line(base_str+";")
         else: self.write_line(base_str+f" = {self.generate_expression(node.assignment.expression)};")
     

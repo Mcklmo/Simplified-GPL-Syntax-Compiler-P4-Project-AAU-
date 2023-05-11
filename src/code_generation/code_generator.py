@@ -5,7 +5,7 @@ class CodeGenerator():
     map_type = lambda _, type_str: {NUM_TYPE: "double", STRING_TYPE: "String", BOOL_TYPE:"bool", "void": "void"}[type_str]
 
     def __init__(self):
-        self.out = "using System.Collections.Generic;\nusing System;\n\nclass Program() {\n"
+        self.out = "using System.Collections.Generic;\nusing System;\n\nclass Program {\n"
 
         self.current_indent = 1
  
@@ -29,14 +29,16 @@ class CodeGenerator():
         return node.identifier.identifier+"("+",".join([self.generate_expression(expr) for expr in node.arguments])+")"
 
     def generate_element_list_type(self, node: nodes.ElementListNode): 
+        return f"new {'List<' * node.type.dimensions}{self.map_type(node.type.type)}{'>' * node.type.dimensions}"+"(){"+",".join([self.generate_expression(expr) for expr in node.expressions])+"}"
         return f"new List<{self.map_type(node.type.type)}>"+"{"+",".join([self.generate_expression(expr) for expr in node.expressions])+"}()"
 
     def generate_assignment(self, node:nodes.AssignmentStatementNode):
+
         base = self.generate_list_subscript_val(node.subscripts) if node.subscripts is not None else node.identifier.identifier
         return f"{base} = {self.generate_expression(node.expression)}"
 
     def generate_list_subscript_val(self, node: nodes.ListSubscriptValueNode):
-        return f"{node.identifier}"+"".join([f"[{self.generate_expression(expr)}]" for expr in node.subscripts])
+        return f"{node.identifier.identifier}"+"".join([f"[{int(float(self.generate_expression(expr)))}]" for expr in node.subscripts])
     
     def generate_expression(self, node):
         if isinstance(node, nodes.BinaryExpressionNode): return self.generate_binary_expression(node)
