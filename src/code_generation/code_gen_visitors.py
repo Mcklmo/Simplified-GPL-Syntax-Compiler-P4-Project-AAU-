@@ -31,13 +31,11 @@ class CodeGeneratorASTVisitor(CodeGenerator):
             self.visit_func_dcl(node)
         self.visit_main_stmts(main_stmts)
 
-    def visit_dcl(self, node: nodes.DeclarationStatementNode):
-        base_str = f"{self.geenrate_type(node.type)} {node.identifier.identifier}"
-        if node.assignment is None:
-            self.write_line(base_str+";")
-        else:
-            self.write_line(
-                base_str+f" = {self.generate_expression(node.assignment.expression)};")
+    def visit_dcl(self, node:nodes.DeclarationStatementNode):
+        base_str = f"{self.generate_type(node.type)} {node.identifier.identifier}"
+        if node.assignment is None: self.write_line(base_str+";")
+        else: self.write_line(base_str+f" = {self.generate_expression(node.assignment.expression)};")
+    
 
     def visit_func_dcl(self, node: nodes.FunctionNode):
         self.write_line(self.generate_function_declaration(node))
@@ -49,8 +47,30 @@ class CodeGeneratorASTVisitor(CodeGenerator):
     def visit_assignemnt(self, node: nodes.AssignmentStatementNode):
         self.write_line(self.gennerate_assignment(node)+";")
 
-    def visit_function_call(self, node: nodes.FunctionCallStatementNode):
-        self.write_line(self.generate_function_call(node)+";")
+    def visit_function_call(self, node:nodes.FunctionCallStatementNode):
+        self.write_line(self.generate_function_call(node))
+    
+    def visitIfStatementNode(self, node: nodes.IfStatementNode):
+        self.write_line(f"if ({self.generate_expression(node.condition)})" + "{")
+        self.current_indent += 1
+        self.visit_block(node.block)
+        self.current_indent -= 1
+        self.write_line("}")
+        if not node.else_node is None:
+            if not node.else_node.if_node is None:
+                self.write_line("else " + self.visitIfStatementNode(node.else_node.if_node))
+            else:
+                self.write_line("else" + "{")
+                self.current_indent += 1
+                self.visit_block(node.else_node.block)
+                self.current_indent -= 1
+                self.write_line("}")
+
+    def visitWhileStatementNode(self, node: nodes.WhileStatementNode):
+        self.write_line(f"while ({self.generate_expression(node.condition)})")
+        self.current_indent += 1
+        self.visit_block(node.block)
+        self.current_indent -= 1
 
     def visit_block(self, node: nodes.BlockNode):
         # Inserting statements from block

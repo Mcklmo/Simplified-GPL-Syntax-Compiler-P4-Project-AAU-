@@ -19,9 +19,9 @@ class CodeGenerator():
     def write_line(self, _str):
         self.out += "\t"*self.current_indent+_str+"\n"
 
-    def geenrate_type(self, type:nodes.TypeNode):
+    def generate_type(self, type:nodes.TypeNode):
         if type.dimensions != 0:
-            return f"List<{self.geenrate_type(nodes.TypeNode(type.line_number, type=type.type, dimensions=type.dimensions-1))}>"
+            return f"List<{self.generate_type(nodes.TypeNode(type.line_number, type=type.type, dimensions=type.dimensions-1))}>"
         return self.map_type(type.type)
 
     def generate_function_call(self, node: nodes.FunctionCallExpressionNode): 
@@ -52,9 +52,10 @@ class CodeGenerator():
         return f"{node.operator}{self.generate_expression(node.expression)}"
     
     def generate_function_declaration(self, node: nodes.FunctionNode):
-        return f"static public {self.geenrate_type(node._type)} {node.identifier.identifier}(" + ",".join([f"{self.geenrate_type(param._type)} {param.identifier.identifier}" for param in node.params]) + "){"
+        return f"static public {self.generate_type(node._type)} {node.identifier.identifier}(" + ",".join([f"{self.generate_type(param._type)} {param.identifier.identifier}" for param in node.params]) + "){"
 
-
+    def generate_if_statement(self, node: nodes.IfStatementNode):
+        return f"if ({node.condition})" + "{" + {}
     
     def generate_value_node(self, node):
         if isinstance(node, nodes.NumberNode): return str(node.value)
