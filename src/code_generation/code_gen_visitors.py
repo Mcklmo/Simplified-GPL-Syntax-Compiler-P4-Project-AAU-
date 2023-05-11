@@ -12,6 +12,7 @@ class CodeGeneratorASTVisitor(CodeGenerator):
 
         self.save("./out.cs")
 
+
     def visit_start_node(self, node: nodes.StartNode):
         dcl_stmts, main_stmts, func_dcls = [], [], []
 
@@ -31,6 +32,7 @@ class CodeGeneratorASTVisitor(CodeGenerator):
             self.visit_func_dcl(node)
         self.visit_main_stmts(main_stmts)
 
+
     def visit_dcl(self, node:nodes.DeclarationStatementNode):
         base_str = f"{self.generate_type(node.type)} {node.identifier.identifier}"
         if node.assignment is None: self.write_line(base_str+";")
@@ -44,33 +46,47 @@ class CodeGeneratorASTVisitor(CodeGenerator):
         self.current_indent -= 1
         self.write_line("}")
 
+
     def visit_assignemnt(self, node: nodes.AssignmentStatementNode):
-        self.write_line(self.gennerate_assignment(node)+";")
+        self.write_line(self.generate_assignment(node)+";")
+
 
     def visit_function_call(self, node:nodes.FunctionCallStatementNode):
-        self.write_line(self.generate_function_call(node))
+        self.write_line(self.generate_function_call(node) + ";")
+        
     
     def visitIfStatementNode(self, node: nodes.IfStatementNode):
-        self.write_line(f"if ({self.generate_expression(node.condition)})" + "{")
+        self.write_line(self.generate_if_statement(node))
         self.current_indent += 1
         self.visit_block(node.block)
         self.current_indent -= 1
         self.write_line("}")
         if not node.else_node is None:
-            if not node.else_node.if_node is None:
-                self.write_line("else " + self.visitIfStatementNode(node.else_node.if_node))
+            if not node.else_node.if_statement is None:
+                self.write_line("else " + self.generate_if_statement(node.else_node.if_statement))
+                self.current_indent += 1
+                self.visit_block(node.else_node.if_statement.block)
+                self.current_indent -= 1
+                self.write_line("}")
             else:
-                self.write_line("else" + "{")
+                self.write_line("else {")
                 self.current_indent += 1
                 self.visit_block(node.else_node.block)
                 self.current_indent -= 1
                 self.write_line("}")
 
+
     def visitWhileStatementNode(self, node: nodes.WhileStatementNode):
-        self.write_line(f"while ({self.generate_expression(node.condition)})")
+        self.write_line(self.generate_while_statement(node))
         self.current_indent += 1
         self.visit_block(node.block)
         self.current_indent -= 1
+        self.write_line("}")
+    
+
+    def visitReturnStatementNode(self, node: nodes.ReturnStatementNode):
+        self.write_line(f"{self.generate_return_stmt(node)};")
+
 
     def visit_block(self, node: nodes.BlockNode):
         # Inserting statements from block
@@ -81,13 +97,14 @@ class CodeGeneratorASTVisitor(CodeGenerator):
                 self.visitWhileStatementNode(statement_node)
             elif isinstance(statement_node, nodes.FunctionCallStatementNode):
                 self.visit_function_call(statement_node)
-
+                    
             elif isinstance(statement_node, nodes.AssignmentStatementNode):
                 self.visit_assignemnt(statement_node)
             elif isinstance(statement_node, nodes.ReturnStatementNode):
                 self.visitReturnStatementNode(statement_node)
             elif isinstance(statement_node, nodes.DeclarationStatementNode):
                 self.visit_dcl(statement_node)
+
 
     def visit_main_stmts(self, stmt_nodes: nodes.FunctionNode):
 

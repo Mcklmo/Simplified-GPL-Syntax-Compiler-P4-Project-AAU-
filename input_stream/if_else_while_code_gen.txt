@@ -1,0 +1,25 @@
+
+num a := 1
+num b := 2
+
+if a < b {
+    a := b
+}
+
+if a < b {
+    b := a
+} 
+else {
+    a := b
+}
+
+if a != b {
+    a := b
+}
+else if a == b {
+    a := b
+}
+
+while a == b {
+    a := 3
+}

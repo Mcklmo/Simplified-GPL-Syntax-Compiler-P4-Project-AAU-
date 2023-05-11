@@ -10,7 +10,7 @@ from symbol_table.symbol_tabel_visitor import SymbolTableVisitor
 from TypeCheckVisitors.type_check_visitors import ASTTypeChecker
 from code_generation.code_gen_visitors import CodeGeneratorASTVisitor
 
-SOURCE_CODE_FILE_NAME = r"././input_stream/malthe_test_err.txt"
+SOURCE_CODE_FILE_NAME = r"././input_stream/return_statement_noerr.txt"
 
 
 def main(argv=None):

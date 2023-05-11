@@ -31,7 +31,7 @@ class CodeGenerator():
     def generate_element_list_type(self, node: nodes.ElementListNode): 
         return f"new List<{self.map_type(node.type.type)}>"+"{"+",".join([self.generate_expression(expr) for expr in node.expressions])+"}()"
 
-    def gennerate_assignment(self, node:nodes.AssignmentStatementNode):
+    def generate_assignment(self, node:nodes.AssignmentStatementNode):
         base = self.generate_list_subscript_val(node.subscripts) if node.subscripts is not None else node.identifier.identifier
         return f"{base} = {self.generate_expression(node.expression)}"
 
@@ -54,9 +54,6 @@ class CodeGenerator():
     def generate_function_declaration(self, node: nodes.FunctionNode):
         return f"static public {self.generate_type(node._type)} {node.identifier.identifier}(" + ",".join([f"{self.generate_type(param._type)} {param.identifier.identifier}" for param in node.params]) + "){"
 
-    def generate_if_statement(self, node: nodes.IfStatementNode):
-        return f"if ({node.condition})" + "{" + {}
-    
     def generate_value_node(self, node):
         if isinstance(node, nodes.NumberNode): return str(node.value)
         if isinstance(node, nodes.StringNode): return node.value
@@ -66,3 +63,11 @@ class CodeGenerator():
         if isinstance(node, nodes.ElementListNode): return self.generate_element_list_type(node)
         if isinstance(node, nodes.ListSubscriptValueNode): return self.generate_list_subscript_val(node)
 
+    def generate_if_statement(self, node: nodes.IfStatementNode):
+        return f"if ({self.generate_expression(node.condition)})" + "{"
+    
+    def generate_while_statement(self, node: nodes.WhileStatementNode):
+        return f"while ({self.generate_expression(node.condition)})" + "{"
+        
+    def generate_return_stmt(self, node: nodes.ReturnStatementNode):
+            return f"return {self.generate_expression(node.expression)}"
