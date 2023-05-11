@@ -2,16 +2,9 @@ using System.Collections.Generic;
 using System;
 
 class Program() {
-	static public double b(){
-		double a = 0.0;
-		if (true){
-			while (true){
-				return a;
-			}
-		}
-	}
+	List<List<double>> a = new List<double>{new List<double>{}()}();
 	static public void Main(List<String> args){
-		b();
+		IDNode(identifier=a)[0.0] = new List<double>{1.0}();
 	}
 
 }
