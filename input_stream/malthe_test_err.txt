@@ -1,3 +1,5 @@
 num[][] testFunc(num a, bool b){
     a := 2
 }
+
+testFunc(1, true)

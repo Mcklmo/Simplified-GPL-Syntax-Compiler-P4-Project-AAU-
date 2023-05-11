@@ -2,16 +2,17 @@ from TypeCheckVisitors.type_check_visitors import NUM_TYPE, STRING_TYPE, BOOL_TY
 import nodes
 
 class CodeGenerator():
-    map_type = lambda _, type_str: {NUM_TYPE: "double", STRING_TYPE: "str", BOOL_TYPE:"bool"}[type_str]
+    map_type = lambda _, type_str: {NUM_TYPE: "double", STRING_TYPE: "String", BOOL_TYPE:"bool", "void": "void"}[type_str]
 
     def __init__(self):
-        self.out = "class Program() {\n"
-        self.current_indent = 1
+        self.out = "using System.Collections.Generic;\nusing System;\n\nclass Program() {\n"
 
-    
+        self.current_indent = 1
+ 
+              
     def save(self, path):
         with open(path, "w+") as f:
-            f.write(self.out)
+            f.write(self.out+"\n}")
         
         print("Enjoy!")
 
@@ -24,6 +25,7 @@ class CodeGenerator():
         return self.map_type(type.type)
 
     def generate_function_call(self, node: nodes.FunctionCallExpressionNode): 
+        _ = [self.generate_expression(expr) for expr in node.arguments]
         return node.identifier.identifier+"("+",".join([self.generate_expression(expr) for expr in node.arguments])+")"
 
     def generate_element_list_type(self, node: nodes.ElementListNode): 
@@ -50,7 +52,7 @@ class CodeGenerator():
         return f"{node.operator}{self.generate_expression(node.expression)}"
     
     def generate_function_declaration(self, node: nodes.FunctionNode):
-        return f"static {self.geenrate_type(node._type)} {node.identifier.identifier}(" + ",".join([f"{self.geenrate_type(param._type)} {param.identifier.identifier}" for param in node.params]) + "){"
+        return f"static public {self.geenrate_type(node._type)} {node.identifier.identifier}(" + ",".join([f"{self.geenrate_type(param._type)} {param.identifier.identifier}" for param in node.params]) + "){"
 
 
     

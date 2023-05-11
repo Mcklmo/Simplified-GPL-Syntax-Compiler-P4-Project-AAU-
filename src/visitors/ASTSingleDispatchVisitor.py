@@ -147,10 +147,10 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
             return StringNode(cst_node.start.line, stringval)
         true = cst_node.TRUE()
         if not true is None:
-            return BooleanNode(cst_node.start.line, true)
+            return BooleanNode("true", cst_node.start.line,)
         false = cst_node.FALSE()
         if not false is None:
-            return BooleanNode(cst_node.start.line, false)
+            return BooleanNode("false", cst_node.start.line)
         elmnt_list = cst_node.elmnt_list()
         if not elmnt_list is None:
             return self.visit_element_list_node(elmnt_list)
