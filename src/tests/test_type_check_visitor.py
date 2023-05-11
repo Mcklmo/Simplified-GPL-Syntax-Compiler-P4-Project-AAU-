@@ -17,11 +17,14 @@ from nodes.ElseStatementNode import ElseStatementNode
 from nodes.StartNode import StartNode
 from nodes.TypeNode import TypeNode
 from nodes.IDNode import IDNode
+from nodes.ElementListNode import ElementListNode
 from nodes.master_statement_node import MasterStatementNode
+from nodes.StringNode import StringNode
 from visitors.ASTSingleDispatchVisitor import ASTSingleDispatchVisitor
+from type_check_visitor.type_check_visitors import TypeCheckVisitor
+from type_check_visitor.type_check_utils import TypeCheckUtils
 
-
-class TestASTSingleDispatchVisitor(unittest.TestCase):
+class TestTypeCheckVisitor(unittest.TestCase):
 
     INPUT_FILE_NAME = "temp_test_input.txt"
 
@@ -40,7 +43,7 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
             os.remove(cls.INPUT_FILE_NAME)
 
     def setUp(self):
-        self.visitor = ASTSingleDispatchVisitor()
+        self.visitor= TypeCheckVisitor()
 
     def parse(self, input_file):
         # Read input file and generate the corresponding concrete syntax tree
@@ -59,6 +62,50 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
     def tearDownClass(cls):
         cls.delete_input_file()
 
+    def test_extract_type_node_from_elem_list(self):
+        element_list_1d_ok = ElementListNode([NumberNode(0,0), NumberNode(0,0)],0)
+        expected_typenode = TypeNode(0,"num",1)
+        actual_typenode = self.visitor.extract_type_node_from_elem_list(element_list_1d_ok,self.new_default_element_list_type_node())
+        self.assertEqual(expected_typenode, actual_typenode,"1d list no error")
 
-# if __name__ == '__main__':
-#     unittest.main()
+        element_list_1d_err = ElementListNode([NumberNode(0,0), NumberNode(0,0), ElementListNode([],0)],0)
+        expected_typenode = None 
+        actual_typenode = self.visitor.extract_type_node_from_elem_list(element_list_1d_err,self.new_default_element_list_type_node())
+        self.assertEqual(expected_typenode, actual_typenode,"1d list expected none")
+
+        element_list_2d_ok = ElementListNode([ElementListNode([NumberNode(0,0), NumberNode(0,0)],0), ElementListNode([NumberNode(0,0), NumberNode(0,0)],0)],0)
+        expected_typenode = TypeNode(0,"num",2)
+        actual_typenode = self.visitor.extract_type_node_from_elem_list(element_list_2d_ok,self.new_default_element_list_type_node())
+        self.assertEqual(expected_typenode, actual_typenode,"2d list no error")
+
+        element_list_2d_err = ElementListNode([ElementListNode([NumberNode(0,0), NumberNode(0,0)],0), ElementListNode([NumberNode(0,0), NumberNode(0,0), ElementListNode([],0)],0)],0)
+        expected_typenode = None
+        actual_typenode = self.visitor.extract_type_node_from_elem_list(element_list_2d_err,self.new_default_element_list_type_node())
+        self.assertEqual(expected_typenode, actual_typenode,"2d list expected none")
+        
+        # Test empty list
+        element_list_empty = ElementListNode([], 0)
+        expected_typenode = TypeNode(0, "any", 1)
+        actual_typenode = self.visitor.extract_type_node_from_elem_list(element_list_empty, self.new_default_element_list_type_node())
+        self.assertEqual(expected_typenode, actual_typenode, "Empty list no error")
+
+        # Test list with another empty list
+        element_list_nested_empty = ElementListNode([ElementListNode([], 0)], 0)
+        expected_typenode = TypeNode(0, "any", 2)
+        actual_typenode = self.visitor.extract_type_node_from_elem_list(element_list_nested_empty, self.new_default_element_list_type_node())
+        self.assertEqual(expected_typenode, actual_typenode, "List with empty list no error")
+
+        # Test list with mixed types (num and string)
+        element_list_mixed_types = ElementListNode([NumberNode(0, 0), StringNode(0, "")], 0)
+        expected_typenode = None
+        actual_typenode = self.visitor.extract_type_node_from_elem_list(element_list_mixed_types, self.new_default_element_list_type_node())
+        self.assertEqual(expected_typenode, actual_typenode, "List with mixed types expected None")
+
+    def new_default_element_list_type_node(self):
+        return TypeNode(0,"list",1)
+    
+
+
+
+if __name__ == '__main__':
+    unittest.main()

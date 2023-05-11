@@ -7,8 +7,7 @@ from antlr4 import FileStream, CommonTokenStream
 
 from nodes.Node import Node
 from symbol_table.symbol_tabel_visitor import SymbolTableVisitor
-from TypeCheckVisitors.type_check_visitors import ASTTypeChecker
-from code_generation.code_gen_visitors import CodeGeneratorASTVisitor
+from type_check_visitor.type_check_visitors import TypeCheckVisitor
 
 SOURCE_CODE_FILE_NAME = r"././input_stream/malthe_test_err.txt"
 
@@ -27,7 +26,7 @@ def main(argv=None):
     symtbl = SymbolTableVisitor()
     symbol_table_errors = symtbl.do_visit(ast_root)
 
-    type_check = ASTTypeChecker()
+    type_check = TypeCheckVisitor()
     type_check_errors = type_check.do_visit(ast_root)
     if type_check_errors or symbol_table_errors:
         for error in symbol_table_errors:
