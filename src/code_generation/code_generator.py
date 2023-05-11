@@ -29,6 +29,10 @@ class CodeGenerator():
     def generate_element_list_type(self, node: nodes.ElementListNode): 
         return f"new List<{self.map_type(node.type.type)}>"+"{"+",".join([self.generate_expression(expr) for expr in node.expressions])+"}()"
 
+    def gennerate_assignment(self, node:nodes.AssignmentStatementNode):
+        base = self.generate_list_subscript_val(node.subscripts) if node.subscripts is not None else node.identifier.identifier
+        return f"{base} = {self.generate_expression(node.expression)}"
+
     def generate_list_subscript_val(self, node: nodes.ListSubscriptValueNode):
         return f"{node.identifier}"+"".join([f"[{self.generate_expression(expr)}]" for expr in node.subscripts])
     
@@ -45,6 +49,11 @@ class CodeGenerator():
     def generate_unary_expression(self, node):
         return f"{node.operator}{self.generate_expression(node.expression)}"
     
+    def generate_function_declaration(self, node: nodes.FunctionNode):
+        return f"static {self.geenrate_type(node._type)} {node.identifier.identifier}(" + ",".join([f"{self.geenrate_type(param._type)} {param.identifier.identifier}" for param in node.params]) + "){"
+
+
+    
     def generate_value_node(self, node):
         if isinstance(node, nodes.NumberNode): return str(node.value)
         if isinstance(node, nodes.StringNode): return node.value
@@ -52,5 +61,5 @@ class CodeGenerator():
         if isinstance(node, nodes.IDNode): return node.identifier
         if isinstance(node, nodes.FunctionCallExpressionNode): return self.generate_function_call(node)
         if isinstance(node, nodes.ElementListNode): return self.generate_element_list_type(node)
-        if isinstance(node, nodes.ListSubscriptVal): return self.generate_list_subscript_val(node)
+        if isinstance(node, nodes.ListSubscriptValueNode): return self.generate_list_subscript_val(node)
 

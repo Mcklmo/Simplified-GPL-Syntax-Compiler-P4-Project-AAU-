@@ -14,7 +14,6 @@ SOURCE_CODE_FILE_NAME = r"././input_stream/malthe_test_err.txt"
 
 
 def main(argv=None):
-
     input_stream = FileStream(SOURCE_CODE_FILE_NAME)
     lexer = AlgoPractiseLexer(input_stream)
     stream = CommonTokenStream(lexer)
