@@ -2,7 +2,8 @@ import nodes
 from TypeCheckVisitors.type_check_utils import TypeCheckUtils
 
 """
-note 1: A decision has been made: In the case where the expresison could not be evaluated, we only shows the error regarding the expression valuation . Not the "type is not bool
+note 1: A decision has been made: In the case where the expresison could not be evaluated, we only shows the error regarding the expression valuation . 
+Not the "type is not bool
 """
 
 STRING_TYPE = "string"
@@ -130,9 +131,7 @@ class ASTTypeChecker(TypeCheckUtils):
         Returns:
             nodes.TypeNode: Updated type node with dimension and type information, or None if error encountered.
         """
-        no_type_node_given = type_node is None
-        is_primitive = self.is_primitive(type_node)
-        if no_type_node_given or is_primitive:
+        if self.is_primitive(type_node):
             type_node.type = expected_type.type
             return type_node
 
@@ -279,58 +278,25 @@ class ASTTypeChecker(TypeCheckUtils):
             rhs_type_node = self.visit_expression(node.expression,lhs_type_node)
             if rhs_type_node is None:
                 return lhs_type_node # See note 1
-
-            if rhs_type_node != lhs_type_node:
-                self.register_err(f"Type mismatch: have:{rhs_type_node}. Expected {lhs_type_node}.", node.line_number)
+            #                                    if there are subscripts we have to postpone the type comparison 
+            if rhs_type_node != lhs_type_node and node.subscripts is None:
+                self.register_err(f"Assignment type mismatch: Expected {lhs_type_node}, got {rhs_type_node}.", node.line_number)
+                return 
         
         if not node.subscripts is None:
-            self.visit_list_subscript(node.subscripts)
-            #TODO
-            expr_type = self.visit_expression(node.expression,lhs_type_node)
+            lhs_number_of_subscripts = self.visit_list_subscript(node.subscripts)
+            rhs_type_node = self.visit_expression(node.expression,lhs_type_node)
+            # dimensions lhs + dimensions rhs = dcl dimensions
+            if lhs_number_of_subscripts + rhs_type_node.dimensions != lhs_type_node.dimensions:
+                if rhs_type_node.dimensions == 0:
+                    self.register_err(f"Assignment subscript dimensions mismatch. Trying to assign a primitive value to a list subscripted with {lhs_number_of_subscripts} dimension(s), but the list was declared with {lhs_type_node.dimensions} dimensions.", node.line_number)
+                else:
+                    self.register_err(f"Assignment subscript dimensions mismatch. Trying to assign a list with {rhs_type_node.dimensions} dimension(s) to a list subscripted with {lhs_number_of_subscripts} dimension(s), but the list was declared with {lhs_type_node.dimensions} dimensions.", node.line_number)
+                return 
+
 
         return lhs_type_node
         
-    def register_element_list_type_mismatch(self, element_list_nodes, expected_type_node: nodes.TypeNode, line_number):
-        """calls itself recursively to return whether or not all elements in element_list_nodes are of type expected_type_node.
-        Returns True if the type is ok, False otherwise.
-        """
-        # base case
-        # todo, iterate from other side, because we dont catch the error if the first element is a list
-        base_case = False
-        for element in element_list_nodes:
-            if type(element) != list:
-                base_case = True
-            if base_case and type(element) == list:
-                self.register_err("List depth mismatch", line_number)
-                return False
-
-        if base_case:
-
-            for primitive_type_node in element_list_nodes:
-                if primitive_type_node.type != expected_type_node.type:
-                    self.register_err(
-                        f"Element list type mismatch, {primitive_type_node.type} and {expected_type_node.type}. Expected {expected_type_node.type}.", line_number)
-                    return False
-            return True
-        else:
-            correct_types = [self.register_element_list_type_mismatch(
-                element, expected_type_node, line_number) for element in element_list_nodes]
-            return all(correct_types)
-
-    def get_list_depth(self, _list, line_number):
-        if type(_list) != list:
-            return 0
-        if len(_list) == 0: 
-            return 1
-
-        depths = [self.get_list_depth(item, line_number) for item in _list]
-
-        if len(set(depths)) > 1:
-            self.register_err(
-                f"Inconsistent nested depth among list elements", line_number)
-
-        return 1 + depths[0]
-
     def visit_return(self, node: nodes.ReturnStatementNode):
         if not node.expected_return_type is None:
             return self.visit_expression(node.expression, node.expected_return_type)
@@ -366,13 +332,12 @@ class ASTTypeChecker(TypeCheckUtils):
                     self.register_err(
                         f"Expected return: {func_return_node.type}, found return type: {actual_return_type_node.type}", node.line_number)
 
-    def typecheck_element_list(self):
-        pass
-
     def visit_list_subscript(self, node: nodes.ListSubscriptValueNode):
-        """iterates through expressions in list subscript node and registers an error if any of them is no num type.
-        Also asserts dimensions.
-        Returns the number of subscripts."""
+        """registers an error if any of the expressions in list subscript is no num type.
+        Also asserts that dimensions are legal for the variable.
+        
+        Returns the number of subscripts as integer."""
+
         if node.identifier.dcl_type.dimensions < len(node.subscripts):
             self.register_err(
                 f"Unable to subscript at depth {len(node.subscripts)} of identifier {node.identifier.identifier} with depth {node.identifier.dcl_dimensions}!", node.line_number)

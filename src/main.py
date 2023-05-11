@@ -36,8 +36,8 @@ def main(argv=None):
     else:
         print_ast(ast_root)
     
-    code_gen = CodeGeneratorASTVisitor()
-    code_gen.do_visit(ast_root)
+        code_gen = CodeGeneratorASTVisitor()
+        code_gen.do_visit(ast_root)
     # print_cst(parser, parse_tree_start_node)
     
     # listener = AlgoPractiseListener()
