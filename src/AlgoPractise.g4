@@ -56,7 +56,6 @@ param: type ID;
 block:
 	L_CURLY NEWLINE* (stmt NEWLINE+)* R_CURLY
 	| L_CURLY NEWLINE* R_CURLY;
-stmts: (stmt NEWLINE+)+;
 stmt:
 	dcl
 	| assign_stmt

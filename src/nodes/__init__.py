@@ -16,7 +16,7 @@ from .NumberNode import NumberNode
 from .ParameterNode import ParameterNode
 from .ReturnStatementNode import ReturnStatementNode
 from .StartNode import StartNode
-from .StatementsNode import StatementsNode
+from .StatementNode import StatementNode
 from .StringNode import StringNode
 from .TypeNode import TypeNode
 from .UnaryExpressionNode import UnaryExpressionNode

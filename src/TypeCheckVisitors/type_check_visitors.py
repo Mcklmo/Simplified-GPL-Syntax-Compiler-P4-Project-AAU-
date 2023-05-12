@@ -67,7 +67,7 @@ class ASTTypeChecker(TypeCheckUtils):
         for statement in node.statements_nodes:
             if isinstance(statement, nodes.ControlStatementNode):
                 self.visit_control_statement(statement)
-            if isinstance(statement, nodes.StatementsNode):
+            if isinstance(statement, nodes.StatementNode):
                 self.visit_statement(statement)
             if isinstance(statement, nodes.FunctionCallExpressionNode):
                 self.visit_expression(statement)
