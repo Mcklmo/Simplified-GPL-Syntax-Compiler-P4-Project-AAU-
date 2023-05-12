@@ -13,6 +13,9 @@ class DeclarationStatementNode(StatementNode):
         self.type = type
         self.assignment = assignment
         self.identifier = identifier
+        
+        # symbol table populated
+        self.is_global = False
 
     def __eq__(self, other):
         _type = self.type == other.type

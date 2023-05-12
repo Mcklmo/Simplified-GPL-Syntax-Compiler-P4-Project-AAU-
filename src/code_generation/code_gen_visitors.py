@@ -35,7 +35,7 @@ class CodeGeneratorASTVisitor(CodeGenerator):
 
 
     def visit_dcl(self, node:nodes.DeclarationStatementNode):
-        base_str = f"static {self.generate_type(node.type)} {node.identifier.identifier}"
+        base_str = f"{'static ' if node.is_global else ''}{self.generate_type(node.type)} {node.identifier.identifier}"
         if node.assignment is None: self.write_line(base_str+";")
         else: self.write_line(base_str+f" = {self.generate_expression(node.assignment.expression)};")
     

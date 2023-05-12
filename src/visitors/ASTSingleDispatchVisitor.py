@@ -213,16 +213,24 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
         func_dcl_ctx = cst_node.func_decl()
         identifier = IDNode(cst_node.start.line, func_dcl_ctx.ID().getText())
         block = self.visit_block_node(func_dcl_ctx.block())
+        
+        function_node = FunctionNode(cst_node.start.line,identifier,block)
+
         params_ctx = func_dcl_ctx.params()
         if not params_ctx is None:
-            param_nodes = self.visit_parameters_node(params_ctx)
+            params = self.visit_parameters_node(params_ctx)
+            if not params is None:
+                function_node.params = params
+
         type_ctx = cst_node.type_()
         if not type_ctx is None:
-            type_node = self.visit_type_node(type_ctx)
-            return FunctionNode(cst_node.start.line, identifier, block, param_nodes, type_node)
-        if not param_nodes is None:
-            return FunctionNode(cst_node.start.line, identifier, block, param_nodes, None)
-        return FunctionNode(cst_node.start.line, identifier, block)
+            type_node= self.visit_type_node(type_ctx)
+            if not type_node is None:
+                function_node.type = type_node
+        else:
+            function_node.type = TypeNode(cst_node.start.line, "void",0)
+
+        return function_node
 
     def visit_function_call_statement_node(self, cst_node: AlgoPractiseParser.Func_callContext):
         identifier = IDNode(cst_node.start.line, cst_node.ID().getText())

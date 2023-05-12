@@ -233,7 +233,8 @@ class ASTTypeChecker(TypeCheckUtils):
                 return lhs_type_node # See note 1
             #                                    if there are subscripts we have to postpone the type comparison 
             if rhs_type_node != lhs_type_node and node.subscripts is None:
-                self.register_err(f"Assignment type mismatch: Expected {lhs_type_node}, got {rhs_type_node}.", node.line_number)
+                msg = self.new_type_mismatch_err(lhs_type_node, rhs_type_node)
+                self.register_err(msg, node.line_number)
                 return 
         
         if not node.subscripts is None:
@@ -247,9 +248,18 @@ class ASTTypeChecker(TypeCheckUtils):
                     self.register_err(f"Assignment subscript dimensions mismatch. Trying to assign a list with {rhs_type_node.dimensions} dimension(s) to a list subscripted with {lhs_number_of_subscripts} dimension(s), but the list was declared with {lhs_type_node.dimensions} dimensions.", node.line_number)
                 return 
 
-
         return lhs_type_node
-        
+    
+    def new_type_mismatch_err(self, expected_type_node :nodes.TypeNode, actual_type_node:nodes.TypeNode):
+        dimensions_mismatch = expected_type_node.dimensions != actual_type_node.dimensions
+        type_mismatch = expected_type_node.type != actual_type_node.type
+        if dimensions_mismatch and type_mismatch:
+            return f"Assignment type error: mismatching dimensions and type. Lhs: {expected_type_node.dimensions} dimensions and {expected_type_node.type} type. RHS: {actual_type_node.dimensions} dimensions and {actual_type_node.type} type."
+        if dimensions_mismatch:
+            return f"Assignment type error: mismatching dimensions. Lhs: {expected_type_node.dimensions} dimensions. RHS: {actual_type_node.dimensions} dimensions."
+        if type_mismatch:
+            return f"Assignment type error: mismatching type. Lhs: {expected_type_node.type} type. RHS: {actual_type_node.type} type."
+    
     def visit_return(self, node: nodes.ReturnStatementNode):
         if not node.expected_return_type is None:
             return self.visit_expression(node.expression, node.expected_return_type)
@@ -268,7 +278,7 @@ class ASTTypeChecker(TypeCheckUtils):
                     f"Declaration type mismatch, {assign_type_node.type} and {dcl_type.type}. Expected {assign_type_node.type}.", node.line_number)
 
     def visit_function_declaration(self, node: nodes.FunctionNode):
-        func_return_node = node._type
+        func_return_node = node.type
 
         # This might crash if default for statements_nodes is None?
         for stmt_node in node.block.statements_nodes:

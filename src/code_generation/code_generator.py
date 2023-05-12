@@ -30,7 +30,6 @@ class CodeGenerator():
 
     def generate_element_list_type(self, node: nodes.ElementListNode): 
         return f"new {'List<' * node.type.dimensions}{self.map_type(node.type.type)}{'>' * node.type.dimensions}"+"(){"+",".join([self.generate_expression(expr) for expr in node.expressions])+"}"
-        return f"new List<{self.map_type(node.type.type)}>"+"{"+",".join([self.generate_expression(expr) for expr in node.expressions])+"}()"
 
     def generate_assignment(self, node:nodes.AssignmentStatementNode):
 
@@ -54,7 +53,7 @@ class CodeGenerator():
         return f"{node.operator}{self.generate_expression(node.expression)}"
     
     def generate_function_declaration(self, node: nodes.FunctionNode):
-        return f"static public {self.generate_type(node._type)} {node.identifier.identifier}(" + ",".join([f"{self.generate_type(param._type)} {param.identifier.identifier}" for param in node.params]) + "){"
+        return f"static public {self.generate_type(node.type)} {node.identifier.identifier}(" + ",".join([f"{self.generate_type(param._type)} {param.identifier.identifier}" for param in node.params]) + "){"
 
     def generate_value_node(self, node):
         if isinstance(node, nodes.NumberNode): return str(node.value)

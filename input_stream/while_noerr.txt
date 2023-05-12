@@ -1,2 +1,4 @@
-while a > b {print(a)} 
-return 
+num b := 0
+while true {
+    num a := 0
+} 

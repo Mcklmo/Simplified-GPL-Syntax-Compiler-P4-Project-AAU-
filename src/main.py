@@ -10,7 +10,7 @@ from symbol_table.symbol_tabel_visitor import SymbolTableVisitor
 from TypeCheckVisitors.type_check_visitors import ASTTypeChecker
 from code_generation.code_gen_visitors import CodeGeneratorASTVisitor
 
-SOURCE_CODE_FILE_NAME = r"././input_stream/element_list_and_subscript.txt"
+SOURCE_CODE_FILE_NAME = r"././input_stream/complete_noerr.txt"
 
 
 def main(argv=None):
@@ -25,24 +25,20 @@ def main(argv=None):
 
     symtbl = SymbolTableVisitor()
     symbol_table_errors = symtbl.do_visit(ast_root)
+    if symbol_table_errors:
+        for error in symbol_table_errors:
+            print(error)
+        return
 
     type_check = ASTTypeChecker()
     type_check_errors = type_check.do_visit(ast_root)
-    if type_check_errors or symbol_table_errors:
-        for error in symbol_table_errors:
-            print(error)
+    if type_check_errors:
         for error in type_check_errors:
             print(error)
-    else:
-        print_ast(ast_root)
+        return
     
-        code_gen = CodeGeneratorASTVisitor()
-        code_gen.do_visit(ast_root)
-    # print_cst(parser, parse_tree_start_node)
-    
-    # listener = AlgoPractiseListener()
-    # walker = ParseTreeWalker()
-    # walker.walk(listener, parse_tree)
+    code_gen = CodeGeneratorASTVisitor()
+    code_gen.do_visit(ast_root)
 
 
 def print_ast(node, indent=""):

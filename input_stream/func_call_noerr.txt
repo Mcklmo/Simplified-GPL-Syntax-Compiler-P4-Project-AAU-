@@ -1,1 +1,8 @@
-funcxyz(a(),a())
+/* func call */
+num a := 1
+
+num b(){
+    return 1
+}
+funcxyz(num a,num b){}
+funcxyz(a+3,b())

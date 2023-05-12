@@ -43,6 +43,7 @@ class SymbolTableVisitor(SymbolTableUtils):
         for master_stmt in node.master_statement_nodes:
             if not master_stmt.statement_node is None:
                 if isinstance(master_stmt.statement_node, nodes.DeclarationStatementNode):
+                    master_stmt.statement_node.is_global = True
                     self.visitDeclarationStatementNode(
                         master_stmt.statement_node)
                 if isinstance(master_stmt.statement_node, nodes.AssignmentStatementNode):
@@ -66,7 +67,7 @@ class SymbolTableVisitor(SymbolTableUtils):
 
     def visitDeclarationStatementNode(self, node: nodes.DeclarationStatementNode):
         if not self.symbol_tabel.current.try_fetch_id(node.identifier.identifier) is None:
-            self.regsiter_err(f"var of type {node.type.type} with id {node.identifier.identifier} has been declared more than once!", node.line_number)
+            self.regsiter_err(f"id {node.identifier.identifier} has been declared more than once!", node.line_number)
             return
         
         # If no err, insert in scope
@@ -156,7 +157,7 @@ class SymbolTableVisitor(SymbolTableUtils):
             return     
 
         node.dcl_node = dcl_node
-        node.dcl_type = dcl_node._type
+        node.dcl_type = dcl_node.type
 
         if self.is_iterable(node.arguments):
             for param in node.arguments:
@@ -164,6 +165,9 @@ class SymbolTableVisitor(SymbolTableUtils):
 
     def visitFunctionNode(self, node: nodes.FunctionNode):
         """This is func dcl, just poor naming"""
+        if not self.symbol_tabel.current.try_fetch_id(node.identifier.identifier) is None:
+            self.regsiter_err(f"id {node.identifier.identifier} has been declared more than once!", node.line_number)
+            return
         self.symbol_tabel.insert_in_open_scope(
             node.identifier.identifier, node)
 
@@ -174,7 +178,7 @@ class SymbolTableVisitor(SymbolTableUtils):
                 param.identifier.identifier, nodes.DeclarationStatementNode(type=param._type, line_number=param.line_number, identifier=param.identifier))
         
         # set expected return type
-        self.symbol_tabel.current.expected_return_type = node._type
+        self.symbol_tabel.current.expected_return_type = node.type
         # visit block
         self.visitBlockNode(node.block)
         self.symbol_tabel.close_scope()

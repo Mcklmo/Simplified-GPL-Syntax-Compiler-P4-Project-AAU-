@@ -12,13 +12,13 @@ class FunctionNode(Node):
         self.identifier   = identifier
         self.params = params
         self.block   = block 
-        self._type = _type
+        self.type = _type
     
     def __eq__(self, other):
         ident = self.identifier == other.identifier
         params = self.params == other.params
         block = self.block == other.block
-        _type = self._type == other._type
+        _type = self.type == other._type
         return isinstance(other, FunctionNode) and ident and params and block and _type
     
     def __repr__(self):
