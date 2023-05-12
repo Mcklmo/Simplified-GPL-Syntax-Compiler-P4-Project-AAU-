@@ -117,29 +117,31 @@ class ASTTypeChecker(TypeCheckUtils):
         return node.type
     
     def extract_type_node_from_elem_list(self, node: nodes.Node, expected_type: nodes.TypeNode):
+        def has_valid_child_types(childs):
+            first_child_type = childs[0].type
+            return all(child.type == first_child_type and child.type.dimensions == first_child_type.dimensions for child in childs)
+
         # base case: primitive type
         if not isinstance(node, nodes.ElementListNode):
             node.type = nodes.TypeNode(node.line_number, self.visit_expression(node).type, 0)
-            return node 
-        # base case: empty list
-        if len(node.expressions) == 0:
-            node.type= nodes.TypeNode(node.line_number, expected_type.type, 1)
             return node
-        
+
+        # base case: empty list
+        if not node.expressions:
+            node.type = nodes.TypeNode(node.line_number, expected_type.type, 1)
+            return node
+
         childs = [self.extract_type_node_from_elem_list(child, expected_type) for child in node.expressions]
-        for child in childs:
-            if child is None:
-            # error already registered
-                return None
-        # check if all childs are the same type
-        if not all([child.type == childs[0].type for child in childs]):
+
+        if any(child is None for child in childs):
+            return None
+
+        if not has_valid_child_types(childs):
             self.register_err(f"List elements are not of the same type", node.line_number)
             return None
-        # check if all childs have the same number of dimensions
-        if not all([child.type.dimensions == childs[0].type.dimensions for child in childs]):
-            self.register_err(f"List elements have inconsistent dimensions", node.line_number)
-            return None
-        node.type = nodes.TypeNode(node.line_number, childs[0].type.type, childs[0].type.dimensions + 1)
+
+        first_child_type = childs[0].type
+        node.type = nodes.TypeNode(node.line_number, first_child_type.type, first_child_type.dimensions + 1)
         return node
         
     def is_primitive(self, type_node:nodes.TypeNode):
