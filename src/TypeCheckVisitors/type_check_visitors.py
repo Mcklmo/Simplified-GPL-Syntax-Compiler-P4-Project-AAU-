@@ -112,87 +112,38 @@ class ASTTypeChecker(TypeCheckUtils):
     def visit_element_list_node(self, node: nodes.ElementListNode, expected_type: nodes.TypeNode):
         """returns a type node containing the number of dimensions and the type of the elements in the list.
         Returns None and registers errors if the dimensions are inconsistent or the elements are of different types."""
-        type_node= self.extract_type_node_from_elem_list(node, nodes.TypeNode(node.line_number,"list",1), expected_type)
-        node.type = type_node
+        node = self.extract_type_node_from_elem_list(node, expected_type)
 
-        return type_node
+        return node.type
+    
+    def extract_type_node_from_elem_list(self, node: nodes.Node, expected_type: nodes.TypeNode):
+        # base case: primitive type
+        if not isinstance(node, nodes.ElementListNode):
+            node.type = nodes.TypeNode(node.line_number, self.visit_expression(node).type, 0)
+            return node 
+        # base case: empty list
+        if len(node.expressions) == 0:
+            node.type= nodes.TypeNode(node.line_number, expected_type.type, 1)
+            return node
         
-    def extract_type_node_from_elem_list(self, node: nodes.ElementListNode, type_node: nodes.TypeNode, expected_type: nodes.TypeNode):
-        """
-        Traverse the given element list node and return an updated type node containing the number of dimensions and 
-        the type of the elements in the list. This method uses recursion to ensure all element types are the same.
-
-        Returns None and records errors if the dimensions are inconsistent or the elements are of different types.
-
-        Args:
-            node (nodes.ElementListNode): The element list node being examined.
-            type_node (nodes.TypeNode): The type node to compare and update. Has type "list" at start.
-
-        Returns:
-            nodes.TypeNode: Updated type node with dimension and type information, or None if error encountered.
-        """
-        if self.is_primitive(type_node):
-            type_node.type = expected_type.type
-            return type_node
-
-        # If the element list is empty, the type is the same as the expected type
-        if not node.expressions:
-            type_node.type=expected_type.type 
-            node.type = type_node
-            return type_node
-
-        type_nodes_from_elems = []
-        elem_type = None
-
-        for expression in node.expressions:
-            # Check type correctness
-            if isinstance(expression, nodes.ElementListNode):
-                new_type_node = nodes.TypeNode(node.line_number, "list", type_node.dimensions + 1)
-                type_node_from_elem_list = self.extract_type_node_from_elem_list(expression, new_type_node, expected_type)
-                type_nodes_from_elems.append(type_node_from_elem_list)
-                expression.type = type_node_from_elem_list
-                if type_node_from_elem_list is None:
-                    return None
-                temp_elem_type = nodes.TypeNode(node.line_number, "list", 1)
-            elif isinstance(expression, nodes.ExpressionNode):
-                temp_elem_type = self.visit_expression(expression, expected_type)
-
-            if elem_type is not None and elem_type.type != temp_elem_type.type:
-                self.register_err(f"Element list type mismatch {temp_elem_type.type} and {elem_type.type}", node.line_number)
+        childs = [self.extract_type_node_from_elem_list(child, expected_type) for child in node.expressions]
+        for child in childs:
+            if child is None:
+            # error already registered
                 return None
-            elem_type = temp_elem_type
-
-        if not type_nodes_from_elems:
-            type_node.type = elem_type.type
-            return type_node
-
-        err_flag = False
-
-        # Check dimension correctness
-        dimensions = {type_node.dimensions for type_node in type_nodes_from_elems}
-        if len(dimensions) > 1:
-            self.register_err(f"Element list dimensions mismatch, have {dimensions}", node.line_number)
-            err_flag = True
-
-        # Check type correctness
-        types = {type_node.type for type_node in type_nodes_from_elems}
-        if len(types) > 1:
-            self.register_err(f"Have mixed types in element list: {types}", node.line_number)
-            err_flag = True
-
-        if err_flag:
+        # check if all childs are the same type
+        if not all([child.type == childs[0].type for child in childs]):
+            self.register_err(f"List elements are not of the same type", node.line_number)
             return None
+        # check if all childs have the same number of dimensions
+        if not all([child.type.dimensions == childs[0].type.dimensions for child in childs]):
+            self.register_err(f"List elements have inconsistent dimensions", node.line_number)
+            return None
+        node.type = nodes.TypeNode(node.line_number, childs[0].type.type, childs[0].type.dimensions + 1)
+        return node
         
-        # the list is empty, hence we can return the expected type as type of the list 
-        if len(types) == 0:
-            return nodes.TypeNode(node.line_number, expected_type, list(dimensions)[0])
-        
-        return nodes.TypeNode(node.line_number, list(types)[0], list(dimensions)[0])
-
     def is_primitive(self, type_node:nodes.TypeNode):
         return type_node.type == NUM_TYPE or type_node.type == BOOL_TYPE or type_node.type == STRING_TYPE
-
-
 
     def visit_id_node(self, node: nodes.IDNode):
         return node.dcl_type.type
