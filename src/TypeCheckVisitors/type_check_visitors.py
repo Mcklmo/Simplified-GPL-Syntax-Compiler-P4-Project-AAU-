@@ -50,7 +50,7 @@ class ASTTypeChecker(TypeCheckUtils):
             if not master_stmt.function_node is None:
                 self.visit_function_declaration(master_stmt.function_node)
 
-    def visit_expression(self, expr,expected_type=None):
+    def visit_expression(self, expr:nodes.ExpressionNode,expected_type=None):
         """"returns a typenode."""
         if isinstance(expr, nodes.ValueNode):
             return self.visit_value_node(expr)
@@ -107,7 +107,10 @@ class ASTTypeChecker(TypeCheckUtils):
         if isinstance(node, nodes.IDNode):
             return node.dcl_type
         if isinstance(node, nodes.ListSubscriptValueNode):
-            return node.identifier.dcl_type
+            number_of_subscripts= self.visit_list_subscript(node)
+            if not number_of_subscripts is None :
+                return nodes.TypeNode(node.line_number, node.identifier.dcl_type.type, node.identifier.dcl_type.dimensions - number_of_subscripts)
+            return None 
 
     def visit_element_list_node(self, node: nodes.ElementListNode, expected_type: nodes.TypeNode):
         """returns a type node containing the number of dimensions and the type of the elements in the list.
@@ -232,7 +235,8 @@ class ASTTypeChecker(TypeCheckUtils):
             if rhs_type_node is None:
                 return lhs_type_node # See note 1
             #                                    if there are subscripts we have to postpone the type comparison 
-            if rhs_type_node != lhs_type_node and node.subscripts is None:
+            nodes_different = rhs_type_node != lhs_type_node 
+            if nodes_different and node.subscripts is None:
                 msg = self.new_type_mismatch_err(lhs_type_node, rhs_type_node)
                 self.register_err(msg, node.line_number)
                 return 
@@ -304,7 +308,9 @@ class ASTTypeChecker(TypeCheckUtils):
         if node.identifier.dcl_type.dimensions < len(node.subscripts):
             self.register_err(
                 f"Unable to subscript at depth {len(node.subscripts)} of identifier {node.identifier.identifier} with depth {node.identifier.dcl_dimensions}!", node.line_number)
+            return None
 
+        error_flag = False
         for expr_node in node.subscripts:
             expr_type_node = self.visit_expression(expr_node)
             if expr_type_node is None:
@@ -313,4 +319,7 @@ class ASTTypeChecker(TypeCheckUtils):
             if expr_type_node.type != NUM_TYPE:
                 self.register_err(
                     f"Expression {expr_type_node} not of Num Type.", node.line_number)
+                error_flag = True
+        if error_flag:
+            return None
         return len(node.subscripts)
