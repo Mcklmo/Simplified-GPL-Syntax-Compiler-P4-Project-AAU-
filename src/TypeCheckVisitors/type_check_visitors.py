@@ -134,9 +134,6 @@ class ASTTypeChecker(TypeCheckUtils):
         first_child_type = childs[0].type
         node.type = nodes.TypeNode(node.line_number, first_child_type.type, first_child_type.dimensions + 1)
         return node
-        
-    def is_primitive(self, type_node:nodes.TypeNode):
-        return type_node.type == NUM_TYPE or type_node.type == BOOL_TYPE or type_node.type == STRING_TYPE
 
     def visit_id_node(self, node: nodes.IDNode):
         return node.dcl_type.type
@@ -222,7 +219,7 @@ class ASTTypeChecker(TypeCheckUtils):
             rhs_type_node = self.visit_expression(node.expression,lhs_type_node)
             if rhs_type_node is None:
                 return lhs_type_node # See note 1
-            #                                    if there are subscripts we have to postpone the type comparison 
+            #if there are subscripts we have to postpone the type comparison 
             nodes_different = rhs_type_node != lhs_type_node 
             if nodes_different and node.subscripts is None:
                 msg = self.new_type_mismatch_err(lhs_type_node, rhs_type_node)
