@@ -52,6 +52,8 @@ class ASTTypeChecker(TypeCheckUtils):
 
     def visit_expression(self, expr:nodes.ExpressionNode,expected_type=None):
         """"returns a typenode."""
+        if expr is None:
+            return nodes.TypeNode(expr.line_number, "void", 0)
         if isinstance(expr, nodes.ValueNode):
             return self.visit_value_node(expr)
         if isinstance(expr, nodes.FunctionCallExpressionNode):
@@ -64,29 +66,83 @@ class ASTTypeChecker(TypeCheckUtils):
             return self.visit_element_list_node(expr,expected_type)
 
     def visit_block_node(self, node: nodes.BlockNode):
+        """returns the return type of the block. If there is no return, it returns none."""
+        if node is None:
+            return None
+        return_type=None
         for statement in node.statements_nodes:
             if isinstance(statement, nodes.ControlStatementNode):
-                self.visit_control_statement(statement)
+                return_type=self.visit_control_statement(statement)
+            if isinstance(statement,nodes.ReturnStatementNode):
+                return_type=self.visit_return(statement)
             if isinstance(statement, nodes.StatementNode):
                 self.visit_statement(statement)
             if isinstance(statement, nodes.FunctionCallExpressionNode):
                 self.visit_expression(statement)
+        return return_type
 
-    def visit_control_statement(self, node: nodes.ControlStatementNode):
-        if isinstance(node, nodes.WhileStatementNode) or isinstance(node, nodes.IfStatementNode):
-            expr_type = self.visit_expression(node.condition)
-            # See note 1
-            if not expr_type is None and expr_type.type != BOOL_TYPE:
-                self.register_err(
-                    f"Condition in if-statement on line number: {node.line_number}, expected boolean value")
-
-            self.visit_block_node(node.block)
-
+    def visit_control_statement(self, node: nodes.ControlStatementNode,expected_return_type=None):
+        """returns the return type of the block. If there is no return, it returns none."""
+        if isinstance(node, nodes.IfStatementNode):
+            return self.visit_if_statement(node,expected_return_type)
+        if isinstance(node, nodes.WhileStatementNode):
+            return self.visit_while_statement(node,expected_return_type)
         if isinstance(node, nodes.ElseStatementNode):
-            if not node.if_statement is None:
-                self.visit_control_statement(node.if_statement)
-        else:
-            self.visit_block_node(node.block)
+            return self.visit_else_statement(node,expected_return_type)
+            
+    def visit_else_statement(self, node: nodes.ElseStatementNode,expected_return_type=None):
+        """returns the return type of the block."""
+        return_type = self.visit_block_node(node.block)
+        if not return_type is None and return_type != expected_return_type:
+            msg="else statement: "+self.new_type_mismatch_err(expected_return_type, return_type)
+            self.register_err(msg,node.line_number)
+        if node.if_statement is None:
+            return return_type
+        if_return_type = self.visit_if_statement(node.if_statement)
+        if return_type != if_return_type:
+            msg="else statement: "+self.new_type_mismatch_err(return_type, if_return_type, node.line_number)
+            self.register_err(msg,node.line_number)
+        return return_type
+            
+    def visit_while_statement(self, node: nodes.WhileStatementNode,expected_return_type=None):
+        """returns the return type of the block."""
+        expr_type = self.visit_expression(node.condition)
+        # See note 1
+        if expr_type.type != BOOL_TYPE:
+            self.register_err(
+                f"Condition in while-statement expected boolean value",node.line_number)
+        return_type = self.visit_block_node(node.block)
+        if not return_type is None and return_type != expected_return_type:
+            msg="while statement: "+self.new_type_mismatch_err(expected_return_type, return_type)
+            self.register_err(msg,node.line_number)
+        return return_type
+
+    
+    def visit_if_statement(self,node: nodes.IfStatementNode,expected_return_type=None):
+        """returns the return type of the block. registers an error if the condition is not a boolean value.
+        returns None if there is no return statement in the block.
+        """
+        expr_type = self.visit_expression(node.condition)
+        # See note 1
+        if not expr_type is None and expr_type.type != BOOL_TYPE:
+            self.register_err(
+                f"Condition in if-statement expected boolean value",node.line_number)
+        if_return_type = self.visit_block_node(node.block)
+        if not if_return_type is None and if_return_type != expected_return_type:
+            msg="if statement: "+self.new_type_mismatch_err(expected_return_type, if_return_type)
+            self.register_err(msg,node.line_number)
+        if node.else_node is None:
+            return if_return_type
+        else_return_type = self.visit_else_statement(node.else_node,expected_return_type)
+        some_type_is_none = if_return_type is None or else_return_type is None
+        types_differ = if_return_type != else_return_type
+        # hvis en af dem er None, returnerer den ikke. det må den godt hvis dens parent node returnerer
+        if not some_type_is_none and types_differ:
+            msg="if and else statement have different return types: "+ self.new_type_mismatch_err(if_return_type, else_return_type)
+            self.register_err(msg,node.line_number)
+        if some_type_is_none:
+            return None
+        return if_return_type
 
     def visit_statement(self, stmt):
         if isinstance(stmt, nodes.AssignmentStatementNode):
@@ -95,6 +151,10 @@ class ASTTypeChecker(TypeCheckUtils):
             return self.visit_return(stmt)
         if isinstance(stmt, nodes.DeclarationStatementNode):
             return self.visit_declaration(stmt)
+        if isinstance(stmt, nodes.ControlStatementNode):
+            return self.visit_control_statement(stmt)
+        if isinstance(stmt, nodes.FunctionCallStatementNode):
+            return self.visit_function_call(stmt)
 
         self.register_err(
             f"Invalid statement node type: {stmt.type}.", stmt.line_number)
@@ -237,7 +297,7 @@ class ASTTypeChecker(TypeCheckUtils):
             #                                    if there are subscripts we have to postpone the type comparison 
             nodes_different = rhs_type_node != lhs_type_node 
             if nodes_different and node.subscripts is None:
-                msg = self.new_type_mismatch_err(lhs_type_node, rhs_type_node)
+                msg = "assignment: "+self.new_type_mismatch_err(lhs_type_node, rhs_type_node)
                 self.register_err(msg, node.line_number)
                 return 
         
@@ -255,18 +315,29 @@ class ASTTypeChecker(TypeCheckUtils):
         return lhs_type_node
     
     def new_type_mismatch_err(self, expected_type_node :nodes.TypeNode, actual_type_node:nodes.TypeNode):
+        if expected_type_node is None:
+            return f"None VS {actual_type_node.type} type"
+        if actual_type_node is None:
+            return f"{expected_type_node.type} type VS None"
         dimensions_mismatch = expected_type_node.dimensions != actual_type_node.dimensions
         type_mismatch = expected_type_node.type != actual_type_node.type
         if dimensions_mismatch and type_mismatch:
-            return f"Assignment type error: mismatching dimensions and type. Lhs: {expected_type_node.dimensions} dimensions and {expected_type_node.type} type. RHS: {actual_type_node.dimensions} dimensions and {actual_type_node.type} type."
-        if dimensions_mismatch:
-            return f"Assignment type error: mismatching dimensions. Lhs: {expected_type_node.dimensions} dimensions. RHS: {actual_type_node.dimensions} dimensions."
-        if type_mismatch:
-            return f"Assignment type error: mismatching type. Lhs: {expected_type_node.type} type. RHS: {actual_type_node.type} type."
+            type1 = f"{expected_type_node.dimensions} dimensions and {expected_type_node.type} type"
+            type2 = f"{actual_type_node.dimensions} dimensions and {actual_type_node.type} type"
+        elif dimensions_mismatch:
+            type1 = f"{expected_type_node.dimensions} dimensions"
+            type2 = f"{actual_type_node.dimensions} dimensions"
+        elif type_mismatch:
+            type1 = f"{expected_type_node.type} type"
+            type2 = f"{actual_type_node.type} type"
+        else:
+            return f"stop coding."
+        return f"{type1} VS {type2}"
     
     def visit_return(self, node: nodes.ReturnStatementNode):
-        if not node.expected_return_type is None:
-            return self.visit_expression(node.expression, node.expected_return_type)
+        if node.expression is None:
+            return nodes.TypeNode(node.line_number, "void", 0)
+        return self.visit_expression(node.expression, node.expected_return_type)
         # default return is none
 
     def visit_declaration(self, node: nodes.DeclarationStatementNode):
@@ -282,22 +353,29 @@ class ASTTypeChecker(TypeCheckUtils):
                     f"Declaration type mismatch, {assign_type_node.type} and {dcl_type.type}. Expected {assign_type_node.type}.", node.line_number)
 
     def visit_function_declaration(self, node: nodes.FunctionNode):
-        func_return_node = node.type
+        expected_return_type = node.type
 
         # This might crash if default for statements_nodes is None?
+        returning = False
         for stmt_node in node.block.statements_nodes:
             if isinstance(stmt_node, nodes.ReturnStatementNode):
-                actual_return_type_node = self.visit_return(stmt_node)
-                
-                if func_return_node is None and not actual_return_type_node is None:
-                    # Raise Error as the return type should be None
-                    self.register_err(
-                        f"Expected return: void, found return type: {actual_return_type_node.type}", node.line_number)
+                returning = True
+                break
+        for stmt_node in node.block.statements_nodes:
+            if isinstance(stmt_node, nodes.ReturnStatementNode):
 
-                if not func_return_node is None and func_return_node != actual_return_type_node and not actual_return_type_node is None:
-                    # Raise Error as the expected return type dosent match the type of the return stmt
-                    self.register_err(
-                        f"Expected return: {func_return_node.type}, found return type: {actual_return_type_node.type}", node.line_number)
+                actual_return_type_node = self.visit_return(stmt_node)
+                if actual_return_type_node != expected_return_type:
+                    msg="function declaration:"+self.new_type_mismatch_err(expected_return_type, actual_return_type_node)
+                    self.register_err(msg, node.line_number)
+            elif isinstance(stmt_node,nodes.ControlStatementNode):
+                actual_return_type_node = self.visit_control_statement(stmt_node,expected_return_type)
+                # if return type is None, the control statement has no return at all.
+                # if it is void, it is a return without an expression
+
+            else:
+                self.visit_statement(stmt_node)
+
 
     def visit_list_subscript(self, node: nodes.ListSubscriptValueNode):
         """registers an error if any of the expressions in list subscript is no num type.

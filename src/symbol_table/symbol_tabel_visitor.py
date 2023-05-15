@@ -31,8 +31,8 @@ todo 5.5.23:
 class SymbolTableVisitor(SymbolTableUtils):
     def __init__(self) -> None:
         super().__init__()
-    
-    def do_visit(self, start_node:nodes.StartNode):
+
+    def do_visit(self, start_node: nodes.StartNode):
         self.visitStartNode(start_node)
 
         if len(self.errors) == 0:
@@ -52,28 +52,34 @@ class SymbolTableVisitor(SymbolTableUtils):
                 if isinstance(master_stmt.statement_node, nodes.FunctionCallStatementNode):
                     self.visitFunctionCallExpressionAndStatementNode(
                         master_stmt.statement_node)
-                if isinstance(master_stmt.statement_node, nodes.WhileStatementNode):
-                    self.visitWhileStatementNode(master_stmt.statement_node)
-                if isinstance(master_stmt.statement_node, nodes.IfStatementNode):
-                    self.visitIfStatementNode(master_stmt.statement_node)
+                if isinstance(master_stmt.statement_node, nodes.ControlStatementNode):
+                    self.visit_control_statement_node(master_stmt.statement_node)
                 if isinstance(master_stmt.statement_node, nodes.ReturnStatementNode):
+                    self.regsiter_err("Return statement outside function!",
+                                      master_stmt.statement_node.line_number)
                     self.visitReturnStatementNode(master_stmt.statement_node)
 
             elif not master_stmt.function_node is None:
                 self.visitFunctionNode(master_stmt.function_node)
 
             else:
-                print("Stop coding, you are tired!")
+                raise Exception("Stop coding, you are tired!")
+    def visit_control_statement_node(self, node:nodes.ControlStatementNode):
+        if isinstance(node, nodes.WhileStatementNode):
+            self.visitWhileStatementNode(node)
+        if isinstance(node, nodes.IfStatementNode):
+            self.visitIfStatementNode(node)
 
     def visitDeclarationStatementNode(self, node: nodes.DeclarationStatementNode):
         if not self.symbol_tabel.current.try_fetch_id(node.identifier.identifier) is None:
-            self.regsiter_err(f"id {node.identifier.identifier} has been declared more than once!", node.line_number)
+            self.regsiter_err(
+                f"id {node.identifier.identifier} has been declared more than once!", node.line_number)
             return
-        
+
         # If no err, insert in scope
         self.symbol_tabel.insert_in_open_scope(
             node.identifier.identifier, node)
-        
+
         if not node.assignment is None:
             self.visitAssignmentStatementNode(node.assignment)
 
@@ -81,14 +87,14 @@ class SymbolTableVisitor(SymbolTableUtils):
         dcl_node = self.symbol_tabel.traverse(node.identifier.identifier)
         if dcl_node is None:
             # Error, not declared!
-            self.regsiter_err(f"var {node.identifier.identifier} was never declared!", node.line_number)
+            self.regsiter_err(
+                f"var {node.identifier.identifier} was never declared!", node.line_number)
             return
-        
+
         # Populate assignemnt node with dcl type for later typecheck
         node.dcl_type = dcl_node.type
         # also populate IDNode with same thing
         node.identifier.dcl_type = dcl_node.type
-
 
         # The subscript node is redundant. It should be a list (As it does not make sence to make an empty subscript node as default value for assignemnts without subscrips.)
         # The none check i s just a workaround
@@ -110,11 +116,11 @@ class SymbolTableVisitor(SymbolTableUtils):
 
     def visitGeneralValueNode(self, node: Any):
         if isinstance(node, nodes.NumberNode):
-            node.type_node = nodes.TypeNode(node.line_number,"num",0)
+            node.type_node = nodes.TypeNode(node.line_number, "num", 0)
         if isinstance(node, nodes.StringNode):
-            node.type_node = nodes.TypeNode(node.line_number,"string",0)
+            node.type_node = nodes.TypeNode(node.line_number, "string", 0)
         if isinstance(node, nodes.BooleanNode):
-            node.type_node = nodes.TypeNode(node.line_number,"bool",0)
+            node.type_node = nodes.TypeNode(node.line_number, "bool", 0)
         if isinstance(node, nodes.IDNode):
             self.visitIDNode(node)
         if isinstance(node, nodes.FunctionCallExpressionNode):
@@ -125,17 +131,17 @@ class SymbolTableVisitor(SymbolTableUtils):
 
         if isinstance(node, nodes.ListSubscriptValueNode):
             self.visitListSubscript(node)
-    
-    def visitListSubscript(self, node:nodes.ListSubscriptValueNode):
+
+    def visitListSubscript(self, node: nodes.ListSubscriptValueNode):
         self.visitIDNode(node.identifier)
         for sub_expr in node.subscripts:
             self.visitGeneralExprNode(sub_expr)
 
-
     def visitIDNode(self, node: nodes.IDNode):
         dcl_node = self.symbol_tabel.traverse(node.identifier)
         if dcl_node is None:
-            self.regsiter_err(f"var {node.identifier} was never declared!", node.line_number)
+            self.regsiter_err(
+                f"var {node.identifier} was never declared!", node.line_number)
 
         else:
             node.dcl_type = dcl_node.type
@@ -152,9 +158,10 @@ class SymbolTableVisitor(SymbolTableUtils):
     def visitFunctionCallExpressionAndStatementNode(self, node: Any):
         dcl_node = self.symbol_tabel.traverse(node.identifier.identifier)
         if dcl_node is None:
-            self.regsiter_err(f"function {node.identifier.identifier} is called but never declared!", node.line_number)
+            self.regsiter_err(
+                f"function {node.identifier.identifier} is called but never declared!", node.line_number)
             # Error, not declared!
-            return     
+            return
 
         node.dcl_node = dcl_node
         node.dcl_type = dcl_node.type
@@ -166,7 +173,8 @@ class SymbolTableVisitor(SymbolTableUtils):
     def visitFunctionNode(self, node: nodes.FunctionNode):
         """This is func dcl, just poor naming"""
         if not self.symbol_tabel.current.try_fetch_id(node.identifier.identifier) is None:
-            self.regsiter_err(f"id {node.identifier.identifier} has been declared more than once!", node.line_number)
+            self.regsiter_err(
+                f"id {node.identifier.identifier} has been declared more than once!", node.line_number)
             return
         self.symbol_tabel.insert_in_open_scope(
             node.identifier.identifier, node)
@@ -176,18 +184,28 @@ class SymbolTableVisitor(SymbolTableUtils):
         for param in node.params:
             self.symbol_tabel.insert_in_open_scope(
                 param.identifier.identifier, nodes.DeclarationStatementNode(type=param._type, line_number=param.line_number, identifier=param.identifier))
-        
+
         # set expected return type
         self.symbol_tabel.current.expected_return_type = node.type
         # visit block
-        self.visitBlockNode(node.block)
+        returns = self.visitBlockNode(node.block)
+        return_void = node.type.type == "void"
+        if not return_void and not returns:
+            self.regsiter_err(
+                f"Some paths in function {node.identifier.identifier} are missing return statements!", node.line_number)
+        elif return_void and returns:
+            self.regsiter_err(
+                f"Function {node.identifier.identifier} returns a value but is declared void!", node.line_number)
         self.symbol_tabel.close_scope()
 
     def visitBlockNode(self, node: nodes.BlockNode):
+        """returns true if all paths (including all nested if else statements) have a return statement"""
+        returns = False
         # Inserting statements from block
         for statement_node in node.statements_nodes:
             if type(statement_node) is nodes.IfStatementNode:
-                self.visitIfStatementNode(statement_node)
+                returns = self.visitIfStatementNode(
+                    statement_node)
             elif type(statement_node) is nodes.WhileStatementNode:
                 self.visitWhileStatementNode(statement_node)
             elif type(statement_node) is nodes.FunctionCallStatementNode:
@@ -196,21 +214,28 @@ class SymbolTableVisitor(SymbolTableUtils):
             elif type(statement_node) is nodes.AssignmentStatementNode:
                 self.visitAssignmentStatementNode(statement_node)
             elif type(statement_node) is nodes.ReturnStatementNode:
+                returns = True
                 self.visitReturnStatementNode(statement_node)
             elif type(statement_node) is nodes.DeclarationStatementNode:
                 self.visitDeclarationStatementNode(statement_node)
 
+        return returns
+
     def visitIfStatementNode(self, node: nodes.IfStatementNode):
+        """return true if the if statement has an else statement and both the if and else statements have a return statement"""
+        self.visitGeneralExprNode(node.condition)
         expected_return_type = self.symbol_tabel.current.expected_return_type
         self.symbol_tabel.open_scope()
         self.symbol_tabel.current.expected_return_type = expected_return_type
-        self.visitBlockNode(node.block)
+        if_returning = self.visitBlockNode(node.block)
         self.symbol_tabel.close_scope()
-
+        else_returning = False
         if not node.else_node is None:
-            self.visitElseStatementNode(node.else_node)
+            else_returning = self.visitElseStatementNode(node.else_node)
+        return if_returning and else_returning
 
     def visitWhileStatementNode(self, node: nodes.WhileStatementNode):
+        self.visitGeneralExprNode(node.condition)
         expected_return_type = self.symbol_tabel.current.expected_return_type
 
         self.symbol_tabel.open_scope()
@@ -220,16 +245,18 @@ class SymbolTableVisitor(SymbolTableUtils):
         self.symbol_tabel.close_scope()
 
     def visitElseStatementNode(self, node: nodes.ElseStatementNode):
+        if_returning = True
         if not node.if_statement is None:
-            self.visitIfStatementNode(node.if_statement)
+            if_returning = self.visitIfStatementNode(node.if_statement)
         else:
             expected_return_type = self.symbol_tabel.current.expected_return_type
 
             self.symbol_tabel.open_scope()
             self.symbol_tabel.current.expected_return_type = expected_return_type
 
-            self.visitBlockNode(node.block)
+            else_returning = self.visitBlockNode(node.block)
             self.symbol_tabel.close_scope()
+        return if_returning and else_returning
 
     def visitReturnStatementNode(self, node: nodes.ReturnStatementNode):
         node.expected_return_type = self.symbol_tabel.current.expected_return_type

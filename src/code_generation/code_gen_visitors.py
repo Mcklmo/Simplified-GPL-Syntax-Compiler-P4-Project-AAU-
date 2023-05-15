@@ -122,11 +122,6 @@ class CodeGeneratorASTVisitor(CodeGenerator):
                     stmt_nodes
                 ),
                 [
-                    nodes.ParameterNode(
-                        0,
-                        nodes.IDNode(0, "args", None),
-                        nodes.TypeNode(0, "string", 1)
-                    ),
 
                 ],
                 nodes.TypeNode(

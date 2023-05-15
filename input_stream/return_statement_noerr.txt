@@ -1,11 +1,2 @@
-num b(){
-    num a := 0
-    if true {
-        while true {
-
-            return a
-        }
-    }
+ b(){
 }
-
-b()
