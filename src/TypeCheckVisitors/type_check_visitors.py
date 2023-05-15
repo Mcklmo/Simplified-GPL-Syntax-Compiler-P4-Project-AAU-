@@ -32,18 +32,14 @@ class ASTTypeChecker(TypeCheckUtils):
                     self.visit_return(master_stmt.statement_node)
                 if isinstance(master_stmt.statement_node, nodes.DeclarationStatementNode):
                     self.visit_declaration(master_stmt.statement_node)
-                if isinstance(master_stmt.statement_node, nodes.UnaryExpressionNode):
-                    self.visit_unary_expression(master_stmt.statement_node)
-                if isinstance(master_stmt.statement_node, nodes.BinaryExpressionNode):
-                    self.visit_binary_expression(master_stmt.statement_node)
                 if isinstance(master_stmt.statement_node, nodes.ExpressionNode):
                     self.visit_expression(master_stmt.statement_node)
+                if isinstance(master_stmt.statement_node, nodes.BlockNode):
+                    self.visit_block_node(master_stmt.statement_node)
                 if isinstance(master_stmt.statement_node, nodes.ListSubscriptValueNode):
                     self.visit_list_subscript(master_stmt.statement_node)
                 if isinstance(master_stmt.statement_node, nodes.ControlStatementNode):
                     self.visit_control_statement(master_stmt.statement_node)
-                if isinstance(master_stmt.statement_node, nodes.BlockNode):
-                    self.visit_block_node(master_stmt.statement_node)
                 if isinstance(master_stmt.statement_node, nodes.FunctionCallStatementNode):
                     self.visit_function_call(master_stmt.statement_node)
 
@@ -206,9 +202,6 @@ class ASTTypeChecker(TypeCheckUtils):
         first_child_type = childs[0].type
         node.type = nodes.TypeNode(node.line_number, first_child_type.type, first_child_type.dimensions + 1)
         return node
-        
-    def is_primitive(self, type_node:nodes.TypeNode):
-        return type_node.type == NUM_TYPE or type_node.type == BOOL_TYPE or type_node.type == STRING_TYPE
 
     def visit_id_node(self, node: nodes.IDNode):
         return node.dcl_type.type
@@ -294,7 +287,7 @@ class ASTTypeChecker(TypeCheckUtils):
             rhs_type_node = self.visit_expression(node.expression,lhs_type_node)
             if rhs_type_node is None:
                 return lhs_type_node # See note 1
-            #                                    if there are subscripts we have to postpone the type comparison 
+            #if there are subscripts we have to postpone the type comparison 
             nodes_different = rhs_type_node != lhs_type_node 
             if nodes_different and node.subscripts is None:
                 msg = "assignment: "+self.new_type_mismatch_err(lhs_type_node, rhs_type_node)
