@@ -17,7 +17,6 @@ atest [0] := 1
 num[][][] btest
 btest [0][0][0] := 1
 btest [0][0] := {1}
-atest := atest[0]
 /* func call */
 num functest123(){
     return 1
