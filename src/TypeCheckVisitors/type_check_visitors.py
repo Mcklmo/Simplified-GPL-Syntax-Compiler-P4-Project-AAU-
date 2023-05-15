@@ -28,20 +28,8 @@ class ASTTypeChecker(TypeCheckUtils):
             if not master_stmt.statement_node is None:
                 if isinstance(master_stmt.statement_node, nodes.AssignmentStatementNode):
                     self.visit_assignment(master_stmt.statement_node)
-                if isinstance(master_stmt.statement_node, nodes.ReturnStatementNode):
-                    self.visit_return(master_stmt.statement_node)
-                if isinstance(master_stmt.statement_node, nodes.DeclarationStatementNode):
-                    self.visit_declaration(master_stmt.statement_node)
-                if isinstance(master_stmt.statement_node, nodes.UnaryExpressionNode):
-                    self.visit_unary_expression(master_stmt.statement_node)
-                if isinstance(master_stmt.statement_node, nodes.BinaryExpressionNode):
-                    self.visit_binary_expression(master_stmt.statement_node)
                 if isinstance(master_stmt.statement_node, nodes.ExpressionNode):
                     self.visit_expression(master_stmt.statement_node)
-                if isinstance(master_stmt.statement_node, nodes.ListSubscriptValueNode):
-                    self.visit_list_subscript(master_stmt.statement_node)
-                if isinstance(master_stmt.statement_node, nodes.ControlStatementNode):
-                    self.visit_control_statement(master_stmt.statement_node)
                 if isinstance(master_stmt.statement_node, nodes.BlockNode):
                     self.visit_block_node(master_stmt.statement_node)
                 if isinstance(master_stmt.statement_node, nodes.FunctionCallStatementNode):
