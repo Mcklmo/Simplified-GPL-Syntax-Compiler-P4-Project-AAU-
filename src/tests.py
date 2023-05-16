@@ -1,14 +1,16 @@
 from tests.test_ast_single_dispatch_visitor import TestASTSingleDispatchVisitor
 from tests.test_type_check_visitor import TestTypeCheckVisitor
-visitors = [
+from tests.test_integration_compile import TestIntegrationCompile
+tests = [
     TestASTSingleDispatchVisitor(),
-    TestTypeCheckVisitor()
+    TestTypeCheckVisitor(),
+    TestIntegrationCompile()
 ]
 
 
-def run_tests(visitors):
+def run_tests(tests):
     i = 0
-    for visitor in visitors:
+    for visitor in tests:
         visitor.setUp()
 
         print(str(type(visitor).__name__))
@@ -25,4 +27,4 @@ def run_tests(visitors):
     print(f"\n{i} tests ok")
 
 
-run_tests(visitors)
+run_tests(tests)
