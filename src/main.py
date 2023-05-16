@@ -9,37 +9,27 @@ from nodes.Node import Node
 from symbol_table.symbol_tabel_visitor import SymbolTableVisitor
 from TypeCheckVisitors.type_check_visitors import ASTTypeChecker
 from code_generation.code_gen_visitors import CodeGeneratorASTVisitor
+from compile import compile
 
 SOURCE_CODE_FILE_NAME = r"././input_stream/complete_noerr.txt"
 
 
 def main(argv=None):
-    input_stream = FileStream(SOURCE_CODE_FILE_NAME)
-    lexer = AlgoPractiseLexer(input_stream)
-    stream = CommonTokenStream(lexer)
-    parser = AlgoPractiseParser(stream)
-    parse_tree_start_node = parser.start()
-
-    single_dispatch_visitor = ASTSingleDispatchVisitor()
-    ast_root = single_dispatch_visitor.visit_start_node(parse_tree_start_node)
-
-    symtbl = SymbolTableVisitor()
-    symbol_table_errors = symtbl.do_visit(ast_root)
-    if symbol_table_errors:
-        for error in symbol_table_errors:
-            print(error)
-        return
-
-    type_check = ASTTypeChecker()
-    type_check_errors = type_check.do_visit(ast_root)
-    if type_check_errors:
-        for error in type_check_errors:
-            print(error)
-        return
+    source_code = """
+    num a := 5
+    num b := 6
+    num c := a + b
+    """
+    source_code_path = r"././input_stream/test.txt"
+    write_file(source_code, source_code_path)
+    compile(source_code_path)
     
-    code_gen = CodeGeneratorASTVisitor()
-    code_gen.do_visit(ast_root)
+    # compile(SOURCE_CODE_FILE_NAME)
 
+
+def write_file(content: str, path :str):
+    with open(path, "w") as f:
+        f.write(content)
 
 def print_ast(node, indent=""):
     print(indent, node.__class__.__name__)
