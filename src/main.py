@@ -11,6 +11,8 @@ from TypeCheckVisitors.type_check_visitors import ASTTypeChecker
 from code_generation.code_gen_visitors import CodeGeneratorASTVisitor
 from compile import compile
 
+"""switch the method in main to compile the file you want to compile"""
+
 SOURCE_CODE_FILE_NAME = r"././input_stream/complete_noerr.txt"
 
 
@@ -25,6 +27,7 @@ def main(argv=None):
     compile(source_code_path)
     
     # compile(SOURCE_CODE_FILE_NAME)
+    print("Done")
 
 
 def write_file(content: str, path :str):

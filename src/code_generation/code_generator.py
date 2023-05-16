@@ -14,7 +14,6 @@ class CodeGenerator():
         with open(path, "w+") as f:
             f.write(self.out+"\n}")
         
-        print("Enjoy!")
 
     def write_line(self, _str):
         self.out += "\t"*self.current_indent+_str+"\n"
