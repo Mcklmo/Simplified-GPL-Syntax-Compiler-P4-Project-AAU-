@@ -25,8 +25,8 @@ def main(argv=None):
     num b := 6
     num c := a + b
     """
-    # compile_this(source_code)
-    compile_from_file(SOURCE_CODE_FILE_NAME)
+    compile_this(source_code)
+    #compile_from_file(SOURCE_CODE_FILE_NAME)
     
     print("Done")
 
