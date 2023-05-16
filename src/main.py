@@ -1,3 +1,4 @@
+import os
 from antlr4 import *
 from _lexer.AlgoPractiseLexer import AlgoPractiseLexer
 from _parser.AlgoPractiseParser import AlgoPractiseParser
@@ -11,7 +12,9 @@ from TypeCheckVisitors.type_check_visitors import ASTTypeChecker
 from code_generation.code_gen_visitors import CodeGeneratorASTVisitor
 from compile import compile
 
-"""switch the method in main to compile the file you want to compile"""
+"""switch the method in main to compile the file you want to compile.
+    compile_this(source_code) will compile the source code in the string source_code.
+    compile_from_file(source_code_path) will compile the file at source_code_path."""
 
 SOURCE_CODE_FILE_NAME = r"././input_stream/complete_noerr.txt"
 
@@ -22,14 +25,22 @@ def main(argv=None):
     num b := 6
     num c := a + b
     """
+    # compile_this(source_code)
+    compile_from_file(SOURCE_CODE_FILE_NAME)
+    
+    print("Done")
+
+def compile_from_file(source_code_path: str):
+    compile(source_code_path)
+
+def compile_this(source_code: str):
     source_code_path = r"././input_stream/test.txt"
     write_file(source_code, source_code_path)
     compile(source_code_path)
-    
-    # compile(SOURCE_CODE_FILE_NAME)
-    print("Done")
+    delete_file(source_code_path)
 
-
+def delete_file( path: str):
+    os.remove(path)
 def write_file(content: str, path :str):
     with open(path, "w") as f:
         f.write(content)
