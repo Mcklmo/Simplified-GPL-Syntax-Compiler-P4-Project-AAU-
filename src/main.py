@@ -7,11 +7,11 @@ from antlr4 import FileStream, CommonTokenStream
 
 from nodes.Node import Node
 from symbol_table.symbol_tabel_visitor import SymbolTableVisitor
-from TypeCheckVisitors.type_check_visitors import ASTTypeChecker
+from TypeCheckVisitors.type_check_visitors import ASTTypeChecker  
 from code_generation.code_gen_visitors import CodeGeneratorASTVisitor
 from compile import compile
 
-SOURCE_CODE_FILE_NAME = r"././input_stream/complete_noerr.txt"
+SOURCE_CODE_FILE_NAME = r"././input_stream/malthe_test_err.txt"
 
 
 def main(argv=None):
@@ -20,11 +20,11 @@ def main(argv=None):
     num b := 6
     num c := a + b
     """
-    source_code_path = r"././input_stream/test.txt"
-    write_file(source_code, source_code_path)
-    compile(source_code_path)
+    #source_code_path = r"././input_stream/test.txt"
+    #write_file(source_code, source_code_path)
+    #compile(source_code_path)
     
-    # compile(SOURCE_CODE_FILE_NAME)
+    compile(SOURCE_CODE_FILE_NAME)
 
 
 def write_file(content: str, path :str):
