@@ -10,10 +10,10 @@ class CustomErrorListener(ErrorListener):
         self.error_count += 1
 
     def reportAmbiguity(self, recognizer, dfa, startIndex, stopIndex, exact, ambigAlts, configs):
-        self.error_count += 1
+        pass 
 
     def reportAttemptingFullContext(self, recognizer, dfa, startIndex, stopIndex, conflictingAlts, configs):
-        self.error_count += 1
+        pass
 
     def reportContextSensitivity(self, recognizer, dfa, startIndex, stopIndex, prediction, configs):
         self.error_count += 1

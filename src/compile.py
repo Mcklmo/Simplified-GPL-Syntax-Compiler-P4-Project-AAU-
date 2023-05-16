@@ -22,7 +22,7 @@ def compile(source_path: str):
     parse_tree_start_node = parser.start()
 
     if lexer_error_listener.error_count != 0:
-        exit(0)
+        return
 
     single_dispatch_visitor = ASTSingleDispatchVisitor()
     ast_root = single_dispatch_visitor.visit_start_node(parse_tree_start_node)

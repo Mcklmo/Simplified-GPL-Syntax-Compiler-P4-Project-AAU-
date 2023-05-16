@@ -24,16 +24,17 @@ def main(argv=None):
     num a := 5
     num b := 6
     num c := a + b
+
     """
-    # compile_this(source_code)
-    compile_from_file(SOURCE_CODE_FILE_NAME)
+    compile_direct_input(source_code)
+    # compile_from_file(SOURCE_CODE_FILE_NAME)
     
     print("Done")
 
 def compile_from_file(source_code_path: str):
     compile(source_code_path)
 
-def compile_this(source_code: str):
+def compile_direct_input(source_code: str):
     source_code_path = r"././input_stream/test.txt"
     write_file(source_code, source_code_path)
     compile(source_code_path)
