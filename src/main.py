@@ -8,7 +8,7 @@ from antlr4 import FileStream, CommonTokenStream
 
 from nodes.Node import Node
 from symbol_table.symbol_tabel_visitor import SymbolTableVisitor
-from TypeCheckVisitors.type_check_visitors import ASTTypeChecker
+from TypeCheckVisitors.type_check_visitors import ASTTypeChecker  
 from code_generation.code_gen_visitors import CodeGeneratorASTVisitor
 from compile import compile
 

@@ -1,9 +1,2 @@
-/*num[][] testFunc(num a, bool b){
-    a := 2
-}
-
-testFunc(1, true)
-*/
-num[][] a  := {{}}
-
-a[0][0]:={1}
+dsa dsansk dsasd
+dsa2 =: a909
