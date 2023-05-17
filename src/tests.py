@@ -10,19 +10,19 @@ tests = [
 
 def run_tests(tests):
     i = 0
-    for visitor in tests:
-        visitor.setUp()
+    for test in tests:
+        test.setUp()
 
-        print(str(type(visitor).__name__))
+        print(str(type(test).__name__))
 
-        for method_name in dir(visitor):
+        for method_name in dir(test):
             if method_name.startswith("test_"):
-                test_method = getattr(visitor, method_name)
+                test_method = getattr(test, method_name)
                 test_method()
                 print(f"    {method_name}")
                 i += 1
 
-        visitor.tearDown()
+        test.tearDown()
 
     print(f"\n{i} tests ok")
 

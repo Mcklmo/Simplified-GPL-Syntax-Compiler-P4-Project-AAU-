@@ -306,48 +306,8 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
         )
         self._test_expected_ast(expected_ast_if, if_source_code, "if")
 
-        
-    def test_visitStartNode(self):
-        return
-        source_code = """
-        num a
-        foo() {
-        }
-        """
-        expected_ast = StartNode(
-            line_number=0,
-
-            master_statement_nodes=[
-                MasterStatementNode(
-                    1,
-                    statement_node = DeclarationStatementNode(
-                        TypeNode(1,"num", 0),
-                        1,
-                        identifier=IDNode(
-                                line_number=1,
-                                identifier="a"),
-                    )
-                ),
-
-                MasterStatementNode(
-                    2,
-                    function_node = FunctionNode(
-                    2,
-                    IDNode(
-                        line_number=2,
-                        identifier="foo"),
-                    params=[],
-                    block=BlockNode(
-                        3,
-                        ),
-                    )
-                ),
-            ],
-        )
-        self._test_expected_ast(expected_ast, source_code, "visitStartNode")
-
+       
     def test_list_subscript(self):
-        return
         source_code = """
         a := a[0][0]
         """
