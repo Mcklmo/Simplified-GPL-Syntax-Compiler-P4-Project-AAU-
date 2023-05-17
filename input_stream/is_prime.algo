@@ -1,0 +1,18 @@
+bool isPrime(num n) {
+    num i := 2
+    while i <= (n / 2) {
+        if (n % i) == 0 {
+            return false
+        }
+        i := i + 1
+    }
+    return true 
+}
+
+num i := 5
+num j := 7
+num k := 6
+
+isPrime(i)
+isPrime(j)
+isPrime(k)

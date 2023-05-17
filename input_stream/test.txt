@@ -1,5 +1,0 @@
-
-    num  := 5
-    num b := 6
-    num c := a + b
-    
