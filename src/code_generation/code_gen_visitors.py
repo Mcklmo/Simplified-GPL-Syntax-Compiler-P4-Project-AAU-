@@ -36,10 +36,17 @@ class CodeGeneratorASTVisitor(CodeGenerator):
 
     def visit_dcl(self, node:nodes.DeclarationStatementNode):
         base_str = f"{'static ' if node.is_global else ''}{self.generate_type(node.type)} {node.identifier.identifier}"
-        if node.assignment is None: self.write_line(base_str+";")
+        if node.assignment is None: self.write_line(base_str+self.new_default_value(node)+";")
         else: self.write_line(base_str+f" = {self.generate_expression(node.assignment.expression)};")
     
-
+    def new_default_value(self, node):
+        types_mapping = {
+            "num": " = 0.0",
+            "string":" = \"\"",
+            "bool":" = false"
+        }
+        return types_mapping[node.type.type]
+    
     def visit_func_dcl(self, node: nodes.FunctionNode):
         self.write_line(self.generate_function_declaration(node))
         self.current_indent += 1

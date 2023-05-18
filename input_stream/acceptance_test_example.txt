@@ -1,0 +1,11 @@
+num[] a := {1,2,3}
+
+num addfunction(num[] a){
+    num b
+    num i := 0
+    while(i < 3){
+        b := b + a[i]
+        i := i + 1 
+    }
+    return b
+}

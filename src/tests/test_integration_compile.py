@@ -63,11 +63,12 @@ class TestIntegrationCompile(unittest.TestCase):
         expected_cs_code = """
         using System.Collections.Generic;
         using System;
+
         class Program {
             static double a = 1.0;
             static double b = 1.0;
             static double c = 1.0;
-            static bool idxyz;
+            static bool idxyz = false;
             static bool idxzy = true;
             static List<double> atest = new List<double>(){0.0};
             static List<List<List<double>>> btest = new List<List<List<double>>>(){new List<List<double>>(){new List<double>(){0.0}}};
@@ -90,10 +91,10 @@ class TestIntegrationCompile(unittest.TestCase):
                     double a = 2.0;
                     b = 2.0;
                 }
-                atest[0] = 1.0;
-                btest[0][0][0] = 1.0;
-                btest[0][0] = new List<double>(){1.0};
-                btest[0][0] = new List<double>(){1.0};
+                atest[Convert.ToInt32(0.0)] = 1.0;
+                btest[Convert.ToInt32(0.0)][Convert.ToInt32(0.0)][Convert.ToInt32(0.0)] = 1.0;
+                btest[Convert.ToInt32(0.0)][Convert.ToInt32(0.0)] = new List<double>(){1.0};
+                btest[Convert.ToInt32(0.0)][Convert.ToInt32(0.0)] = new List<double>(){1.0};
                 funcxyz(a+3.0,functest123());
                 a = 0.9;
                 a = -0.9;
@@ -106,6 +107,7 @@ class TestIntegrationCompile(unittest.TestCase):
                 else if (1.0>2.0){
                 }
             }
+
         }
         """
         self.integration_test(source_code, expected_cs_code)

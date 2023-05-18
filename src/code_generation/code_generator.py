@@ -1,5 +1,6 @@
 from TypeCheckVisitors.type_check_visitors import NUM_TYPE, STRING_TYPE, BOOL_TYPE
 import nodes
+import uuid
 
 class CodeGenerator():
     map_type = lambda _, type_str: {NUM_TYPE: "double", STRING_TYPE: "String", BOOL_TYPE:"bool", "void": "void"}[type_str]
@@ -36,7 +37,7 @@ class CodeGenerator():
         return f"{base} = {self.generate_expression(node.expression)}"
 
     def generate_list_subscript_val(self, node: nodes.ListSubscriptValueNode):
-        return f"{node.identifier.identifier}"+"".join([f"[{int(float(self.generate_expression(expr)))}]" for expr in node.subscripts])
+        return f"{node.identifier.identifier}"+"".join([f"[Convert.ToInt32({self.generate_expression(subscript)})]" for subscript in node.subscripts])
     
     def generate_expression(self, node):
         if isinstance(node, nodes.BinaryExpressionNode): return self.generate_binary_expression(node)
