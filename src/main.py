@@ -16,29 +16,31 @@ from compile import compile
     compile_this(source_code) will compile the source code in the string source_code.
     compile_from_file(source_code_path) will compile the file at source_code_path."""
 
-SOURCE_CODE_FILE_NAME = r"././input_stream/acceptance_test_example.txt"
+SOURCE_CODE_FILE_NAME = r"././input_stream/string_noerr.txt"
 
 
 def main(argv=None):
     source_code = """
-    num a := 5
-    num b :=  6
-    num c := a + b
-    a := a + 5
+    string a := "\""
+    a:="liasdhfiluahfiuasdifhasd12ifhia"
+    a:="\n"
+    a := "\\"
     """
     # compile_direct_input(source_code)
-    compile_from_file(SOURCE_CODE_FILE_NAME)
-    
-    print("Done")
+    if compile_from_file(SOURCE_CODE_FILE_NAME):
+        print("Done")
+    else:
+        print("Failed")
 
 def compile_from_file(source_code_path: str):
-    compile(source_code_path)
+    return compile(source_code_path)
 
 def compile_direct_input(source_code: str):
     source_code_path = r"././input_stream/test.txt"
     write_file(source_code, source_code_path)
-    compile(source_code_path)
+    success=compile(source_code_path)
     delete_file(source_code_path)
+    return success
 
 def delete_file( path: str):
     os.remove(path)

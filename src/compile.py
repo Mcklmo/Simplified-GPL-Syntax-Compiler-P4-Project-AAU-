@@ -16,13 +16,14 @@ def compile(source_path: str):
 
     input_stream = FileStream(source_path)
     lexer = AlgoPractiseLexer(input_stream)
+    lexer.addErrorListener(lexer_error_listener)
     stream = CommonTokenStream(lexer)
     parser = AlgoPractiseParser(stream)
     parser.addErrorListener(lexer_error_listener)
     parse_tree_start_node = parser.start()
 
     if lexer_error_listener.error_count != 0:
-        return
+        return False
 
     single_dispatch_visitor = ASTSingleDispatchVisitor()
     ast_root = single_dispatch_visitor.visit_start_node(parse_tree_start_node)
@@ -32,15 +33,16 @@ def compile(source_path: str):
     if symbol_table_errors:
         for error in symbol_table_errors:
             print(error)
-        return
+        return False 
 
     type_check = ASTTypeChecker()
     type_check_errors = type_check.do_visit(ast_root)
     if type_check_errors:
         for error in type_check_errors:
             print(error)
-        return
+        return False 
 
     code_gen = CodeGeneratorASTVisitor()
     code_gen.do_visit(ast_root)
+    return True
 
