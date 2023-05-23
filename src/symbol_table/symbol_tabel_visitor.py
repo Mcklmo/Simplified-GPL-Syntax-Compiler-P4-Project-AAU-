@@ -245,18 +245,16 @@ class SymbolTableVisitor(SymbolTableUtils):
         self.symbol_tabel.close_scope()
 
     def visitElseStatementNode(self, node: nodes.ElseStatementNode):
-        if_returning = True
         if not node.if_statement is None:
-            if_returning = self.visitIfStatementNode(node.if_statement)
-        else:
-            expected_return_type = self.symbol_tabel.current.expected_return_type
+            return self.visitIfStatementNode(node.if_statement)
+        expected_return_type = self.symbol_tabel.current.expected_return_type
 
-            self.symbol_tabel.open_scope()
-            self.symbol_tabel.current.expected_return_type = expected_return_type
+        self.symbol_tabel.open_scope()
+        self.symbol_tabel.current.expected_return_type = expected_return_type
 
-            else_returning = self.visitBlockNode(node.block)
-            self.symbol_tabel.close_scope()
-        return if_returning and else_returning
+        else_returning = self.visitBlockNode(node.block)
+        self.symbol_tabel.close_scope()
+        return else_returning
 
     def visitReturnStatementNode(self, node: nodes.ReturnStatementNode):
         node.expected_return_type = self.symbol_tabel.current.expected_return_type

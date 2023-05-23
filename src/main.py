@@ -16,7 +16,7 @@ from compile import compile
     compile_this(source_code) will compile the source code in the string source_code.
     compile_from_file(source_code_path) will compile the file at source_code_path."""
 
-SOURCE_CODE_FILE_NAME = r"././input_stream/string_noerr.txt"
+SOURCE_CODE_FILE_NAME = r"././input_stream/fib.txt"
 
 
 def main(argv=None):

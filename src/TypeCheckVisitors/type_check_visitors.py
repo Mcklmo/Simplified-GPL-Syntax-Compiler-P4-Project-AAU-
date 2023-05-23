@@ -88,20 +88,22 @@ class ASTTypeChecker(TypeCheckUtils):
 
     def visit_else_statement(self, node: nodes.ElseStatementNode, expected_return_type=None):
         """returns the return type of the block."""
-        return_type = self.visit_block_node(node.block,expected_return_type)
-        if not return_type is None and return_type != expected_return_type:
+        block_return_type = self.visit_block_node(node.block,expected_return_type)
+        if not block_return_type is None and block_return_type != expected_return_type:
             msg = "else statement: " + \
-                self.new_type_mismatch_err(expected_return_type, return_type)
+                self.new_type_mismatch_err(expected_return_type, block_return_type)
             self.register_err(msg, node.line_number)
         if node.if_statement is None:
-            return return_type
+            # is else statement
+            return block_return_type 
+        # is else if statement
         if_return_type = self.visit_if_statement(node.if_statement, expected_return_type)
-        if return_type != if_return_type:
+        if expected_return_type != if_return_type:
             msg = "else statement: " + \
                 self.new_type_mismatch_err(
-                    return_type, if_return_type, node.line_number)
+                    expected_return_type, if_return_type)
             self.register_err(msg, node.line_number)
-        return return_type
+        return if_return_type
 
     def visit_while_statement(self, node: nodes.WhileStatementNode, expected_return_type=None):
         """returns the return type of the block."""
