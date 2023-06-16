@@ -21,21 +21,23 @@ SOURCE_CODE_FILE_NAME = r"././input_stream/fib.txt"
 
 def main(argv=None):
     source_code = """
-    string a := "\""
-    a:="liasdhfiluahfiuasdifhasd12ifhia"
-    a:="\n"
-    a := "\\"
+    num a := 1
+    fn(num a, string b){
+    }
+    fn(1,"")
     """
-    # compile_direct_input(source_code)
-    if compile_from_file(SOURCE_CODE_FILE_NAME):
+    success=compile_this(source_code)
+    # success=compile_from_file(SOURCE_CODE_FILE_NAME)
+    if success:
         print("Done")
     else:
         print("Failed")
 
+
 def compile_from_file(source_code_path: str):
     return compile(source_code_path)
 
-def compile_direct_input(source_code: str):
+def compile_this(source_code: str):
     source_code_path = r"././input_stream/test.txt"
     write_file(source_code, source_code_path)
     success=compile(source_code_path)

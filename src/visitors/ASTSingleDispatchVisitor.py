@@ -144,7 +144,7 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
             return NumberNode(cst_node.start.line, numval.getText())
         stringval = cst_node.STRINGVAL()
         if not stringval is None:
-            return StringNode(cst_node.start.line, stringval)
+            return StringNode(cst_node.start.line, stringval.symbol.text)
         true = cst_node.TRUE()
         if not true is None:
             return BooleanNode("true", cst_node.start.line,)
