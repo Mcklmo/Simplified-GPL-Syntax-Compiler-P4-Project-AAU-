@@ -3,28 +3,16 @@ source_code = """
     """
 import os
 from antlr4 import *
-from _lexer.AlgoPractiseLexer import AlgoPractiseLexer
-from _parser.AlgoPractiseParser import AlgoPractiseParser
 from antlr4.tree.Trees import Trees
-from visitors.ASTSingleDispatchVisitor import ASTSingleDispatchVisitor
-from antlr4 import FileStream, CommonTokenStream
 
 from nodes.Node import Node
-from symbol_table.symbol_tabel_visitor import SymbolTableVisitor
-from TypeCheckVisitors.type_check_visitors import ASTTypeChecker  
-from code_generation.code_gen_visitors import CodeGeneratorASTVisitor
 from compile import compile
 
-"""switch the method in main to compile the file you want to compile.
-    compile_this(source_code) will compile the source code in the string source_code.
-    compile_from_file(source_code_path) will compile the file at source_code_path."""
-
-SOURCE_CODE_FILE_NAME = r"././input_stream/fib.txt"
-
+SOURCE_CODE_FILE_NAME = r"././input_stream/fizzbuzz.algo"
 
 def main(argv=None):
-    success=compile_this(source_code)
-    # success=compile_from_file(SOURCE_CODE_FILE_NAME)
+    # success=compile_this(source_code)
+    success=compile_from_file(SOURCE_CODE_FILE_NAME)
     if success:
         print("Done")
     else:
