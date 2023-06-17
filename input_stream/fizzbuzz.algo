@@ -1,0 +1,23 @@
+
+    string fizzbuzz(num n) {
+        string result := ""
+        num i := 0
+        while i < n {
+            i := i + 1
+            bool fizz := (i % 3) == 0
+            bool buzz := (i % 5) == 0
+            if fizz {
+                result := result + "Fizz"
+            }
+            if buzz {
+                result := result + "Buzz"
+            }
+            if !fizz and !buzz {
+                result := result + " number "
+            }
+            result := result + "\\n"
+        }
+        return result
+    }
+
+    string result:=fizzbuzz(100)

@@ -47,7 +47,12 @@ class CodeGenerator():
         return self.generate_value_node(node)
 
     def generate_binary_expression(self, node):
-        return f"{self.generate_expression(node.left)}{node.operator}{self.generate_expression(node.right)}"
+        operator_map = {
+            "and":"&&",
+            "or":"||",
+        }
+        result= f"{self.generate_expression(node.left)}{operator_map.get(node.operator,node.operator)}{self.generate_expression(node.right)}"
+        return result
 
     def generate_unary_expression(self, node):
         return f"{node.operator}{self.generate_expression(node.expression)}"

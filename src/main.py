@@ -1,3 +1,6 @@
+source_code = """
+
+    """
 import os
 from antlr4 import *
 from _lexer.AlgoPractiseLexer import AlgoPractiseLexer
@@ -20,12 +23,6 @@ SOURCE_CODE_FILE_NAME = r"././input_stream/fib.txt"
 
 
 def main(argv=None):
-    source_code = """
-    num a := 1
-    fn(num a, string b){
-    }
-    fn(1,"")
-    """
     success=compile_this(source_code)
     # success=compile_from_file(SOURCE_CODE_FILE_NAME)
     if success:

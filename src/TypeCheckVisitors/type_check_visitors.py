@@ -283,7 +283,7 @@ class ASTTypeChecker(TypeCheckUtils):
                         "Invalid operator for string type.", node.line_number)
 
             elif left_expr_type_node.type == BOOL_TYPE:
-                if node.operator in ["&&", "||", "==", "!="]:
+                if node.operator in ["and", "or", "==", "!="]:
                     return nodes.TypeNode(node.line_number, BOOL_TYPE, 0)
                 else:
                     self.register_err(
