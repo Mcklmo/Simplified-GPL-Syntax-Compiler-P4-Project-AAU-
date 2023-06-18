@@ -12,10 +12,10 @@ string fizzbuzz(num n) {
             result := result + "Buzz"
         }
         if !fizz and !buzz {
-            result := result + " number "
+            result := result + num_to_string(i)
         }
         result := result + "\n"
     }
     return result
 }
-string result:=fizzbuzz(100)
+print(fizzbuzz(100))
