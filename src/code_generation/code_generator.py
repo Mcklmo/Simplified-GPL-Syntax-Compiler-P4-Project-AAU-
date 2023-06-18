@@ -15,8 +15,11 @@ class CodeGenerator():
         with open(path, "w+") as f:
             f.write(self.out+"\n}")
 
-    def write_line(self, _str):
-        self.out += "\t"*self.current_indent+_str+"\n"
+    def write_line(self, _str,end="\n",indent=None):
+        if indent is None:
+            self.out += "\t"*self.current_indent+_str+end
+        else:
+            self.out += "\t"*indent+_str+end
 
     def generate_type(self, type: nodes.TypeNode):
         if type.dimensions != 0:

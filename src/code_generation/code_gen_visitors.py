@@ -64,19 +64,16 @@ class CodeGeneratorASTVisitor(CodeGenerator):
         self.write_line(self.generate_function_call(node) + ";")
         
     
-    def visitIfStatementNode(self, node: nodes.IfStatementNode):
-        self.write_line(self.generate_if_statement(node))
+    def visitIfStatementNode(self, node: nodes.IfStatementNode,indent=None):
+        self.write_line(self.generate_if_statement(node),indent=indent)
         self.current_indent += 1
         self.visit_block(node.block)
         self.current_indent -= 1
         self.write_line("}")
         if not node.else_node is None:
             if not node.else_node.if_statement is None:
-                self.write_line("else " + self.generate_if_statement(node.else_node.if_statement))
-                self.current_indent += 1
-                self.visit_block(node.else_node.if_statement.block)
-                self.current_indent -= 1
-                self.write_line("}")
+                self.write_line("else ",end="")
+                self.visitIfStatementNode(node.else_node.if_statement,indent=0)
             else:
                 self.write_line("else {")
                 self.current_indent += 1

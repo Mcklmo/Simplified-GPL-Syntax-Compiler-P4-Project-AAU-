@@ -1,7 +1,17 @@
 source_code = """
-print("hello"+bool_to_string(true)+num_to_string(1))
-num print(){
-return 2
+fn(){
+
+   if true{
+      }
+   else if true{
+   if true{
+   } 
+   else if true{
+   }
+   else {}
+      }
+   else {
+      }
 }
     """
 import os
