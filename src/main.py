@@ -1,4 +1,8 @@
 source_code = """
+print("hello"+bool_to_string(true)+num_to_string(1))
+num print(){
+return 2
+}
     """
 import os
 from antlr4 import *
@@ -10,8 +14,8 @@ from compile import compile
 SOURCE_CODE_FILE_NAME = r"././input_stream/fizzbuzz.algo"
 
 def main(argv=None):
-    # success=compile_this(source_code)
-    success=compile_from_file(SOURCE_CODE_FILE_NAME)
+    success=compile_this(source_code)
+    # success=compile_from_file(SOURCE_CODE_FILE_NAME)
     if success:
         print("Done")
     else:

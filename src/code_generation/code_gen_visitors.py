@@ -1,8 +1,6 @@
 import nodes
 from .code_generator import CodeGenerator
-from pre_defined_functions.pre_defined_functions import pre_defined_functions
 
-pre_defined_function_ids = [fn.identifier.identifier for fn in pre_defined_functions]
 
 # todo: fix dimensions of c# list generators (new list<list<...<<double>) in element list code generation. see current output and try to compile to c# for more info
 
@@ -33,9 +31,6 @@ class CodeGeneratorASTVisitor(CodeGenerator):
         for node in dcl_stmts:
             self.visit_dcl(node)
         for node in func_dcls:
-            # ignore pre-defined functions
-            if node.identifier.identifier in pre_defined_function_ids:
-                continue
             self.visit_func_dcl(node)
         self.visit_main_stmts(main_stmts)
 

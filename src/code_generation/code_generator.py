@@ -1,7 +1,6 @@
 from TypeCheckVisitors.type_check_visitors import NUM_TYPE, STRING_TYPE, BOOL_TYPE
 import nodes
-import uuid
-
+from pre_defined_functions.pre_defined_functions import conversions, pre_defined_identifiers_map
 
 class CodeGenerator():
     def map_type(_, type_str): return {
@@ -26,14 +25,11 @@ class CodeGenerator():
 
     def generate_function_call(self, node: nodes.FunctionCallExpressionNode):
         _ = [self.generate_expression(expr) for expr in node.arguments]
-        id = node.identifier.identifier
-        pre_defined_identifiers_map = {
-            "print": "Console.WriteLine",
-        }
-        conversions = ["bool_to_string", "num_to_string"]
-        if id in conversions:
+        _id = node.identifier.identifier
+        
+        if _id in conversions:
             return self.generate_expression(node.arguments[0])+".ToString()"
-        return pre_defined_identifiers_map.get(id, id)+"("+",".join([self.generate_expression(expr) for expr in node.arguments])+")"
+        return pre_defined_identifiers_map.get(_id, _id)+"("+",".join([self.generate_expression(expr) for expr in node.arguments])+")"
 
     def generate_element_list_type(self, node: nodes.ElementListNode):
         return f"new {'List<' * node.type.dimensions}{self.map_type(node.type.type)}{'>' * node.type.dimensions}"+"(){"+",".join([self.generate_expression(expr) for expr in node.expressions])+"}"

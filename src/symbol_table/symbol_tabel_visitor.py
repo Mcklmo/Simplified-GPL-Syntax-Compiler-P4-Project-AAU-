@@ -1,7 +1,7 @@
 import nodes
 from typing import Any
 from .utils import SymbolTableUtils
-from pre_defined_functions.pre_defined_functions import pre_defined_functions
+from pre_defined_functions.pre_defined_functions import pre_defined_functions,pre_defined_function_ids
 
 """
 OBS: 
@@ -34,7 +34,7 @@ class SymbolTableVisitor(SymbolTableUtils):
         super().__init__()
     
     def do_visit(self, start_node:nodes.StartNode):
-        # declare pre-defined functions to reserve keywords. They are ignored in code gen.
+        # inject pre defined functions in symbol table
         for fn in pre_defined_functions:
             function_node = nodes.FunctionNode(0,fn.identifier,nodes.BlockNode(0),fn.params,fn.return_type)
             self.visitFunctionNode(function_node, True)
@@ -179,6 +179,9 @@ class SymbolTableVisitor(SymbolTableUtils):
     def visitFunctionNode(self, node: nodes.FunctionNode,is_pre_defined=False):
         """This is func dcl, just poor naming"""
         if not self.symbol_tabel.current.try_fetch_id(node.identifier.identifier) is None:
+            if node.identifier.identifier in pre_defined_function_ids:
+                self.regsiter_err(f"cannot define a function with the same name as a pre defined function ({node.identifier.identifier})", node.line_number)
+                return 
             self.regsiter_err(
                 f"id {node.identifier.identifier} has been declared more than once!", node.line_number)
             return
