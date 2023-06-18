@@ -1,6 +1,7 @@
 import nodes
 from typing import Any
 from .utils import SymbolTableUtils
+from pre_defined_functions.pre_defined_functions import pre_defined_functions
 
 """
 OBS: 
@@ -31,8 +32,13 @@ todo 5.5.23:
 class SymbolTableVisitor(SymbolTableUtils):
     def __init__(self) -> None:
         super().__init__()
-
-    def do_visit(self, start_node: nodes.StartNode):
+    
+    def do_visit(self, start_node:nodes.StartNode):
+        # declare pre-defined functions to reserve keywords. They are ignored in code gen.
+        for fn in pre_defined_functions:
+            function_node = nodes.FunctionNode(0,fn.identifier,nodes.BlockNode(0),fn.params,fn.return_type)
+            self.visitFunctionNode(function_node, True)
+            
         self.visitStartNode(start_node)
 
         if len(self.errors) == 0:
@@ -170,7 +176,7 @@ class SymbolTableVisitor(SymbolTableUtils):
             for param in node.arguments:
                 self.visitGeneralExprNode(param)
 
-    def visitFunctionNode(self, node: nodes.FunctionNode):
+    def visitFunctionNode(self, node: nodes.FunctionNode,is_pre_defined=False):
         """This is func dcl, just poor naming"""
         if not self.symbol_tabel.current.try_fetch_id(node.identifier.identifier) is None:
             self.regsiter_err(
@@ -187,15 +193,19 @@ class SymbolTableVisitor(SymbolTableUtils):
 
         # set expected return type
         self.symbol_tabel.current.expected_return_type = node.type
+
+        # ignore block if pre defined
+        if not is_pre_defined:
         # visit block
-        returns = self.visitBlockNode(node.block)
-        return_void = node.type.type == "void"
-        if not return_void and not returns:
-            self.regsiter_err(
-                f"Some paths in function {node.identifier.identifier} are missing return statements!", node.line_number)
-        elif return_void and returns:
-            self.regsiter_err(
-                f"Function {node.identifier.identifier} returns a value but is declared void!", node.line_number)
+            returns = self.visitBlockNode(node.block)
+            return_void = node.type.type == "void"
+            if not return_void and not returns:
+                self.regsiter_err(
+                    f"Some paths in function {node.identifier.identifier} are missing return statements!", node.line_number)
+            elif return_void and returns:
+                self.regsiter_err(
+                    f"Function {node.identifier.identifier} returns a value but is declared void!", node.line_number)
+        
         self.symbol_tabel.close_scope()
 
     def visitBlockNode(self, node: nodes.BlockNode):
