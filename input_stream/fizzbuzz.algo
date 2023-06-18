@@ -14,7 +14,6 @@ string fizzbuzz(num n) {
         if !fizz and !buzz {
             result := result + num_to_string(i)
         }
-        result := result + "\n"
     }
     return result
 }

@@ -1,5 +1,4 @@
 source_code = """
-    print("hello "+bool_to_string(true)+" "+num_to_string(5))
     """
 import os
 from antlr4 import *
