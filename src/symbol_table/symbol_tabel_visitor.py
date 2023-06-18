@@ -34,7 +34,7 @@ class SymbolTableVisitor(SymbolTableUtils):
         super().__init__()
     
     def do_visit(self, start_node:nodes.StartNode):
-        # inject pre defined functions in symbol table
+        # inject pre defined functions in symbol table. These are used to decorate function call nodes with correct input and output types
         for fn in pre_defined_functions:
             function_node = nodes.FunctionNode(0,fn.identifier,nodes.BlockNode(0),fn.params,fn.return_type)
             self.visitFunctionNode(function_node, True)
