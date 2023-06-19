@@ -99,7 +99,8 @@ class ASTTypeChecker(TypeCheckUtils):
         # is else if statement
         if_return_type = self.visit_if_statement(node.if_statement, expected_return_type)
         # to avoid error because there is no return statement in the if statement
-        if_return_type = nodes.TypeNode(expected_return_type.line_number,"void",0) if if_return_type is None else if_return_type
+        if_return_type = nodes.TypeNode(node.line_number,"void",0) if if_return_type is None else if_return_type
+        expected_return_type = nodes.TypeNode(node.line_number,"void",0) if expected_return_type is None else expected_return_type
         if expected_return_type != if_return_type:
             msg = "else statement: " + \
                 self.new_type_mismatch_err(

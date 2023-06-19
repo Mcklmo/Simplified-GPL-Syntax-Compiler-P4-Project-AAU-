@@ -106,6 +106,7 @@ class TestIntegrationCompile(unittest.TestCase):
                 }
                 else if (1.0>2.0){
                 }
+                else { } 
             }
 
         }
