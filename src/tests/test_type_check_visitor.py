@@ -70,53 +70,53 @@ class TestTypeCheckVisitor(unittest.TestCase):
         expected_typenode_1d = TypeNode(0,"num",1)
         expected_typenode_2d = TypeNode(0,"num",2)
         expected_typenode_3d = TypeNode(0,"num",3)
-        self.visitor.extract_type_node_from_elem_list(element_list_3d,TypeNode(0,"num",3))
+        self.visitor.get_type_node_from_elem_list(element_list_3d,TypeNode(0,"num",3))
         self.assertEqual(expected_typenode_3d, element_list_3d.type,"3d list has 3 dimensions")
         self.assertEqual(expected_typenode_2d,element_list_2d.type,"2d list has 2 dimensions")
         self.assertEqual(expected_typenode_1d,element_list_1d.type,"1d list has 1 dimension")
 
         element_list_1d_ok = ElementListNode([NumberNode(0,0), NumberNode(0,0)],0)
         expected_typenode = TypeNode(0,"num",1)
-        self.visitor.extract_type_node_from_elem_list(element_list_1d_ok,TypeNode(0,"num",3))
+        self.visitor.get_type_node_from_elem_list(element_list_1d_ok,TypeNode(0,"num",3))
         self.assertEqual(expected_typenode, element_list_1d_ok.type,"1d list no error")
 
         element_list_1d_err = ElementListNode([NumberNode(0,0), NumberNode(0,0), ElementListNode([],0)],0)
         expected_typenode = None 
-        self.visitor.extract_type_node_from_elem_list(element_list_1d_err,TypeNode(0,"num",3))
+        self.visitor.get_type_node_from_elem_list(element_list_1d_err,TypeNode(0,"num",3))
         self.assertEqual(expected_typenode, element_list_1d_err.type,"1d list expected none")
 
         element_list_2d_ok = ElementListNode([ElementListNode([NumberNode(0,0), NumberNode(0,0)],0), ElementListNode([NumberNode(0,0), NumberNode(0,0)],0)],0)
         expected_typenode = TypeNode(0,"num",2)
-        self.visitor.extract_type_node_from_elem_list(element_list_2d_ok,TypeNode(0,"num",3))
+        self.visitor.get_type_node_from_elem_list(element_list_2d_ok,TypeNode(0,"num",3))
         self.assertEqual(expected_typenode, element_list_2d_ok.type,"2d list no error")
 
         element_list_2d_err = ElementListNode([ElementListNode([NumberNode(0,0), NumberNode(0,0)],0), ElementListNode([NumberNode(0,0), NumberNode(0,0), ElementListNode([],0)],0)],0)
         expected_typenode = None
-        self.visitor.extract_type_node_from_elem_list(element_list_2d_err,TypeNode(0,"num",3))
+        self.visitor.get_type_node_from_elem_list(element_list_2d_err,TypeNode(0,"num",3))
         self.assertEqual(expected_typenode, element_list_2d_err.type,"2d list expected none")
 
         # Test empty list
         element_list_empty = ElementListNode([], 0)
         expected_typenode = TypeNode(0, "num", 1)
-        self.visitor.extract_type_node_from_elem_list(element_list_empty, TypeNode(0,"num",3))
+        self.visitor.get_type_node_from_elem_list(element_list_empty, TypeNode(0,"num",3))
         self.assertEqual(expected_typenode, element_list_empty.type, "Empty list no error")
 
         # Test list with another empty list
         element_list_nested_empty = ElementListNode([ElementListNode([], 0)], 0)
         expected_typenode = TypeNode(0, "num", 2)
-        self.visitor.extract_type_node_from_elem_list(element_list_nested_empty, TypeNode(0,"num",3))
+        self.visitor.get_type_node_from_elem_list(element_list_nested_empty, TypeNode(0,"num",3))
         self.assertEqual(expected_typenode, element_list_nested_empty.type, "List with empty list no error")
 
         # test 3d list of empty lists 
         element_list_3d_empty = ElementListNode([ElementListNode([ElementListNode([], 0)], 0)], 0)
         expected_typenode = TypeNode(0, "num", 3)
-        self.visitor.extract_type_node_from_elem_list(element_list_3d_empty, TypeNode(0,"num",3))
+        self.visitor.get_type_node_from_elem_list(element_list_3d_empty, TypeNode(0,"num",3))
         self.assertEqual(expected_typenode, element_list_3d_empty.type, "3d list of empty lists no error")
 
         # Test list with mixed types (num and string)
         element_list_mixed_types = ElementListNode([NumberNode(0, 0), StringNode(0, "")], 0)
         expected_typenode = None
-        self.visitor.extract_type_node_from_elem_list(element_list_mixed_types, TypeNode(0,"num",3))
+        self.visitor.get_type_node_from_elem_list(element_list_mixed_types, TypeNode(0,"num",3))
         self.assertEqual(expected_typenode, element_list_mixed_types.type, "List with mixed types expected None")
 
 

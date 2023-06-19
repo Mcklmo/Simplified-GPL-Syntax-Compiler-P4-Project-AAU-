@@ -1,18 +1,5 @@
 source_code = """
-fn(){
 
-   if true{
-      }
-   else if true{
-   if true{
-   } 
-   else if true{
-   }
-   else {}
-      }
-   else {
-      }
-}
     """
 import os
 from antlr4 import *
@@ -22,10 +9,11 @@ from nodes.Node import Node
 from compile import compile
 
 SOURCE_CODE_FILE_NAME = r"././input_stream/fizzbuzz.algo"
+SOURCE_CODE_FILE_NAME = r"././input_stream/passing-method.algo"
 
 def main(argv=None):
-    success=compile_this(source_code)
-    # success=compile_from_file(SOURCE_CODE_FILE_NAME)
+    # success=compile_this(source_code)
+    success=compile_from_file(SOURCE_CODE_FILE_NAME)
     if success:
         print("Done")
     else:

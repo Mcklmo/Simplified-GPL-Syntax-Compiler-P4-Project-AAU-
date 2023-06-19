@@ -1,0 +1,17 @@
+num[] list := {1}
+num primitive := 1
+print("list[0] before call: "+num_to_string(list[0])) /* 1 */
+alter_list(list)
+print("list[0] after call: "+num_to_string(list[0])) /* 10 */
+print("primitive before call: "+num_to_string(primitive)) /* 1 */
+alter_primitive(primitive)
+print("primitive after call: "+num_to_string(primitive)) /* 1 */
+mess_with_me(){
+    alter_primitive(1)
+}
+alter_list(num[] l) {
+    l[0] := 10
+}
+alter_primitive(num n) {
+    n := 10
+}

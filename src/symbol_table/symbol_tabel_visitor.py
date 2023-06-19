@@ -37,7 +37,7 @@ class SymbolTableVisitor(SymbolTableUtils):
         # inject pre defined functions in symbol table. These are used to decorate function call nodes with correct input and output types
         for fn in pre_defined_functions:
             function_node = nodes.FunctionNode(0,fn.identifier,nodes.BlockNode(0),fn.params,fn.return_type)
-            self.visitFunctionNode(function_node, True)
+            self.VisitFunctionDeclarationIdentifier(function_node)
             
         self.visitStartNode(start_node)
 
@@ -46,6 +46,11 @@ class SymbolTableVisitor(SymbolTableUtils):
         return self.errors
 
     def visitStartNode(self, node: nodes.StartNode):
+        # forward reference function declarations
+        for master_stmt in node.master_statement_nodes:
+            if not master_stmt.function_node is None:
+                self.VisitFunctionDeclarationIdentifier(master_stmt.function_node)
+
         for master_stmt in node.master_statement_nodes:
             if not master_stmt.statement_node is None:
                 if isinstance(master_stmt.statement_node, nodes.DeclarationStatementNode):
@@ -66,10 +71,11 @@ class SymbolTableVisitor(SymbolTableUtils):
                     self.visitReturnStatementNode(master_stmt.statement_node)
 
             elif not master_stmt.function_node is None:
-                self.visitFunctionNode(master_stmt.function_node)
+                self.visitFunctionDeclarationBody(master_stmt.function_node)
 
             else:
                 raise Exception("Stop coding, you are tired!")
+            
     def visit_control_statement_node(self, node:nodes.ControlStatementNode):
         if isinstance(node, nodes.WhileStatementNode):
             self.visitWhileStatementNode(node)
@@ -176,8 +182,8 @@ class SymbolTableVisitor(SymbolTableUtils):
             for param in node.arguments:
                 self.visitGeneralExprNode(param)
 
-    def visitFunctionNode(self, node: nodes.FunctionNode,is_pre_defined=False):
-        """This is func dcl, just poor naming"""
+    def VisitFunctionDeclarationIdentifier(self, node: nodes.FunctionNode):
+     
         if not self.symbol_tabel.current.try_fetch_id(node.identifier.identifier) is None:
             if node.identifier.identifier in pre_defined_function_ids:
                 self.regsiter_err(f"cannot define a function with the same name as a pre defined function ({node.identifier.identifier})", node.line_number)
@@ -186,8 +192,9 @@ class SymbolTableVisitor(SymbolTableUtils):
                 f"id {node.identifier.identifier} has been declared more than once!", node.line_number)
             return
         self.symbol_tabel.insert_in_open_scope(
-            node.identifier.identifier, node)
+            node.identifier.identifier, node)   
 
+    def visitFunctionDeclarationBody(self, node: nodes.FunctionNode):
         self.symbol_tabel.open_scope()
         # inject params as variables
         for param in node.params:
@@ -197,18 +204,15 @@ class SymbolTableVisitor(SymbolTableUtils):
         # set expected return type
         self.symbol_tabel.current.expected_return_type = node.type
 
-        # ignore block if pre defined
-        if not is_pre_defined:
-        # visit block
-            returns = self.visitBlockNode(node.block)
-            return_void = node.type.type == "void"
-            if not return_void and not returns:
-                self.regsiter_err(
-                    f"Some paths in function {node.identifier.identifier} are missing return statements!", node.line_number)
-            elif return_void and returns:
-                self.regsiter_err(
-                    f"Function {node.identifier.identifier} returns a value but is declared void!", node.line_number)
-        
+        returns = self.visitBlockNode(node.block)
+        return_void = node.type.type == "void"
+        if not return_void and not returns:
+            self.regsiter_err(
+                f"Some paths in function {node.identifier.identifier} are missing return statements!", node.line_number)
+        elif return_void and returns:
+            self.regsiter_err(
+                f"Function {node.identifier.identifier} returns a value but is declared void!", node.line_number)
+    
         self.symbol_tabel.close_scope()
 
     def visitBlockNode(self, node: nodes.BlockNode):
