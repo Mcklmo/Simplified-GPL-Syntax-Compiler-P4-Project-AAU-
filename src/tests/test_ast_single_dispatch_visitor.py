@@ -52,6 +52,8 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
 
         # Generate the corresponding abstract syntax tree
         ast = self.visitor.visit_start_node(cst)
+        self.delete_input_file()
+
         return ast
 
     def test_visit_if_statement_node(self):
@@ -334,10 +336,6 @@ class TestASTSingleDispatchVisitor(unittest.TestCase):
             )
             ])
         self._test_expected_ast(expected_ast, source_code, "test_list_subscript")
-
-    @ classmethod
-    def tearDownClass(cls):
-        cls.delete_input_file()
 
 
 # if __name__ == '__main__':
