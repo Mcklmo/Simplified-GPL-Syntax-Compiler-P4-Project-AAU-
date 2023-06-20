@@ -186,7 +186,7 @@ class ASTTypeChecker(TypeCheckUtils):
     def visit_element_list_node(self, node: nodes.ElementListNode, expected_type: nodes.TypeNode):
         """returns a type node containing the number of dimensions and the type of the elements in the list.
         Returns None and registers errors if the dimensions are inconsistent or the elements are of different types."""
-        node = self.get_type_node_from_elem_list(node, expected_type)
+        self.get_type_node_from_elem_list(node, expected_type)
 
         return node.type
 
@@ -194,36 +194,40 @@ class ASTTypeChecker(TypeCheckUtils):
         def nodes_types_and_dimensions_match(nodes):
             """returns true if all nodes have the same type and dimensions as the first node.
             expected type is passed to assign an empty list the correct type."""
-            first_child_type = nodes[0].type
-            return all(child.type == first_child_type and child.type.dimensions == first_child_type.dimensions for child in nodes)
+            first_child_type = nodes[0]
+            return all(child == first_child_type and child.dimensions == first_child_type.dimensions for child in nodes)
 
         # base case: primitive type
         if not isinstance(node, nodes.ElementListNode):
             node.type = nodes.TypeNode(
                 node.line_number, type=self.visit_expression(node).type, dimensions=0)
-            return node
+            return 
 
         # base case: empty list
         if not node.expressions:
             node.type = nodes.TypeNode(node.line_number, type=expected_type.type, dimensions=1)
-            return node
+            return 
+        
+        # recursive case: list with elements
+        for expression_node in node.expressions:
+            self.get_type_node_from_elem_list(expression_node, expected_type)
 
-        nested_nodes = [self.get_type_node_from_elem_list(
-            expression_node, expected_type) for expression_node in node.expressions]
+        nested_list_types = [expression_node.type for expression_node in node.expressions]
 
         # any child caused an error in the preceding recursive activation record
-        if any(nested_node is None for nested_node in nested_nodes):
+        if any(nested_node is None for nested_node in nested_list_types):
+            node.type = None
             return
 
-        if not nodes_types_and_dimensions_match(nested_nodes):
+        if not nodes_types_and_dimensions_match(nested_list_types):
             self.register_err(
                 f"List elements are not of the same type", node.line_number)
+            node.type = None
             return
 
-        nested_type = nested_nodes[0].type
+        nested_type = nested_list_types[0]
         node.type = nodes.TypeNode(
             node.line_number, type=nested_type.type, dimensions=nested_type.dimensions + 1)
-        return node
 
     def visit_id_node(self, node: nodes.IDNode):
         return node.dcl_type.type
