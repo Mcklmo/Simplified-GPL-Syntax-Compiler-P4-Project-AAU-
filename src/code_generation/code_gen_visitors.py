@@ -12,7 +12,7 @@ class CodeGeneratorASTVisitor(CodeGenerator):
         self.visit_start_node(start_node)
         # Debug
 
-        self.save("./out.cs")
+        self.save("./Program.cs")
 
 
     def visit_start_node(self, node: nodes.StartNode):

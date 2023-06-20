@@ -9,7 +9,7 @@ from nodes.Node import Node
 from compile import compile
 
 SOURCE_CODE_FILE_NAME = r"././input_stream/fizzbuzz.algo"
-SOURCE_CODE_FILE_NAME = r"././input_stream/passing-method.algo"
+# SOURCE_CODE_FILE_NAME = r"././input_stream/passing-method.algo"
 
 def main(argv=None):
     # success=compile_this(source_code)

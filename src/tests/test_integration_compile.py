@@ -6,7 +6,7 @@ from compile import compile
 
 
 class TestIntegrationCompile(unittest.TestCase):
-    output_file_path = "./out.cs"
+    output_file_path = "./Program.cs"
     source_file_path = "./src/tests/delete_me.txt"
 
     def test_compile_complex(self):
