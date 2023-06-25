@@ -19,16 +19,12 @@ def main(argv=None):
     if success:
         print("Done, Output:")
         
-        # The command you want to run
+        # The command to execute in terminal 
         command = "dotnet run"
 
         # Execute the command and capture the output
         output = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-
-        # Print the command output
         print(output.stdout)
-
-        # Check if there's any error
         if output.stderr:
             print("Error:")
             print(output.stderr)

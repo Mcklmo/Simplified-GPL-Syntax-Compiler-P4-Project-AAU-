@@ -63,8 +63,8 @@ class TestIntegrationCompile(unittest.TestCase):
         expected_cs_code = """
         using System.Collections.Generic;
         using System;
-
         class Program {
+static string ConvertListToString(List<double> doublesList) \n{\nreturn "{ "+ string.Join(" ", doublesList)+" }";\n}\n
             static double a = 1.0;
             static double b = 1.0;
             static double c = 1.0;
@@ -123,6 +123,7 @@ class TestIntegrationCompile(unittest.TestCase):
         using System.Collections.Generic;
         using System;
         class Program {
+        static string ConvertListToString(List<double> doublesList) \n{\nreturn "{ "+ string.Join(" ", doublesList)+" }";\n}\n
             static double a = 5.0;
             static double b = 6.0;
             static double c = a+b;

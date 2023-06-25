@@ -3,10 +3,11 @@ num lenarr:=3
 
 num[] arr := {3, 8, 7}
 
-print("array before sorting: "+num_array_to_string(arr))
+print("array before sorting: " + num_array_to_string(arr))
 
 qsort(arr, 0, lenarr-(1))
-print("array after sorting: "+num_array_to_string(arr))
+
+print("array after sorting: " + num_array_to_string(arr))
 
 num qsort(num[] arr,num low,num high) {
     if low < high {
@@ -37,12 +38,4 @@ num partition(num[] arr, num low, num high) {
     arr[high] := temp 
 
     return i + 1
-}
-
-printarr(num[] arr, num lenarr) {
-    num i:=0
-    while i<lenarr {
-        print(num_to_string(arr[i]))
-        i:=i+1
-    }
 }
