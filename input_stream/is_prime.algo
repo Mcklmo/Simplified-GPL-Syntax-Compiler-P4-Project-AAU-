@@ -13,6 +13,6 @@ num i := 5
 num j := 7
 num k := 6
 
-isPrime(i)
-isPrime(j)
-isPrime(k)
+print(bool_to_string(isPrime(i)))
+print(bool_to_string(isPrime(j)))
+print(bool_to_string(isPrime(k)))

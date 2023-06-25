@@ -2,20 +2,36 @@ source_code = """
 
     """
 import os
+import subprocess
 from antlr4 import *
 from antlr4.tree.Trees import Trees
 
 from nodes.Node import Node
 from compile import compile
 
-SOURCE_CODE_FILE_NAME = r"././input_stream/fizzbuzz.algo"
+# SOURCE_CODE_FILE_NAME = r"././input_stream/fizzbuzz.algo"
+SOURCE_CODE_FILE_NAME = r"././input_stream/qsort.algo"
 # SOURCE_CODE_FILE_NAME = r"././input_stream/passing-method.algo"
 
 def main(argv=None):
     # success=compile_this(source_code)
     success=compile_from_file(SOURCE_CODE_FILE_NAME)
     if success:
-        print("Done")
+        print("Done, Output:")
+        
+        # The command you want to run
+        command = "dotnet run"
+
+        # Execute the command and capture the output
+        output = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+
+        # Print the command output
+        print(output.stdout)
+
+        # Check if there's any error
+        if output.stderr:
+            print("Error:")
+            print(output.stderr)
     else:
         print("Failed")
 
