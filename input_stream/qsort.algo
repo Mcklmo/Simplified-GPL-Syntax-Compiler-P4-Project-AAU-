@@ -1,0 +1,48 @@
+
+num lenarr:=3
+
+num[] arr := {3, 8, 7}
+
+print("array before sorting: "+num_array_to_string(arr))
+
+qsort(arr, 0, lenarr-(1))
+print("array after sorting: "+num_array_to_string(arr))
+
+num qsort(num[] arr,num low,num high) {
+    if low < high {
+        num pivot := partition(arr, low, high)
+
+        qsort(arr, low, pivot-(1))
+        qsort(arr, pivot+1, high)
+    }
+    return 1
+}
+
+num partition(num[] arr, num low, num high) {
+    num pivot := arr[high]
+    num i := low - 1
+    num j := low 
+    while j < high {
+        if arr[j] < pivot {
+            i := i+1
+            num _temp := arr[i]
+            arr[i] := arr[j]
+            arr[j] := _temp 
+        }
+        j := j+1
+    }
+
+    num temp := arr[i+1]
+    arr[i+1] := arr[high]
+    arr[high] := temp 
+
+    return i + 1
+}
+
+printarr(num[] arr, num lenarr) {
+    num i:=0
+    while i<lenarr {
+        print(num_to_string(arr[i]))
+        i:=i+1
+    }
+}
