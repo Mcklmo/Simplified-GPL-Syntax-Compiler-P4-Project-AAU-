@@ -1,21 +1,22 @@
 from TypeCheckVisitors.type_check_visitors import NUM_TYPE, STRING_TYPE, BOOL_TYPE
 import nodes
-from pre_defined_functions.pre_defined_functions import conversions, pre_defined_identifiers_map
+from pre_defined_functions.pre_defined_functions import dot_to_string_conversions, pre_defined_fns_with_1_dotnet_arg,pre_defined_dotnet
+
 
 class CodeGenerator():
     def map_type(_, type_str): return {
         NUM_TYPE: "double", STRING_TYPE: "String", BOOL_TYPE: "bool", "void": "void"}[type_str]
 
     def __init__(self):
-        self.out = "using System.Collections.Generic;\nusing System;\n\nclass Program {\n"
-
+        self.out = "using System.Collections.Generic;\nusing System;\n\nclass Program {\n"+pre_defined_dotnet
+      
         self.current_indent = 1
 
     def save(self, path):
         with open(path, "w+") as f:
             f.write(self.out+"\n}")
 
-    def write_line(self, _str,end="\n",indent=None):
+    def write_line(self, _str, end="\n", indent=None):
         if indent is None:
             self.out += "\t"*self.current_indent+_str+end
         else:
@@ -29,10 +30,10 @@ class CodeGenerator():
     def generate_function_call(self, node: nodes.FunctionCallExpressionNode):
         _ = [self.generate_expression(expr) for expr in node.arguments]
         _id = node.identifier.identifier
-        
-        if _id in conversions:
+
+        if _id in dot_to_string_conversions:
             return self.generate_expression(node.arguments[0])+".ToString()"
-        return pre_defined_identifiers_map.get(_id, _id)+"("+",".join([self.generate_expression(expr) for expr in node.arguments])+")"
+        return pre_defined_fns_with_1_dotnet_arg.get(_id, _id)+"("+",".join([self.generate_expression(expr) for expr in node.arguments])+")"
 
     def generate_element_list_type(self, node: nodes.ElementListNode):
         return f"new {'List<' * node.type.dimensions}{self.map_type(node.type.type)}{'>' * node.type.dimensions}"+"(){"+",".join([self.generate_expression(expr) for expr in node.expressions])+"}"
