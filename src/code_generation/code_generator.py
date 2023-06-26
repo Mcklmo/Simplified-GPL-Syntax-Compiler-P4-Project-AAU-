@@ -1,6 +1,6 @@
 from TypeCheckVisitors.type_check_visitors import NUM_TYPE, STRING_TYPE, BOOL_TYPE
 import nodes
-from pre_defined_functions.pre_defined_functions import dot_to_string_conversions, pre_defined_fns_with_1_dotnet_arg,pre_defined_dotnet
+from pre_defined_functions.pre_defined_functions import dotnet_to_string_conversions, pre_defined_fns_map,pre_defined_dotnet,called_on_the_instance
 
 
 class CodeGenerator():
@@ -31,9 +31,13 @@ class CodeGenerator():
         _ = [self.generate_expression(expr) for expr in node.arguments]
         _id = node.identifier.identifier
 
-        if _id in dot_to_string_conversions:
+        if _id in dotnet_to_string_conversions:
             return self.generate_expression(node.arguments[0])+".ToString()"
-        return pre_defined_fns_with_1_dotnet_arg.get(_id, _id)+"("+",".join([self.generate_expression(expr) for expr in node.arguments])+")"
+        if _id in called_on_the_instance:
+            _return= self.generate_expression(node.arguments[0])+"."+called_on_the_instance[_id] 
+            _return += "("+",".join([self.generate_expression(expr) for expr in node.arguments[1:]])+")" if len(node.arguments)>1 else ""
+            return _return
+        return pre_defined_fns_map.get(_id, _id)+"("+",".join([self.generate_expression(expr) for expr in node.arguments])+")"
 
     def generate_element_list_type(self, node: nodes.ElementListNode):
         return f"new {'List<' * node.type.dimensions}{self.map_type(node.type.type)}{'>' * node.type.dimensions}"+"(){"+",".join([self.generate_expression(expr) for expr in node.expressions])+"}"

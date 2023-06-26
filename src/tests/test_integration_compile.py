@@ -9,6 +9,84 @@ class TestIntegrationCompile(unittest.TestCase):
     output_file_path = "./Program.cs"
     source_file_path = "./src/tests/delete_me.txt"
 
+    def test_qsort(self):
+        source_code="""num[] arr := {3, 8, 7,1,2,5,4,9,0,6}
+print("array before sorting: " + num_array_to_string(arr))
+qsort(arr, 0, len_num_1d(arr)-(1))
+print("array after sorting: " + num_array_to_string(arr))
+append_num_1d(arr,10)
+print("extended array: " + num_array_to_string(arr))
+qsort(num[] arr,num low,num high) {
+    if low < high {
+        num pivot := partition(arr, low, high)
+        qsort(arr, low, pivot-(1))
+        qsort(arr, pivot+1, high)
+    }
+} 
+num partition(num[] arr, num low, num high) {
+    num pivot := arr[high]
+    num i := low - 1
+    num j := low 
+    while j < high {
+        if arr[j] < pivot {
+            i := i+1
+            num _temp := arr[i]
+            arr[i] := arr[j]
+            arr[j] := _temp 
+        }
+        j := j+1
+    }
+    num temp := arr[i+1]
+    arr[i+1] := arr[high]
+    arr[high] := temp 
+    return i + 1
+}"""
+        expected_cs_code = """using System.Collections.Generic;
+using System;
+
+class Program {
+static string ConvertListToString(List<double> doublesList) 
+{
+return "{ "+ string.Join(" ", doublesList)+" }";
+}
+	static List<double> arr = new List<double>(){3.0,8.0,7.0,1.0,2.0,5.0,4.0,9.0,0.0,6.0};
+	static public void qsort(List<double> arr,double low,double high){
+		if (low<high){
+			double pivot = partition(arr,low,high);
+			qsort(arr,low,pivot-1.0);
+			qsort(arr,pivot+1.0,high);
+		}
+	}
+	static public double partition(List<double> arr,double low,double high){
+		double pivot = arr[Convert.ToInt32(high)];
+		double i = low-1.0;
+		double j = low;
+		while (j<high){
+			if (arr[Convert.ToInt32(j)]<pivot){
+				i = i+1.0;
+				double _temp = arr[Convert.ToInt32(i)];
+				arr[Convert.ToInt32(i)] = arr[Convert.ToInt32(j)];
+				arr[Convert.ToInt32(j)] = _temp;
+			}
+			j = j+1.0;
+		}
+		double temp = arr[Convert.ToInt32(i+1.0)];
+		arr[Convert.ToInt32(i+1.0)] = arr[Convert.ToInt32(high)];
+		arr[Convert.ToInt32(high)] = temp;
+		return i+1.0;
+	}
+	static public void Main(){
+		Console.WriteLine("array before sorting: "+ConvertListToString(arr));
+		qsort(arr,0.0,arr.Count-1.0);
+		Console.WriteLine("array after sorting: "+ConvertListToString(arr));
+		arr.Add(10.0);
+		Console.WriteLine("extended array: "+ConvertListToString(arr));
+	}
+
+}"""
+        self.compile_and_compare(source_code, expected_cs_code)
+
+
     def test_compile_complex(self):
 
         source_code="""
@@ -111,7 +189,7 @@ static string ConvertListToString(List<double> doublesList) \n{\nreturn "{ "+ st
 
         }
         """
-        self.integration_test(source_code, expected_cs_code)
+        self.compile_and_compare(source_code, expected_cs_code)
 
     def test_compile_simple(self):
         source_code = """
@@ -130,9 +208,9 @@ static string ConvertListToString(List<double> doublesList) \n{\nreturn "{ "+ st
             static public void Main(){
             }
         }"""
-        self.integration_test(source_code, expected_cs_code)
+        self.compile_and_compare(source_code, expected_cs_code)
 
-    def integration_test(self, source_code, expected_cs_code):
+    def compile_and_compare(self, source_code, expected_cs_code):
         # create temporary file
         self.write_file(self.source_file_path, source_code)
         # compile the temporary file

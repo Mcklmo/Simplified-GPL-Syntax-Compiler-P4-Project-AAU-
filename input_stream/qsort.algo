@@ -1,24 +1,16 @@
-
-num lenarr:=3
-
-num[] arr := {3, 8, 7}
-
+num[] arr := {3, 8, 7,1,2,5,4,9,0,6}
 print("array before sorting: " + num_array_to_string(arr))
-
-qsort(arr, 0, lenarr-(1))
-
+qsort(arr, 0, len_num_1d(arr)-(1))
 print("array after sorting: " + num_array_to_string(arr))
-
-num qsort(num[] arr,num low,num high) {
+append_num_1d(arr,10)
+print("extended array: " + num_array_to_string(arr))
+qsort(num[] arr,num low,num high) {
     if low < high {
         num pivot := partition(arr, low, high)
-
         qsort(arr, low, pivot-(1))
         qsort(arr, pivot+1, high)
     }
-    return 1
-}
-
+} 
 num partition(num[] arr, num low, num high) {
     num pivot := arr[high]
     num i := low - 1
@@ -32,10 +24,8 @@ num partition(num[] arr, num low, num high) {
         }
         j := j+1
     }
-
     num temp := arr[i+1]
     arr[i+1] := arr[high]
     arr[high] := temp 
-
     return i + 1
 }
