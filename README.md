@@ -17,13 +17,13 @@ If unsure whether installing the requirements was successful, run:
 
 and check if the module names from `requirements.txt` are listed.
 
-# Create or update parser
+# Update parser
 
 `antlr4 -Dlanguage=Python3 src\AlgoPractise.g4 -visitor -no-listener`
 
 [Remember to move `AlgoPractiseLexer.py` to `src/_lexer` and `AlgoPractiseParser.py` to `src/_parser`!]
 
-# Parse source code
+# Compile source code
 
 `src\main.py`
 
