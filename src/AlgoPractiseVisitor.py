@@ -1,6 +1,6 @@
-# Generated from AlgoPractise.g4 by ANTLR 4.12.0
+# Generated from src\AlgoPractise.g4 by ANTLR 4.13.0
 from antlr4 import *
-if __name__ is not None and "." in __name__:
+if "." in __name__:
     from ._parser.AlgoPractiseParser import AlgoPractiseParser
 else:
     from AlgoPractiseParser import AlgoPractiseParser
@@ -51,11 +51,6 @@ class AlgoPractiseVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by AlgoPractiseParser#block.
     def visitBlock(self, ctx:AlgoPractiseParser.BlockContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by AlgoPractiseParser#stmts.
-    def visitStmts(self, ctx:AlgoPractiseParser.StmtsContext):
         return self.visitChildren(ctx)
 
 

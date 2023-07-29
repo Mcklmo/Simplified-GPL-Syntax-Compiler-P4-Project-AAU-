@@ -2,7 +2,7 @@
 import os
 import re
 import unittest
-from compile import compile
+from compile import compile_from_file
 
 
 class TestIntegrationCompile(unittest.TestCase):
@@ -214,7 +214,7 @@ static string ConvertListToString(List<double> doublesList) \n{\nreturn "{ "+ st
         # create temporary file
         self.write_file(self.source_file_path, source_code)
         # compile the temporary file
-        compile(self.source_file_path)
+        compile_from_file(self.source_file_path)
         # delete the temporary file
         self.delete_file(self.source_file_path)
         # read the output file

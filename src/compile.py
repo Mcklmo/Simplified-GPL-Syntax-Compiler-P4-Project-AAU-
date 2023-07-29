@@ -11,7 +11,7 @@ from code_generation.code_gen_visitors import CodeGeneratorASTVisitor
 from errors.custom_lexer_listener import CustomErrorListener
 
 
-def compile(source_path: str):
+def compile_from_file(source_path: str):
     lexer_error_listener = CustomErrorListener()
 
     input_stream = FileStream(source_path)

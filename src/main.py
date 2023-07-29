@@ -7,7 +7,7 @@ from antlr4 import *
 from antlr4.tree.Trees import Trees
 
 from nodes.Node import Node
-from compile import compile
+from compile import compile_from_file
 
 # SOURCE_CODE_FILE_NAME = r"././input_stream/fizzbuzz.algo"
 SOURCE_CODE_FILE_NAME = r"././input_stream/qsort.algo"
@@ -17,8 +17,6 @@ def main(argv=None):
     # success=compile_this(source_code)
     success=compile_from_file(SOURCE_CODE_FILE_NAME)
     if success:
-        print("Done, Output:")
-        
         # The command to execute in terminal 
         command = "dotnet run"
 
@@ -31,14 +29,10 @@ def main(argv=None):
     else:
         print("Failed")
 
-
-def compile_from_file(source_code_path: str):
-    return compile(source_code_path)
-
-def compile_this(source_code: str):
+def compile_raw(source_code: str):
     source_code_path = r"././input_stream/test.txt"
     write_file(source_code, source_code_path)
-    success=compile(source_code_path)
+    success=compile_from_file(source_code_path)
     delete_file(source_code_path)
     return success
 
