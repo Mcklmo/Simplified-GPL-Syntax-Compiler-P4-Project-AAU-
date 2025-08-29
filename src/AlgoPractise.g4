@@ -1,4 +1,5 @@
 grammar AlgoPractise;
+
 // Lexer
 BOOL_TYPE: 'bool';
 STR_TYPE: 'string';
@@ -40,6 +41,7 @@ COMMENT: '/*' .*? '*/' -> skip; // multi-line comment
 // tells lexer to ignore these characters. Otherwise they will not be allowed in the input
 fragment DIGIT: [0-9];
 fragment LETTER: [a-zA-Z];
+
 // Parser
 
 master_statement: func | stmt;

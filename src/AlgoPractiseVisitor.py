@@ -1,7 +1,7 @@
-# Generated from src\AlgoPractise.g4 by ANTLR 4.13.0
+# Generated from src/AlgoPractise.g4 by ANTLR 4.13.2
 from antlr4 import *
 if "." in __name__:
-    from ._parser.AlgoPractiseParser import AlgoPractiseParser
+    from .AlgoPractiseParser import AlgoPractiseParser
 else:
     from AlgoPractiseParser import AlgoPractiseParser
 
