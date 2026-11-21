@@ -1,0 +1,52 @@
+version = 1
+revision = 3
+requires-python = ">=3.9"
+
+[[package]]
+name = "antlr4-python3-runtime"
+version = "4.13.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/33/5f/2cdf6f7aca3b20d3f316e9f505292e1f256a32089bd702034c29ebde6242/antlr4_python3_runtime-4.13.2.tar.gz", hash = "sha256:909b647e1d2fc2b70180ac586df3933e38919c85f98ccc656a96cd3f25ef3916", size = 117467, upload-time = "2024-08-03T19:00:12.757Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/89/03/a851e84fcbb85214dc637b6378121ef9a0dd61b4c65264675d8a5c9b1ae7/antlr4_python3_runtime-4.13.2-py3-none-any.whl", hash = "sha256:fe3835eb8d33daece0e799090eda89719dbccee7aa39ef94eed3818cafa5a7e8", size = 144462, upload-time = "2024-08-03T19:00:11.134Z" },
+]
+
+[[package]]
+name = "antlr4-tools"
+version = "0.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "install-jdk" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/6c/5a/40921bcb44dce8059568aadec4dc6457c1fd241016cad64b057b4d601356/antlr4-tools-0.2.tar.gz", hash = "sha256:9e44b636fec5c6daf890d479378b6fe684b62de32084baeabaf51c352fd9a7e0", size = 5710, upload-time = "2023-01-28T02:44:09.865Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/dd/7f/1b367cf361f85c109384090bd07d03fb2743a941de250020b80a4c6400a9/antlr4_tools-0.2-py3-none-any.whl", hash = "sha256:59a192826963c5a94e982c0b3d8e9439a84f051f47c8fae1169f6331139ebf39", size = 4071, upload-time = "2023-01-28T02:44:08.839Z" },
+]
+
+[[package]]
+name = "install-jdk"
+version = "1.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/cf/67/502a753533e9b4deb691f3f7ba6303682494f2d8ee651d6253cd78045b66/install_jdk-1.1.0.tar.gz", hash = "sha256:2bfd53caf660e4916df0215a5715519dcb9547fa2a5f07421fd97a8046851eaa", size = 15181, upload-time = "2023-07-21T01:18:36.591Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7e/5e/af84054b0ff9f9fbe49a7079d46ba8b4ee7ab6192a0310d4bd2c91254626/install_jdk-1.1.0-py3-none-any.whl", hash = "sha256:b63f0fcd63f7abab3443d4120ba92716397753b8a8ea3c85762a629925a9936e", size = 15648, upload-time = "2023-07-21T01:18:35.501Z" },
+]
+
+[[package]]
+name = "simplified-gpl-syntax-compiler"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "antlr4-python3-runtime" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "antlr4-tools" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "antlr4-python3-runtime", specifier = "==4.13.2" }]
+
+[package.metadata.requires-dev]
+dev = [{ name = "antlr4-tools", specifier = "==0.2" }]
