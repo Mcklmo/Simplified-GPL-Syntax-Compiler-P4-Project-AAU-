@@ -10,21 +10,13 @@ You might have to first create a virtual environment:
 
 `python -m venv env`
 
-And activate it:
-
-`env\scripts\activate`
-
-If unsure whether installing the requirements was successful, run:
-
-`pip freeze`
-
-and check if the module names from `requirements.txt` are listed.
-
 ## Update parser
+
+After making changes to the grammar.
 
 `antlr4 -Dlanguage=Python3 src\AlgoPractise.g4 -visitor -no-listener`
 
-[Remember to move `AlgoPractiseLexer.py` to `src/_lexer` and `AlgoPractiseParser.py` to `src/_parser`!]
+>Remember to move `AlgoPractiseLexer.py` to `src/_lexer` and `AlgoPractiseParser.py` to `src/_parser`
 
 ### Alternative without python for Mac
 
