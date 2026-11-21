@@ -20,7 +20,7 @@ R_PAR: ')';
 L_CURLY: '{';
 R_CURLY: '}';
 ASSIGN: ':=';
-NUMVAL: '-'? DIGIT+ ('.' DIGIT+)?;
+NUMVAL: DIGIT+ ('.' DIGIT+)?;
 STRINGVAL: '"' (~('\r' | '\n' | '"' | '\\') | ('\\"' | '\\n' | '\\r' | '\\\\'))* '"';
 NEG: '!';
 EQUAL: '==';
@@ -83,6 +83,7 @@ expr: // antlr4 gives lowest precedence to the first alternative
 	| expr DIV expr
 	| expr MOD expr
 	| <assoc = right>NEG expr
+	| <assoc = right>MINUS expr
 	| val
 	| L_PAR expr R_PAR;
 val: (

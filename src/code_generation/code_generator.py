@@ -66,11 +66,17 @@ class CodeGenerator():
             "and": "&&",
             "or": "||",
         }
-        result = f"{self.generate_expression(node.left)}{operator_map.get(node.operator,node.operator)}{self.generate_expression(node.right)}"
-        return result
+        right = self.generate_expression(node.right)
+        # a space keeps `a - -1` from emitting C#'s `--` decrement operator
+        separator = " " if right.startswith(("-", "+")) else ""
+        return f"{self.generate_expression(node.left)}{operator_map.get(node.operator,node.operator)}{separator}{right}"
 
     def generate_unary_expression(self, node):
-        return f"{node.operator}{self.generate_expression(node.expression)}"
+        operand = self.generate_expression(node.expression)
+        if isinstance(node.expression, (nodes.BinaryExpressionNode, nodes.UnaryExpressionNode)):
+            # the AST drops source parentheses, so restore them around compound operands
+            operand = f"({operand})"
+        return f"{node.operator}{operand}"
 
     def generate_function_declaration(self, node: nodes.FunctionNode):
         return f"static public {self.generate_type(node.type)} {node.identifier.identifier}(" + ",".join([f"{self.generate_type(param._type)} {param.identifier.identifier}" for param in node.params]) + "){"

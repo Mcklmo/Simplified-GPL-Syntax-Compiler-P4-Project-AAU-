@@ -260,12 +260,13 @@ class ASTTypeChecker(TypeCheckUtils):
 
     def visit_unary_expression(self, node: nodes.UnaryExpressionNode):
         expr_type_node = self.visit_expression(node.expression)
+        expected_type_node = nodes.TypeNode(node.line_number, NUM_TYPE if node.operator == "-" else BOOL_TYPE, 0)
         # See note 1
-        if not expr_type_node is None and expr_type_node.type != BOOL_TYPE and node.operator != "!":
+        if not expr_type_node is None and expr_type_node != expected_type_node:
             self.register_err(
-                f"Expected bool with '!' operator, got {expr_type_node.type}.", node.line_number)
+                f"Expected {expected_type_node.type} with '{node.operator}' operator, got {expr_type_node}.", node.line_number)
 
-        return nodes.TypeNode(node.line_number, BOOL_TYPE, 0)
+        return expected_type_node
 
     def visit_binary_expression(self, node: nodes.BinaryExpressionNode):
         left_expr_type_node = self.visit_expression(node.left)

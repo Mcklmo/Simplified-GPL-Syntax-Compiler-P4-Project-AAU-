@@ -12,14 +12,14 @@ class TestIntegrationCompile(unittest.TestCase):
     def test_qsort(self):
         source_code="""num[] arr := {3, 8, 7,1,2,5,4,9,0,6}
 print("array before sorting: " + num_array_to_string(arr))
-qsort(arr, 0, len_num_1d(arr)-(1))
+qsort(arr, 0, len_num_1d(arr)-1)
 print("array after sorting: " + num_array_to_string(arr))
 append_num_1d(arr,10)
 print("extended array: " + num_array_to_string(arr))
 qsort(num[] arr,num low,num high) {
     if low < high {
         num pivot := partition(arr, low, high)
-        qsort(arr, low, pivot-(1))
+        qsort(arr, low, pivot-1)
         qsort(arr, pivot+1, high)
     }
 } 
@@ -205,6 +205,29 @@ static string ConvertListToString(List<double> doublesList) \n{\nreturn "{ "+ st
             static double a = 5.0;
             static double b = 6.0;
             static double c = a+b;
+            static public void Main(){
+            }
+        }"""
+        self.compile_and_compare(source_code, expected_cs_code)
+
+    def test_unary_minus(self):
+        source_code = """
+        num a := 5
+        num b := a-1
+        num c := a - -1
+        num d := -(a+b)
+        bool e := !(a < b)
+        """
+        expected_cs_code = """
+        using System.Collections.Generic;
+        using System;
+        class Program {
+        static string ConvertListToString(List<double> doublesList) \n{\nreturn "{ "+ string.Join(" ", doublesList)+" }";\n}\n
+            static double a = 5.0;
+            static double b = a-1.0;
+            static double c = a- -1.0;
+            static double d = -(a+b);
+            static bool e = !(a<b);
             static public void Main(){
             }
         }"""
