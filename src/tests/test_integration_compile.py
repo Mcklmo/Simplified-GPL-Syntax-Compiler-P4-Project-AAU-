@@ -233,6 +233,31 @@ static string ConvertListToString(List<double> doublesList) \n{\nreturn "{ "+ st
         }"""
         self.compile_and_compare(source_code, expected_cs_code)
 
+    def test_parentheses(self):
+        source_code = """
+        num a := (1+2)*3
+        num b := a-(a-1)
+        num c := a-a-1+2*a
+        bool x := true
+        bool y := (x or x) and x
+        bool z := x or x and x
+        """
+        expected_cs_code = """
+        using System.Collections.Generic;
+        using System;
+        class Program {
+        static string ConvertListToString(List<double> doublesList) \n{\nreturn "{ "+ string.Join(" ", doublesList)+" }";\n}\n
+            static double a = (1.0+2.0)*3.0;
+            static double b = a-(a-1.0);
+            static double c = a-a-1.0+2.0*a;
+            static bool x = true;
+            static bool y = (x||x)&&x;
+            static bool z = x||x&&x;
+            static public void Main(){
+            }
+        }"""
+        self.compile_and_compare(source_code, expected_cs_code)
+
     def compile_and_compare(self, source_code, expected_cs_code):
         # create temporary file
         self.write_file(self.source_file_path, source_code)
