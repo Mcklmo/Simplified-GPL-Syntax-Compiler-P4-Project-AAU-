@@ -66,11 +66,31 @@ class CodeGenerator():
             "and": "&&",
             "or": "||",
         }
-        result = f"{self.generate_expression(node.left)}{operator_map.get(node.operator,node.operator)}{self.generate_expression(node.right)}"
-        return result
+        # the AST drops source parentheses, so add them wherever C# precedence would regroup the tree;
+        # all these operators are left-associative, so a right child of equal precedence needs them too
+        precedence = self.binary_precedence(node)
+        left = self.generate_expression(node.left)
+        if self.binary_precedence(node.left) < precedence:
+            left = f"({left})"
+        right = self.generate_expression(node.right)
+        if self.binary_precedence(node.right) <= precedence:
+            right = f"({right})"
+        # a space keeps `a - -1` from emitting C#'s `--` decrement operator
+        separator = " " if right.startswith(("-", "+")) else ""
+        return f"{left}{operator_map.get(node.operator,node.operator)}{separator}{right}"
+
+    def binary_precedence(self, node):
+        if not isinstance(node, nodes.BinaryExpressionNode):
+            return 99
+        return {"or": 1, "and": 2, "==": 3, "!=": 3, "<": 4, ">": 4, "<=": 4, ">=": 4,
+                "+": 5, "-": 5, "*": 6, "/": 6, "%": 6}[node.operator]
 
     def generate_unary_expression(self, node):
-        return f"{node.operator}{self.generate_expression(node.expression)}"
+        operand = self.generate_expression(node.expression)
+        # unary binds tighter than any binary operator; wrapping nested unaries avoids emitting `--`
+        if isinstance(node.expression, (nodes.BinaryExpressionNode, nodes.UnaryExpressionNode)):
+            operand = f"({operand})"
+        return f"{node.operator}{operand}"
 
     def generate_function_declaration(self, node: nodes.FunctionNode):
         return f"static public {self.generate_type(node.type)} {node.identifier.identifier}(" + ",".join([f"{self.generate_type(param._type)} {param.identifier.identifier}" for param in node.params]) + "){"

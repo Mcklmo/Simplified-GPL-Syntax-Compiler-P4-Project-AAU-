@@ -105,11 +105,10 @@ class ASTSingleDispatchVisitor(SingleDispatchVisitor):
 
     def visit_expression_node(self, cst_node: AlgoPractiseParser.ExprContext):
         expression_ctxs = cst_node.expr()
-        negation = cst_node.NEG()
-        if not negation is None:
+        unary_operator = cst_node.NEG() or (cst_node.MINUS() if len(expression_ctxs) == 1 else None)
+        if not unary_operator is None:
             expr = self.visit_expression_node(expression_ctxs[0])
-            operator = negation.getText()
-            return UnaryExpressionNode(cst_node.start.line, expr, operator)
+            return UnaryExpressionNode(cst_node.start.line, expr, unary_operator.getText())
 
         val = cst_node.val()
         if not val is None:

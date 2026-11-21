@@ -2,19 +2,17 @@
 
 ## Requirements
 
-Make sure you have a recent python version and all requirements installed, using:
+Install [uv](https://docs.astral.sh/uv/), then from the repository root:
 
-`pip install -r requirements.txt`
-
-You might have to first create a virtual environment:
-
-`python -m venv env`
+```bash
+uv sync
+```
 
 ## Update parser
 
 After making changes to the grammar.
 
-`antlr4 -Dlanguage=Python3 src\AlgoPractise.g4 -visitor -no-listener`
+`uv run antlr4 -Dlanguage=Python3 src/AlgoPractise.g4 -visitor -no-listener`
 
 >Remember to move `AlgoPractiseLexer.py` to `src/_lexer` and `AlgoPractiseParser.py` to `src/_parser`
 
@@ -25,10 +23,22 @@ brew install antlr
 java -jar "$(brew --prefix)/opt/antlr/antlr-4.13.2-complete.jar" -Dlanguage=Python3 src/AlgoPractise.g4 -visitor -no-listener
 ```
 
-## Compile source code
+## Compile and run a program
 
-`src\main.py`
+Running the compiled program needs the [.NET SDK](https://dotnet.microsoft.com/download) 10 or newer (`dotnet` on your PATH).
+
+From the repository root, run:
+
+```bash
+uv run src/main.py
+```
+
+This compiles `input_stream/qsort.algo` to `Program.cs`, then runs it with `dotnet run` and prints the output.
+
+To compile a different program, change `SOURCE_CODE_FILE_NAME` in `src/main.py`, e.g. to `input_stream/fizzbuzz.algo`.
 
 ## Testing
 
-`src\tests.py`
+```bash
+uv run src/tests.py
+```

@@ -20,7 +20,7 @@ R_PAR: ')';
 L_CURLY: '{';
 R_CURLY: '}';
 ASSIGN: ':=';
-NUMVAL: '-'? DIGIT+ ('.' DIGIT+)?;
+NUMVAL: DIGIT+ ('.' DIGIT+)?;
 STRINGVAL: '"' (~('\r' | '\n' | '"' | '\\') | ('\\"' | '\\n' | '\\r' | '\\\\'))* '"';
 NEG: '!';
 EQUAL: '==';
@@ -68,21 +68,15 @@ stmt:
 dcl: type assign_stmt | type ID;
 assign_stmt: (ID | ID list_subscript) ASSIGN expr;
 list_subscript: (L_BRACKET expr R_BRACKET)+;
-expr: // antlr4 gives lowest precedence to the first alternative
-	expr OR expr
+expr: // antlr4 gives highest precedence to the first alternative; levels mirror C#
+	<assoc = right>NEG expr
+	| <assoc = right>MINUS expr
+	| expr (MULT | DIV | MOD) expr
+	| expr (PLUS | MINUS) expr
+	| expr (LTE | GTE | GT | LT) expr
+	| expr (EQUAL | NE) expr
 	| expr AND expr
-	| expr EQUAL expr
-	| expr NE expr
-	| expr LTE expr
-	| expr GTE expr 
-	| expr GT expr
-	| expr LT expr
-	| expr PLUS expr
-	| expr MINUS expr
-	| expr MULT expr
-	| expr DIV expr
-	| expr MOD expr
-	| <assoc = right>NEG expr
+	| expr OR expr
 	| val
 	| L_PAR expr R_PAR;
 val: (
